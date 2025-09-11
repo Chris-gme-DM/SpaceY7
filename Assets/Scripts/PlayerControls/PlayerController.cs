@@ -3,17 +3,20 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 /// <summary>
-/// This script is handling Inputs by the player. Inputs are send into the StateMachine that checks the environment of the playerObject
-/// and controls in which state exactly the player object is.
+/// This script is handling Inputs by the player. 
 /// It provides the developer with an interface to set Playerattributes and manipulate them later on.
+/// It was redesigned after the recognition of a severe issue of the internal settings of the playerInput and I had to revert from using Interfaces
+/// to manual Subscription of Actions.
 /// The player can dynamically switch between the ActionMaps of the InputSystem and rely on the accustomed mapping for familiar or similar actions to ensure a smooth UX.
 /// </summary>
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationActions, InputSystem_Actions.IBuilderActions
 { 
     #region References
 
     /// <summary>
     /// This section shows all the fields of relevant references to the PlayerController
+    /// I made Public Getters for them in case i need them in other scripts. But they may be redundant in many cases.
+    /// Don't forget to delete these, if they prove unnecessary
     /// </summary>
     [Header("References")]  // I will automate the process to assign these references for the most part, but leave it here to let the developer see the assignments and adjust at will
     [SerializeField] private PlayerInput playerInput;
@@ -22,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CinemachineBrain mainCamera;
 
     private InputSystem_Actions inputActions; // Ill do  it manually
+    private LayerMask groundMask;
 
     [Header("Movement")]
     [SerializeField] private float m_moveSpeed; // velocity clamp for the player while running on ground, airbourne movement is set with Forces
@@ -32,20 +36,19 @@ public class PlayerController : MonoBehaviour
     public float PlayerJumpForce => m_jumpForce;
     [SerializeField] private float m_jetPower; // Force of Jetpack thrusters
     public float PlayerJetPower => m_jetPower;
-
+    [SerializeField] private float m_jetBoost; // Force when JetPack is boosted
+    public float JetBoost => m_jetBoost;
     // move Input
-    [SerializeField] public Vector2 m_moveInput;
+    public Vector2 m_moveInput;
     public Vector2 MoveInput => m_moveInput;
     // move direction
     private Vector3 m_moveDirection;
     public Vector3 MoveDirection => m_moveDirection;
 
-    private float m_linearVelocity;
-
     #endregion
     #region Booleans
     // Idle
-    private bool m_isIdle;
+    private bool m_isIdle; // May only be interesting once we have animations for it, for now this is redundant
     public bool IsIdle => m_isIdle;
     // Grounded
     private bool m_isGrounded;
@@ -59,12 +62,25 @@ public class PlayerController : MonoBehaviour
     // Flashlight
     private bool m_flashLightActive;
     #endregion
+    #region InputAction Subscriptions
     private void Awake()
     {
         inputActions = new InputSystem_Actions();
-        inputActions.Exploration.Enable();
-        
+        inputActions.Exploration.SetCallbacks(this);
+        inputActions.Builder.SetCallbacks(this);
     }
+
+    private void OnEnable()
+    {
+        inputActions.Exploration.Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.Exploration.Disable();
+        inputActions.Builder.Disable();
+    }
+    #endregion
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -73,69 +89,7 @@ public class PlayerController : MonoBehaviour
         if (playerInput == null) playerInput = GetComponent<PlayerInput>();
         if (playerStats == null) playerStats = GetComponent<PlayerStats>();
         if (mainCamera == null) mainCamera = FindAnyObjectByType<CinemachineBrain>();
-
-    }
-    private void OnEnable()
-    {
-        // Manually enable the action maps and subscribe to their events because unity had unresolvable issues with the implemantation of the interfaces.
-        inputActions.Exploration.Enable();
-        inputActions.Builder.Enable();
-
-        // Locomotion
-        inputActions.Exploration.Move.performed += onMove;
-        inputActions.Exploration.Move.canceled += onMove;
-        inputActions.Exploration.Jetpack.performed += OnJetpack;
-
-        // ActionMapSwitch
-        inputActions.Exploration.BuilderMode.performed += OnBuilderMode;
-        inputActions.Builder.ExplorationMode.performed += OnExplorationMode;
-
-        // Common Actions
-        inputActions.Exploration.Sprint.performed += OnSprint;
-        inputActions.Exploration.Flashlight.performed += OnFlashlight;
-        inputActions.Exploration.Rover.performed += OnRover;
-        inputActions.Exploration.Next.performed += OnNext;
-        inputActions.Exploration.Previous.performed += OnPrevious;
-
-        // Exploration Actions
-        inputActions.Exploration.Interact.performed += OnInteract;
-        inputActions.Exploration.Focus.performed += OnFocus;
-
-        // Builder Actions
-        inputActions.Builder.Manipulate.performed += OnManipulate;
-        inputActions.Builder.Place.performed += OnPlace;
-        inputActions.Builder.Rotate.performed += OnRotate;
-    }
-
-    private void OnDisable()
-    {
-        // Manually unsubscribe from all events
-        inputActions.Exploration.Move.performed -= onMove;
-        inputActions.Exploration.Move.canceled -= onMove;
-        inputActions.Exploration.Jetpack.performed -= OnJetpack;
-
-        // ActionMapSwitch
-        inputActions.Exploration.BuilderMode.performed -= OnBuilderMode;
-        inputActions.Builder.ExplorationMode.performed -= OnExplorationMode;
-
-        // Common Actions
-        inputActions.Exploration.Sprint.performed -= OnSprint;
-        inputActions.Exploration.Flashlight.performed -= OnFlashlight;
-        inputActions.Exploration.Rover.performed -= OnRover;
-        inputActions.Exploration.Next.performed -= OnNext;
-        inputActions.Exploration.Previous.performed -= OnPrevious;
-
-        // Exploration Actions
-        inputActions.Exploration.Interact.performed -= OnInteract;
-        inputActions.Exploration.Focus.performed -= OnFocus;
-
-        // Builder Actions
-        inputActions.Builder.Manipulate.performed -= OnManipulate;
-        inputActions.Builder.Place.performed -= OnPlace;
-        inputActions.Builder.Rotate.performed -= OnRotate;
-
-        inputActions.Exploration.Disable();
-        inputActions.Builder.Disable();
+        groundMask = LayerMask.GetMask("Ground");
     }
     // Update is called once per frame
     void Update()
@@ -143,46 +97,46 @@ public class PlayerController : MonoBehaviour
         // Update moveDirection
         m_moveDirection = mainCamera.transform.right * m_moveInput.x + mainCamera.transform.forward * m_moveInput.y;
         m_moveDirection = Vector3.ProjectOnPlane(m_moveDirection, Vector3.up).normalized;
-        CheckState();
     }
     // Handling physics related actions
     void FixedUpdate()
     {
+        CheckGround();
         // Let the Physics engine handle shit
         // Determine which velocity to apply
-        if (m_isSprinting) 
-        {
-            m_linearVelocity = m_runSpeed;
-        }
-        else 
-        {
-            m_linearVelocity = m_moveSpeed;
-        }
+        float currentMoveSpeed = m_isSprinting ? m_runSpeed : m_moveSpeed; // If sets the moveSpeed to apply to the current MoveSpeed
+        Vector3 horizontalVelocity = m_moveDirection * currentMoveSpeed; // Sets the velocity, although i am not happy
+        Vector3 newVelocity = new(horizontalVelocity.x, rb.linearVelocity.y, horizontalVelocity.z);
+        rb.linearVelocity = newVelocity;
+        // Add Jetpack if active
         if (m_jetPackActive)
         {
-            rb.AddForce(Vector3.up * m_jetPower, ForceMode.Force); // With sensible settings of the forces this should feel almost like the player is hovering on the place
+            // Determine how powerful the Jetpack currently is
+            float currentJetPower = m_jetPower;
+            if (m_isSprinting)
+            {
+                currentJetPower += m_jetBoost;
+            }
+            // Apply the force to make the player fly, still need to extend all this to use Energy and need to be careful with setting numbers
+            rb.AddForce(Vector3.up * currentJetPower, ForceMode.Force);
         }
-        if (m_isSprinting && m_jetPackActive)
-        {
-            rb.AddForce(Vector3.up * m_jetPower, ForceMode.Force);
-        }
-            Vector3 horizontalVelocity = m_moveDirection * m_linearVelocity;
-            Vector3 newVelocity = new(horizontalVelocity.x, rb.linearVelocity.y, horizontalVelocity.z);
-            rb.linearVelocity = newVelocity;
     }
-    #region Helper Functions
-    void CheckState()
-    {
-        if(rb.linearVelocity == Vector3.zero)
-        { m_isIdle =true; }
-        if(rb.linearVelocity != Vector3.zero)
-        { m_isIdle = false; }
-    }
-    void CheckGround()
+    #region Helper Methods
+    // We will need the check state method only if we fail to visual script the state machine of animations
+    //    private bool CheckState()
+    //    {
+    //        if(rb.linearVelocity.magnitude >= 0.1f)
+    //        { }
+    //    }
+    private bool CheckGround()
     {
         // Raycast down to check if the Player is ground
         // if the raycast hits the ground the player is grounded.
         // else the player is airbourne
+        float offset = GetComponent<Collider>().bounds.extents.y;
+        Vector3 checkPosition = new (rb.position.x, rb.position.y - offset, rb.position.z);
+        m_isGrounded = Physics.CheckSphere(checkPosition, 0.1f, groundMask);
+        return m_isGrounded;
     }
 
     #endregion
@@ -195,16 +149,21 @@ public class PlayerController : MonoBehaviour
     //Enter Builder Mode
     public void OnBuilderMode(InputAction.CallbackContext context)
     {
-        playerInput.SwitchCurrentActionMap("Builder");
-        Debug.Log("Build that stuff");
+        if(context.interaction is HoldInteraction && context.started)
+        {
+            playerInput.SwitchCurrentActionMap("Builder");
+            Debug.Log("Build that stuff");
+        }
     }
 
     //Enter Exploration Mode
     public void OnExplorationMode(InputAction.CallbackContext context)
     {
-        playerInput.SwitchCurrentActionMap("Exploration");
-        Debug.Log("Explore that stuff");
-
+        if (context.interaction is PressInteraction && context.performed)
+        {
+            playerInput.SwitchCurrentActionMap("Exploration");
+            Debug.Log("Explore that stuff");
+        }
     }
 
     #endregion
@@ -216,7 +175,7 @@ public class PlayerController : MonoBehaviour
     /// <exception cref="System.NotImplementedException"></exception>
 
 
-    public void onMove(InputAction.CallbackContext context)
+    public void OnMove(InputAction.CallbackContext context)
     {
         m_moveInput = context.ReadValue<Vector2>();
         Debug.Log("Move Input: " + m_moveInput);
@@ -224,18 +183,24 @@ public class PlayerController : MonoBehaviour
 
     public void OnJetpack(InputAction.CallbackContext context)
     {
-        if(context.interaction is TapInteraction)
+        if(context.interaction is TapInteraction && m_isGrounded)
         {
             rb.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
             Debug.Log("$JUMP");
         } 
-        else if(context.interaction is HoldInteraction)
+        else if(context.interaction is HoldInteraction && !m_isGrounded)
         {
             // Since we would like to give full control to the player we set the froce of the jetpack reasonable enough to keep them afloat while its active only
             m_jetPackActive = !m_jetPackActive;
             Debug.Log("WE are flying, woohoo");
 
         }
+    }
+    // Depending on input it makes the player sprint or applies force to the thrusters of the jetpack
+    public void OnSprint(InputAction.CallbackContext context)
+    {
+        m_isSprinting = !m_isSprinting;
+        Debug.Log("Gotta go fast");
     }
 
     #endregion
@@ -251,20 +216,6 @@ public class PlayerController : MonoBehaviour
     // In principle this should call upon the Rover Menu, if it is in range.
     // If not in range, call the rover over until the distance is acceptable. then open the menu
     Debug.Log("Come over here");
-    }
-    // Depending on input it makes the player sprint or applies force to the thrusters
-    public void OnSprint(InputAction.CallbackContext context)
-    {
-        if (context.interaction is TapInteraction)
-        {
-            m_isSprinting = !m_isSprinting;
-            Debug.Log("Gotta go fast");
-        } else if (context.interaction is HoldInteraction)
-        {
-            // Jetpack active should keep the player afloat while this will boost that prospect
-            rb.AddForce(Vector3.up * m_jetPower, ForceMode.Force);
-            Debug.Log("Higher in the sky");
-        }
     }
     // Toggle the Flashlight of the helmet
     public void OnFlashlight(InputAction.CallbackContext context)
