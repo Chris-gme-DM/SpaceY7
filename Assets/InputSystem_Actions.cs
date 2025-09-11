@@ -101,15 +101,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""bb256322-2c6a-4ee8-9316-19fb35b7cd9e"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""c6b6a085-ed10-44c1-8b92-211958a8f77f"",
@@ -185,15 +176,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""name"": ""Rover"",
                     ""type"": ""Button"",
                     ""id"": ""7b3d7c03-7941-42b8-87b2-4fe10cd612b5"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""MainMenu"",
-                    ""type"": ""Button"",
-                    ""id"": ""9d67b09e-f640-4431-b235-b67b656645e5"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -297,28 +279,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Flashlight"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""70dd1569-4413-40a1-bd38-103e3405c9b0"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""MainMenu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c6d8daea-0b53-485a-929a-fc3534ed87d0"",
-                    ""path"": ""<Gamepad>/start"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""MainMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -544,39 +504,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""a390cb6a-4e45-4bbc-9cac-74deabab3145"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""caecf7c2-bac2-49c7-9793-1b1669d8390a"",
-                    ""path"": ""<Pointer>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse;Touch"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""73079bc2-2207-444e-98ac-62c73305d450"",
-                    ""path"": ""<Joystick>/{Hatswitch}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""d347a29a-9192-4e23-ac6f-d5c26782dde4"",
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": ""Tap"",
@@ -635,33 +562,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""370fa688-1e49-4309-8c1b-52b12f1d8b46"",
-                    ""expectedControlType"": ""Vector2"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Place"",
-                    ""type"": ""Button"",
-                    ""id"": ""f8cab353-9061-4b3c-bd82-70300e958fd4"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Manipulate"",
-                    ""type"": ""Button"",
-                    ""id"": ""813df80f-c246-4244-8ddd-b6a05662b780"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Sprint"",
                     ""type"": ""Button"",
                     ""id"": ""54e008d9-dd7a-4799-a6b2-9cc748da44b4"",
@@ -689,18 +589,27 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""ExplorationMode"",
+                    ""name"": ""Place"",
                     ""type"": ""Button"",
-                    ""id"": ""4e9784d6-90b4-47e6-9eba-bb05891f6707"",
+                    ""id"": ""f8cab353-9061-4b3c-bd82-70300e958fd4"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""MainMenu"",
+                    ""name"": ""Manipulate"",
                     ""type"": ""Button"",
-                    ""id"": ""a3d59ccc-0370-4a36-b2cd-c9906ea9c37b"",
+                    ""id"": ""813df80f-c246-4244-8ddd-b6a05662b780"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ExplorationMode"",
+                    ""type"": ""Button"",
+                    ""id"": ""4e9784d6-90b4-47e6-9eba-bb05891f6707"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -799,31 +708,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""bdf3db55-ba64-4cfb-9870-7d246f4468b8"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""MainMenu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a03f7807-3025-4c87-8b9f-093b0a528534"",
-                    ""path"": ""<Gamepad>/start"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""MainMenu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""2ec7ba3a-c965-40aa-8e96-7d3b1addd4ca"",
                     ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Manipulate"",
@@ -834,7 +721,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""46e98c80-631c-48ee-a6be-ea64d7f13acb"",
                     ""path"": ""<Gamepad>/buttonEast"",
-                    ""interactions"": """",
+                    ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Manipulate"",
@@ -843,34 +730,23 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""6ed1eaa3-d101-4e3e-a19a-c60041f2e5c7"",
-                    ""path"": ""<Gamepad>/rightStick"",
-                    ""interactions"": """",
+                    ""id"": ""9358b2c8-2a47-46f7-b78f-bfb9c2b64f30"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": ""Hold"",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Manipulate"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2e95fda3-5ab4-41d0-8bf4-8e156ae71bad"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": ""Hold"",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b68d4537-8bc7-4cf0-835c-591446b11ae8"",
-                    ""path"": ""<Pointer>/delta"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse;Touch"",
-                    ""action"": ""Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""cf4ae022-5192-4fc4-bb8b-0fa834ff72de"",
-                    ""path"": ""<Joystick>/{Hatswitch}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Look"",
+                    ""action"": ""Manipulate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1207,18 +1083,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Left"",
                     ""id"": ""265cd521-ae0e-4046-922e-bfbea9892bfe"",
-                    ""path"": ""<Mouse>/delta/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""Right"",
-                    ""id"": ""78f52895-4aa5-4839-ad41-0335b9ff410b"",
-                    ""path"": ""<Mouse>/delta/right"",
+                    ""path"": ""<Keyboard>/c"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
@@ -1227,12 +1092,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""modifier"",
-                    ""id"": ""a3bc2cb4-473d-4df2-be81-2c693f2fe12b"",
-                    ""path"": ""<Mouse>/middleButton"",
+                    ""name"": ""Right"",
+                    ""id"": ""78f52895-4aa5-4839-ad41-0335b9ff410b"",
+                    ""path"": ""<Keyboard>/v"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -1251,7 +1116,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""left"",
                     ""id"": ""2b30a557-550f-46c1-ad81-278c11df81cc"",
-                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -1262,18 +1127,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""f9ed53ea-c40c-479b-be73-b9cac00103a3"",
-                    ""path"": ""<Gamepad>/rightStick/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Rotate"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""modifier"",
-                    ""id"": ""f64fc5f1-565b-4cb7-88a6-613982799cd3"",
-                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
@@ -1866,7 +1720,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         // Exploration
         m_Exploration = asset.FindActionMap("Exploration", throwIfNotFound: true);
         m_Exploration_Move = m_Exploration.FindAction("Move", throwIfNotFound: true);
-        m_Exploration_Look = m_Exploration.FindAction("Look", throwIfNotFound: true);
         m_Exploration_Interact = m_Exploration.FindAction("Interact", throwIfNotFound: true);
         m_Exploration_Jetpack = m_Exploration.FindAction("Jetpack", throwIfNotFound: true);
         m_Exploration_Sprint = m_Exploration.FindAction("Sprint", throwIfNotFound: true);
@@ -1876,18 +1729,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Exploration_Next = m_Exploration.FindAction("Next", throwIfNotFound: true);
         m_Exploration_BuilderMode = m_Exploration.FindAction("BuilderMode", throwIfNotFound: true);
         m_Exploration_Rover = m_Exploration.FindAction("Rover", throwIfNotFound: true);
-        m_Exploration_MainMenu = m_Exploration.FindAction("MainMenu", throwIfNotFound: true);
         // Builder
         m_Builder = asset.FindActionMap("Builder", throwIfNotFound: true);
         m_Builder_Move = m_Builder.FindAction("Move", throwIfNotFound: true);
-        m_Builder_Look = m_Builder.FindAction("Look", throwIfNotFound: true);
-        m_Builder_Place = m_Builder.FindAction("Place", throwIfNotFound: true);
-        m_Builder_Manipulate = m_Builder.FindAction("Manipulate", throwIfNotFound: true);
         m_Builder_Sprint = m_Builder.FindAction("Sprint", throwIfNotFound: true);
         m_Builder_Jetpack = m_Builder.FindAction("Jetpack", throwIfNotFound: true);
         m_Builder_Rover = m_Builder.FindAction("Rover", throwIfNotFound: true);
+        m_Builder_Place = m_Builder.FindAction("Place", throwIfNotFound: true);
+        m_Builder_Manipulate = m_Builder.FindAction("Manipulate", throwIfNotFound: true);
         m_Builder_ExplorationMode = m_Builder.FindAction("ExplorationMode", throwIfNotFound: true);
-        m_Builder_MainMenu = m_Builder.FindAction("MainMenu", throwIfNotFound: true);
         m_Builder_Rotate = m_Builder.FindAction("Rotate", throwIfNotFound: true);
         m_Builder_Flashlight = m_Builder.FindAction("Flashlight", throwIfNotFound: true);
         m_Builder_Focus = m_Builder.FindAction("Focus", throwIfNotFound: true);
@@ -1988,7 +1838,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Exploration;
     private List<IExplorationActions> m_ExplorationActionsCallbackInterfaces = new List<IExplorationActions>();
     private readonly InputAction m_Exploration_Move;
-    private readonly InputAction m_Exploration_Look;
     private readonly InputAction m_Exploration_Interact;
     private readonly InputAction m_Exploration_Jetpack;
     private readonly InputAction m_Exploration_Sprint;
@@ -1998,7 +1847,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Exploration_Next;
     private readonly InputAction m_Exploration_BuilderMode;
     private readonly InputAction m_Exploration_Rover;
-    private readonly InputAction m_Exploration_MainMenu;
     /// <summary>
     /// Provides access to input actions defined in input action map "Exploration".
     /// </summary>
@@ -2014,10 +1862,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Exploration/Move".
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Exploration_Move;
-        /// <summary>
-        /// Provides access to the underlying input action "Exploration/Look".
-        /// </summary>
-        public InputAction @Look => m_Wrapper.m_Exploration_Look;
         /// <summary>
         /// Provides access to the underlying input action "Exploration/Interact".
         /// </summary>
@@ -2055,10 +1899,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Rover => m_Wrapper.m_Exploration_Rover;
         /// <summary>
-        /// Provides access to the underlying input action "Exploration/MainMenu".
-        /// </summary>
-        public InputAction @MainMenu => m_Wrapper.m_Exploration_MainMenu;
-        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Exploration; }
@@ -2087,9 +1927,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Look.started += instance.OnLook;
-            @Look.performed += instance.OnLook;
-            @Look.canceled += instance.OnLook;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
@@ -2117,9 +1954,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Rover.started += instance.OnRover;
             @Rover.performed += instance.OnRover;
             @Rover.canceled += instance.OnRover;
-            @MainMenu.started += instance.OnMainMenu;
-            @MainMenu.performed += instance.OnMainMenu;
-            @MainMenu.canceled += instance.OnMainMenu;
         }
 
         /// <summary>
@@ -2134,9 +1968,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Look.started -= instance.OnLook;
-            @Look.performed -= instance.OnLook;
-            @Look.canceled -= instance.OnLook;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
@@ -2164,9 +1995,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Rover.started -= instance.OnRover;
             @Rover.performed -= instance.OnRover;
             @Rover.canceled -= instance.OnRover;
-            @MainMenu.started -= instance.OnMainMenu;
-            @MainMenu.performed -= instance.OnMainMenu;
-            @MainMenu.canceled -= instance.OnMainMenu;
         }
 
         /// <summary>
@@ -2205,14 +2033,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Builder;
     private List<IBuilderActions> m_BuilderActionsCallbackInterfaces = new List<IBuilderActions>();
     private readonly InputAction m_Builder_Move;
-    private readonly InputAction m_Builder_Look;
-    private readonly InputAction m_Builder_Place;
-    private readonly InputAction m_Builder_Manipulate;
     private readonly InputAction m_Builder_Sprint;
     private readonly InputAction m_Builder_Jetpack;
     private readonly InputAction m_Builder_Rover;
+    private readonly InputAction m_Builder_Place;
+    private readonly InputAction m_Builder_Manipulate;
     private readonly InputAction m_Builder_ExplorationMode;
-    private readonly InputAction m_Builder_MainMenu;
     private readonly InputAction m_Builder_Rotate;
     private readonly InputAction m_Builder_Flashlight;
     private readonly InputAction m_Builder_Focus;
@@ -2234,18 +2060,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Move => m_Wrapper.m_Builder_Move;
         /// <summary>
-        /// Provides access to the underlying input action "Builder/Look".
-        /// </summary>
-        public InputAction @Look => m_Wrapper.m_Builder_Look;
-        /// <summary>
-        /// Provides access to the underlying input action "Builder/Place".
-        /// </summary>
-        public InputAction @Place => m_Wrapper.m_Builder_Place;
-        /// <summary>
-        /// Provides access to the underlying input action "Builder/Manipulate".
-        /// </summary>
-        public InputAction @Manipulate => m_Wrapper.m_Builder_Manipulate;
-        /// <summary>
         /// Provides access to the underlying input action "Builder/Sprint".
         /// </summary>
         public InputAction @Sprint => m_Wrapper.m_Builder_Sprint;
@@ -2258,13 +2072,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Rover => m_Wrapper.m_Builder_Rover;
         /// <summary>
+        /// Provides access to the underlying input action "Builder/Place".
+        /// </summary>
+        public InputAction @Place => m_Wrapper.m_Builder_Place;
+        /// <summary>
+        /// Provides access to the underlying input action "Builder/Manipulate".
+        /// </summary>
+        public InputAction @Manipulate => m_Wrapper.m_Builder_Manipulate;
+        /// <summary>
         /// Provides access to the underlying input action "Builder/ExplorationMode".
         /// </summary>
         public InputAction @ExplorationMode => m_Wrapper.m_Builder_ExplorationMode;
-        /// <summary>
-        /// Provides access to the underlying input action "Builder/MainMenu".
-        /// </summary>
-        public InputAction @MainMenu => m_Wrapper.m_Builder_MainMenu;
         /// <summary>
         /// Provides access to the underlying input action "Builder/Rotate".
         /// </summary>
@@ -2314,15 +2132,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
-            @Look.started += instance.OnLook;
-            @Look.performed += instance.OnLook;
-            @Look.canceled += instance.OnLook;
-            @Place.started += instance.OnPlace;
-            @Place.performed += instance.OnPlace;
-            @Place.canceled += instance.OnPlace;
-            @Manipulate.started += instance.OnManipulate;
-            @Manipulate.performed += instance.OnManipulate;
-            @Manipulate.canceled += instance.OnManipulate;
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
@@ -2332,12 +2141,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Rover.started += instance.OnRover;
             @Rover.performed += instance.OnRover;
             @Rover.canceled += instance.OnRover;
+            @Place.started += instance.OnPlace;
+            @Place.performed += instance.OnPlace;
+            @Place.canceled += instance.OnPlace;
+            @Manipulate.started += instance.OnManipulate;
+            @Manipulate.performed += instance.OnManipulate;
+            @Manipulate.canceled += instance.OnManipulate;
             @ExplorationMode.started += instance.OnExplorationMode;
             @ExplorationMode.performed += instance.OnExplorationMode;
             @ExplorationMode.canceled += instance.OnExplorationMode;
-            @MainMenu.started += instance.OnMainMenu;
-            @MainMenu.performed += instance.OnMainMenu;
-            @MainMenu.canceled += instance.OnMainMenu;
             @Rotate.started += instance.OnRotate;
             @Rotate.performed += instance.OnRotate;
             @Rotate.canceled += instance.OnRotate;
@@ -2367,15 +2179,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
-            @Look.started -= instance.OnLook;
-            @Look.performed -= instance.OnLook;
-            @Look.canceled -= instance.OnLook;
-            @Place.started -= instance.OnPlace;
-            @Place.performed -= instance.OnPlace;
-            @Place.canceled -= instance.OnPlace;
-            @Manipulate.started -= instance.OnManipulate;
-            @Manipulate.performed -= instance.OnManipulate;
-            @Manipulate.canceled -= instance.OnManipulate;
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
@@ -2385,12 +2188,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Rover.started -= instance.OnRover;
             @Rover.performed -= instance.OnRover;
             @Rover.canceled -= instance.OnRover;
+            @Place.started -= instance.OnPlace;
+            @Place.performed -= instance.OnPlace;
+            @Place.canceled -= instance.OnPlace;
+            @Manipulate.started -= instance.OnManipulate;
+            @Manipulate.performed -= instance.OnManipulate;
+            @Manipulate.canceled -= instance.OnManipulate;
             @ExplorationMode.started -= instance.OnExplorationMode;
             @ExplorationMode.performed -= instance.OnExplorationMode;
             @ExplorationMode.canceled -= instance.OnExplorationMode;
-            @MainMenu.started -= instance.OnMainMenu;
-            @MainMenu.performed -= instance.OnMainMenu;
-            @MainMenu.canceled -= instance.OnMainMenu;
             @Rotate.started -= instance.OnRotate;
             @Rotate.performed -= instance.OnRotate;
             @Rotate.canceled -= instance.OnRotate;
@@ -2714,13 +2520,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnLook(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -2783,13 +2582,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRover(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "MainMenu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMainMenu(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Builder" which allows adding and removing callbacks.
@@ -2805,27 +2597,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMove(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnLook(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Place" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnPlace(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Manipulate" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnManipulate(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Sprint" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
@@ -2848,19 +2619,26 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRover(InputAction.CallbackContext context);
         /// <summary>
+        /// Method invoked when associated input action "Place" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnPlace(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Manipulate" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnManipulate(InputAction.CallbackContext context);
+        /// <summary>
         /// Method invoked when associated input action "ExplorationMode" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnExplorationMode(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "MainMenu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnMainMenu(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Rotate" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
