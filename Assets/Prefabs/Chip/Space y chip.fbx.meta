@@ -3,7 +3,22 @@ guid: c14f4b734ffab5f4a8a1567459bb230d
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: case
+    second: {fileID: 2100000, guid: 446f5815bf51ce84a82dd2b2bcce160e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: connector
+    second: {fileID: 2100000, guid: eda8b1a6ed5df034c9fa1ab8d57677a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pcb
+    second: {fileID: 2100000, guid: 06fedc569e879d84bacfb6c814473076, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
