@@ -26,6 +26,16 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float m_playerWater = 100f; // hydrastion of the player
     public float PlayerWater => m_playerWater;
 
+    private float m_playerEnergyDrain;
+    private float m_playerOxygenDrain;
+    private float m_playerWaterDrain;
+
+    private float m_playerEnergyDrainModifier;
+    private float m_playerOxygenDrainModifier;
+    private float m_playerWaterDrainModifier;
+
+
+
     #endregion
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -41,4 +51,12 @@ public class PlayerStats : MonoBehaviour
     {
         
     }
+    // Methods need to manage the resources of the player
+    // Every resource has its own method and ways to manipulate them
+    // these methods can be accessed by other scripts
+    // each Update a resource diminishes
+    // They are fed modifiers by the environment for everything that uses resources, almost every player action requires a certain amount or modifies it
+    // We need to depend the usage upon time. and stop it whenevever no time is passing.
+    // I need to think.
+    // Each script should call upon respective warning methods once threshholds are met
 }

@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     [SerializeField] private Rigidbody rb;
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private CinemachineBrain mainCamera;
-
     private InputSystem_Actions inputActions; // Ill do  it manually
     private LayerMask groundMask;
 
@@ -63,22 +62,27 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     private bool m_flashLightActive;
     #endregion
     #region InputAction Subscriptions
+    /// <summary>
+    /// By implementing the Input Actions with Interfaces, that unity generates through the InputSystem settings, we ofload a lot of manual
+    /// sub- and unsubscribing to input actions. The player can switch between the ActionMaps fluently by pressing or holding Q.
+    /// 
+    /// </summary>
     private void Awake()
     {
         inputActions = new InputSystem_Actions();
         inputActions.Exploration.SetCallbacks(this);
         inputActions.Builder.SetCallbacks(this);
     }
-
     private void OnEnable()
     {
-        inputActions.Exploration.Enable();
+        // Enable the exploration Action map as default
+        inputActions?.Exploration.Enable();
     }
-
     private void OnDisable()
     {
-        inputActions.Exploration.Disable();
-        inputActions.Builder.Disable();
+        // Disable both when switching to UI
+        inputActions?.Exploration.Disable();
+        inputActions?.Builder.Disable();
     }
     #endregion
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -149,9 +153,10 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     //Enter Builder Mode
     public void OnBuilderMode(InputAction.CallbackContext context)
     {
-        if(context.interaction is HoldInteraction && context.started)
+        if(context.performed)
         {
-            playerInput.SwitchCurrentActionMap("Builder");
+            inputActions.Exploration.Disable();
+            inputActions.Builder.Enable();
             Debug.Log("Build that stuff");
         }
     }
@@ -159,9 +164,10 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     //Enter Exploration Mode
     public void OnExplorationMode(InputAction.CallbackContext context)
     {
-        if (context.interaction is PressInteraction && context.performed)
+        if (context.performed)
         {
-            playerInput.SwitchCurrentActionMap("Exploration");
+            inputActions.Builder.Disable();
+            inputActions.Exploration.Enable();
             Debug.Log("Explore that stuff");
         }
     }
@@ -183,12 +189,12 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
 
     public void OnJetpack(InputAction.CallbackContext context)
     {
-        if(context.interaction is TapInteraction && m_isGrounded)
+        if(context.performed && m_isGrounded)
         {
             rb.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
             Debug.Log("$JUMP");
         } 
-        else if(context.interaction is HoldInteraction && !m_isGrounded)
+        else if(context.performed && !m_isGrounded)
         {
             // Since we would like to give full control to the player we set the froce of the jetpack reasonable enough to keep them afloat while its active only
             m_jetPackActive = !m_jetPackActive;
