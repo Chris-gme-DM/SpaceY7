@@ -1779,6 +1779,7 @@ GameObject:
   - component: {fileID: 736091306}
   - component: {fileID: 736091305}
   - component: {fileID: 736091304}
+  - component: {fileID: 736091308}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -1876,6 +1877,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &736091308
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 736091303}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &751634883
 GameObject:
   m_ObjectHideFlags: 0
@@ -2837,6 +2865,9 @@ GameObject:
   - component: {fileID: 1280941199}
   - component: {fileID: 1280941201}
   - component: {fileID: 1280941202}
+  - component: {fileID: 1280941204}
+  - component: {fileID: 1280941203}
+  - component: {fileID: 1280941205}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2876,7 +2907,7 @@ Transform:
   m_GameObject: {fileID: 1280941198}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.09, y: 0, z: -7.3}
+  m_LocalPosition: {x: -9.09, y: 0, z: -17.63}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2925,6 +2956,91 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1280941203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280941198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf2f1fa995f8504992a05e2bc21c768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInput: {fileID: 0}
+  rb: {fileID: 0}
+  playerStats: {fileID: 0}
+  mainCamera: {fileID: 0}
+  m_maxSpeed: 0
+  m_moveSpeed: 0
+  m_runSpeed: 0
+  m_jumpForce: 0
+  m_jetPower: 0
+  m_jetBoost: 0
+  m_idleDrainModifier: 0.5
+  m_sprintEnergyModifier: 1.5
+  m_sprintOxygenModifier: 1.5
+  m_sprintWaterModifier: 1.5
+  m_jetpackEnergyModifier: 2
+  m_jetpackOxygenModifier: 2
+  m_jetpackWaterModifier: 2
+  m_moveInput: {x: 0, y: 0}
+--- !u!114 &1280941204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280941198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44f7bbf5e73f00a4a841147c3960bbe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
+  m_maxEnergy: 100
+  m_maxOxygen: 100
+  m_maxWater: 100
+  m_maxHumanity: 100
+  m_playerEnergy: 0
+  m_playerOxygen: 0
+  m_playerWater: 0
+  m_playerHumanity: 0
+  m_playerEnergyDrain: 0.2
+  m_playerOxygenDrain: 0.2
+  m_playerWaterDrain: 0.2
+  m_playerHumanityDrain: 0
+--- !u!114 &1280941205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280941198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Exploration
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &1284162350
 PrefabInstance:
   m_ObjectHideFlags: 0
