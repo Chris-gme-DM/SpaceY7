@@ -1,3 +1,4 @@
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     /// I made Public Getters for them in case i need them in other scripts. But they may be redundant in many cases.
     /// Don't forget to delete these, if they prove unnecessary
     /// </summary>
+    public static PlayerController Instance { get; private set; }
     [Header("References")]  // I will automate the process to assign these references for the most part, but leave it here to let the developer see the assignments and adjust at will
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Rigidbody rb;
@@ -103,6 +105,14 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     /// </summary>
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
         inputActions = new InputSystem_Actions();
         inputActions.Exploration.SetCallbacks(this);
         inputActions.Builder.SetCallbacks(this);
@@ -141,14 +151,13 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     void FixedUpdate()
     {
         // State Checks to determine available options and set modifiers to the Resource Drain accordingly
+        IdleCheck();
         CheckGround();
         EvaluateDrainModifiers();
         // Let the Physics engine handle
         // Determine which velocity to apply
         float currentMoveSpeed = m_isSprinting ? m_runSpeed : m_moveSpeed; // If sets the moveSpeed to apply to the current MoveSpeed
         Vector3 horizontalVelocity = m_moveDirection * currentMoveSpeed; // Sets the velocity, although i am not happy
-        Vector3 newVelocity = new(horizontalVelocity.x, rb.linearVelocity.y, horizontalVelocity.z);
-        rb.linearVelocity = newVelocity;
         // Add Jetpack if active
         if (m_jetPackActive)
         {
@@ -161,6 +170,8 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
             }
             rb.AddForce(Vector3.up * currentJetPower, ForceMode.Force);
         }
+        Vector3 newVelocity = new(horizontalVelocity.x, rb.linearVelocity.y, horizontalVelocity.z);
+        rb.linearVelocity = newVelocity;
     }
     #endregion
     #region Helper Methods
@@ -168,19 +179,19 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     // Maybe a Check State can help to determine which modifiers to apply to the drainage of the Player resources
     // or can be done in the update functions.
     
-    private bool IdleCheck() //Stops the player motions once the threshhold is reached
-    {
-        if(rb.linearVelocity.magnitude >= 0.01f)
-        {
-            m_isIdle = true;
-            rb.linearVelocity = Vector3.zero;
-        }
-        else
-        {
-            m_isIdle= false;
-        }
-        return m_isIdle;
-    }
+   private bool IdleCheck() //Stops the player motions once the threshhold is reached
+   {
+       if(rb.linearVelocity.magnitude <= 0.01f)
+       {
+           m_isIdle = true;
+           rb.linearVelocity = Vector3.zero;
+       }
+       else
+       {
+           m_isIdle= false;
+       }
+       return m_isIdle;
+   }
     private void EvaluateDrainModifiers()
     {
         playerStats.ResetDrainModifiers();
@@ -276,12 +287,12 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
 
     public void OnJetpack(InputAction.CallbackContext context)
     {
-        if(context.performed && m_isGrounded)
+        if(context.performed && context.interaction is TapInteraction && m_isGrounded)
         {
             rb.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
             Debug.Log("$JUMP");
         } 
-        else if(context.performed && !m_isGrounded)
+        else if(context.performed && context.interaction is HoldInteraction && !m_isGrounded)
         {
             // Since we would like to give full control to the player we set the froce of the jetpack reasonable enough to keep them afloat while its active only
             m_jetPackActive = !m_jetPackActive;
@@ -292,8 +303,11 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     // Depending on input it makes the player sprint or applies force to the thrusters of the jetpack
     public void OnSprint(InputAction.CallbackContext context)
     {
-        m_isSprinting = !m_isSprinting;
-        Debug.Log("Gotta go fast");
+        if (context.performed)
+        {
+            m_isSprinting = !m_isSprinting;
+            Debug.Log("Gotta go fast");
+        }
     }
 
     #endregion
@@ -306,21 +320,23 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     #region Common
     public void OnRover(InputAction.CallbackContext context)
     {
-    // In principle this should call upon the Rover Menu, if it is in range.
-    // If not in range, call the rover over until the distance is acceptable. then open the menu
-    Debug.Log("Come over here");
+        // In principle this should call upon the Rover Menu, if it is in range.
+        // If not in range, call the rover over until the distance is acceptable. then open the menu
+        Debug.Log("Come over here");
     }
     // Toggle the Flashlight of the helmet
     public void OnFlashlight(InputAction.CallbackContext context)
     {
-        m_flashLightActive = !m_flashLightActive;
-        if(m_flashLightActive) 
+        if (context.performed)
         {
-            // Flash Light
-            Debug.Log("Blinded by the light");
-            return;
+            m_flashLightActive = !m_flashLightActive;
+            if (m_flashLightActive)
+            {
+                // Flash Light
+                Debug.Log("Blinded by the light");
+                return;
+            }
         }
-
     }
 
     // switches through options of the Multitool
@@ -336,11 +352,15 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     }
     #endregion
     #region Exploration
-
+    public event System.Action<InputAction.CallbackContext> OnInteractionAction;
     // Interacts with various objects in the world if the InteractionManager recognizes an interactable object
     public void OnInteract(InputAction.CallbackContext context)
     {
-        Debug.Log("Interact with the stuff");
+        if (context.performed)
+        {
+            Debug.Log("Interact with the stuff");
+            OnInteractionAction?.Invoke(context);
+        }
     }
     // A function i would like to add, but is not important atm, The idea is to have it act like a scope for the player
     public void OnFocus(InputAction.CallbackContext context)
@@ -350,23 +370,39 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
 
     #endregion
     #region Builder
+    public event Action<InputAction.CallbackContext> OnPlaceAction;
+    public event Action<InputAction.CallbackContext> OnRotateAction;
+    public event Action<InputAction.CallbackContext> OnManipulateAction;
+    public event Action<InputAction.CallbackContext> OnScrapAction;
 
     // Dislodges an existing object, placed by the player and enables anewed manipulation to its placement or allows to scrap it
     public void OnManipulate(InputAction.CallbackContext context)
     {
-        //Need to figure out what to do with it.
-        //The Buidling Manager should probably find the object
+        // Need to figure out what to do with it.
+        // The Buidling Manager should probably find the object
+        if(context.performed && context.interaction is TapInteraction)
+        {
         Debug.Log("Replacement method of buildings, initiated");
+            OnManipulateAction.Invoke(context);
+        }
+        // Scrap
+        if (context.performed && context.interaction is HoldInteraction)
+        {
+            Debug.Log("Scrapt it");
+            OnScrapAction.Invoke(context);
+        }
     }
 
     public void OnPlace(InputAction.CallbackContext context)
     {
         Debug.Log("Place it down");
+        OnPlaceAction.Invoke(context);
     }
 
     public void OnRotate(InputAction.CallbackContext context)
     {
         Debug.Log("Rotate around");
+        OnRotateAction.Invoke(context);
     }
 
     #endregion

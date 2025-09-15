@@ -149,7 +149,7 @@ Rigidbody:
   m_GameObject: {fileID: 110925129}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 0.1
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -165,7 +165,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 2
 --- !u!4 &110925131
 Transform:
@@ -357,11 +357,19 @@ MonoBehaviour:
   rb: {fileID: 0}
   playerStats: {fileID: 0}
   mainCamera: {fileID: 0}
+  m_maxSpeed: 30
   m_moveSpeed: 6
   m_runSpeed: 10
   m_jumpForce: 5
   m_jetPower: 10
   m_jetBoost: 5
+  m_idleDrainModifier: 0.5
+  m_sprintEnergyModifier: 1.5
+  m_sprintOxygenModifier: 1.5
+  m_sprintWaterModifier: 1.5
+  m_jetpackEnergyModifier: 2
+  m_jetpackOxygenModifier: 2
+  m_jetpackWaterModifier: 2
   m_moveInput: {x: 0, y: 0}
 --- !u!114 &110925135
 MonoBehaviour:
@@ -376,6 +384,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
+  m_maxEnergy: 100
+  m_maxOxygen: 100
+  m_maxWater: 100
+  m_maxHumanity: 100
   m_playerEnergy: 100
   m_playerOxygen: 100
   m_playerWater: 100

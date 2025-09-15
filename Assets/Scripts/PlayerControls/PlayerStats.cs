@@ -10,6 +10,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     #region References
+    public static PlayerStats Instance {  get; private set; }
     /// <summary>
     /// Holds the references to managers and modules, relevant to the player
     /// </summary>
@@ -54,6 +55,19 @@ public class PlayerStats : MonoBehaviour
 
 
     #endregion
+    #region Important
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -71,6 +85,7 @@ public class PlayerStats : MonoBehaviour
         m_playerOxygen -= (m_playerOxygenDrain * m_playerOxygenDrainModifier) * Time.deltaTime;
         m_playerWater -= (m_playerWaterDrain * m_playerWaterDrainModifier) * Time.deltaTime;
     }
+    #endregion
     // Methods need to manage the resources of the player
     // Every resource has its own method and ways to manipulate them
     // these methods can be accessed by other scripts
