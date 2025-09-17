@@ -1,9 +1,7 @@
-using System;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
-using UnityEngine.UIElements;
 
 /// <summary>
 /// This script should handle the logic of placement and manipulation of the buildings the player can interact with.
@@ -31,6 +29,7 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] private LayerMask m_placementLayer;
     [SerializeField] private float m_placementRange = 50f;
     [SerializeField] private float m_maxHeightAdjustment = 5f;
+    [SerializeField] private float m_rotateBuildingDegree = 1f;
     // valid placement color
     [SerializeField] private Color m_validColor = Color.green;
     // Invalid placement color
@@ -44,8 +43,6 @@ public class BuildingManager : MonoBehaviour
     // Is it placeable
     private bool m_isBuildingPlaceable;
     public bool IsBuildingPlaceable => m_isBuildingPlaceable;
-    private bool m_isRotatingLeft; // may be useless
-    private bool m_isRotatingRight; // may be useless
     #endregion
     #region Important
     private void Awake()
@@ -66,42 +63,27 @@ public class BuildingManager : MonoBehaviour
         if (m_cameraBrain == null) { m_cameraBrain = FindAnyObjectByType<CinemachineBrain>(); }
         if (m_camera == null) { m_camera = m_cameraBrain.GetComponent<Camera>(); }
         // Subscribe this scripts logic to the input actions in the playercontroller
-        if (m_playerController != null) 
+        if (m_playerController != null)
         {
-           m_playerController.OnPlaceAction += OnPlaceAction;
-           m_playerController.OnRotateAction += OnRotateAction;
-           m_playerController.OnManipulateAction += OnManipulateAction;
-           m_playerController.OnScrapAction += OnScrapAction;
+            m_playerController.OnPlaceAction += OnPlaceAction;
+            m_playerController.OnRotateAction += OnRotateAction;
+            m_playerController.OnManipulateAction += OnManipulateAction;
+            m_playerController.OnScrapAction += OnScrapAction;
+            m_playerController.OnBuilderModeDisabled += CancelCurrentBuildingAction;
         }
     }
     // Update is called once per frame
     void Update()
     {
-        if(m_currentGhostBuilding != null)
+        if (m_currentGhostBuilding != null)
         {
             CheckPlacementValidity();
         }
     }
 
-
- //   private void UpdateGhostPosition()
- //   {
- //       // Check position of raycast hit
- //       Ray ray = m_camera.ScreenPointToRay(Mouse.current.position.ReadValue());
- //       RaycastHit hit;
- //
- //       if (Physics.Raycast(ray, out hit, m_placementRange, m_placementLayer))
- //       {
- //           if(m_currentGhostBuilding != null)
- //           {
- //               m_currentGhostBuilding.transform.position = hit.point;
- //           }
- //       }
- //   }
-
     public void SelectBuildingAction(BuildingData buildingData)
     {
-    //    CancelCurrentBuildingAction();
+        //    CancelCurrentBuildingAction();
         m_currentBuildingData = buildingData;
         m_currentGhostBuilding = Instantiate(m_currentBuildingData.BuildingPrefab);
 
@@ -109,39 +91,39 @@ public class BuildingManager : MonoBehaviour
     #endregion
     #region Placement Logic
     // Determine desired placement accroding to current context
-    // Grid or free?
+    // Grid or free? free
     // Raycast to check for hit collision. This will determine the origin point of the object.
     // Raycast may be determined by a relative angle between a straight raycast forward and the angluar raycast from the character perspective
     // We can set certain ranges to angles. to check for the normals of the ground
+    // It was easier than expected
     public void OnPlaceAction(InputAction.CallbackContext context)
     {
-        if(m_currentBuildingData == null || m_currentBuildingData == null || !m_isBuildingPlaceable) return;
+        if (m_currentBuildingData == null || m_currentBuildingData == null || !m_isBuildingPlaceable) return;
         if (context.performed)
         {
             if (m_isBuildingPlaceable)
             {
-                if(m_currentManipulatedBuilding != null)
+                if (m_currentManipulatedBuilding != null)
                 {
                     m_currentManipulatedBuilding.gameObject.GetComponent<Renderer>().enabled = true;
                     m_currentManipulatedBuilding.gameObject.GetComponent<Collider>().enabled = true;
-                    m_currentManipulatedBuilding.transform.position = m_currentManipulatedBuilding.transform.position;
-                    m_currentManipulatedBuilding.transform.rotation = m_currentManipulatedBuilding.transform.rotation;
+                    m_currentManipulatedBuilding.transform.SetPositionAndRotation(m_currentGhostBuilding.transform.position, m_currentGhostBuilding.transform.rotation);
                 }
                 else
                 {
-                    GameObject newObject = Instantiate(
+                    Instantiate(
                         m_currentBuildingData.BuildingPrefab,
                         m_currentGhostBuilding.transform.position,
                         m_currentGhostBuilding.transform.rotation);
 
                 }
-                CancelCurrentBuidlingAction();
+                CancelCurrentBuildingAction();
             }
 
         }
     }
     private void CheckPlacementValidity()
-    { 
+    {
         {
             // If player doesnt hold an object
             if (m_currentBuildingData == null || m_currentGhostBuilding == null)
@@ -151,9 +133,8 @@ public class BuildingManager : MonoBehaviour
             }
             // Check the position of the Raycasthit
             Ray ray = m_camera.ScreenPointToRay(Mouse.current.position.ReadValue());
-            RaycastHit hit;
             // Moves the ghost to the detected hit position
-            if (Physics.Raycast(ray, out hit, m_placementRange, m_placementLayer))
+            if (Physics.Raycast(ray, out RaycastHit hit, m_placementRange, m_placementLayer))
             {
                 m_currentGhostBuilding.transform.position = hit.point;
 
@@ -171,10 +152,10 @@ public class BuildingManager : MonoBehaviour
                     // If a collision is found, need to move the ghost up.
                     // BoxCast non-allocating to get the hit information.
                     Collider[] colliders = Physics.OverlapBox(
-                        m_currentGhostBuilding.transform.position, 
-                        m_currentBuildingData.PlacementDimensions / 2f, 
+                        m_currentGhostBuilding.transform.position,
+                        m_currentBuildingData.PlacementDimensions / 2f,
                         m_currentGhostBuilding.transform.rotation,
-                        ~0, 
+                        ~0,
                         QueryTriggerInteraction.Ignore); // This one, took hours
                     if (colliders.Length > 0)
                     {
@@ -203,14 +184,16 @@ public class BuildingManager : MonoBehaviour
             SetGhostMaterial(m_currentGhostBuilding, m_isBuildingPlaceable ? m_validColor : m_invalidColor);
         }
     }
-    
+
     private void SetGhostMaterial(GameObject ghost, Color color)
     {
         Renderer[] renderers = ghost.GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers)
         {
-            Material tempMaterial = new(renderer.material);
-            tempMaterial.color = new Color(color.r, color.g, color.b, 0.5f);
+            Material tempMaterial = new(renderer.material)
+            {
+                color = new Color(color.r, color.g, color.b, 0.5f)
+            };
             renderer.material = tempMaterial;
         }
 
@@ -219,46 +202,81 @@ public class BuildingManager : MonoBehaviour
     #region Manipulation Logic
     public void OnManipulateAction(InputAction.CallbackContext context)
     {
+        if (m_currentBuildingData != null) { return; }
         if (context.performed && context.interaction is TapInteraction)
         {
-            
-        }
-        // Raycasthit to a placed object. 
-        // Hit delivers object data
-        // Dislodge the object from its placement
-        // "Hand" it to the player
-
-        // Holds it
-
-        // Scrap it
-        // Scrap only possible if the player holds the object.
-        if (m_isManipulatingBuilding)
-        {
-            if(context.interaction is HoldInteraction)
+            // Raycasthit to a placed object. 
+            Ray ray = m_camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            if (Physics.Raycast(ray, out RaycastHit hit, m_placementRange))
             {
-
+                // Hit delivers object data
+                BaseBuilding buildingToManipulate = hit.collider.GetComponentInParent<BaseBuilding>();
+                // Dislodge the object from its placement
+                if (buildingToManipulate != null)
+                {
+                    m_isManipulatingBuilding = true;
+                    m_currentManipulatedBuilding = buildingToManipulate;
+ //TODO: BuldingData u idiot                   m_currentBuildingData = buildingToManipulate.BuildingData;
+                    m_currentGhostBuilding = Instantiate(m_currentBuildingData.BuildingPrefab,
+                        m_currentManipulatedBuilding.transform.position,
+                        m_currentManipulatedBuilding.transform.rotation);
+                    // Holds it
+                    m_currentManipulatedBuilding.gameObject.GetComponent<Renderer>().enabled = false;
+                    m_currentManipulatedBuilding.gameObject.GetComponent<Collider>().enabled = false;
+                }
             }
-        // Scrap
-        // Destroys the technically existing object and refunds the resources used to the player
 
         }
     }
     public void OnScrapAction(InputAction.CallbackContext context)
     {
-        if (context.interaction is HoldInteraction)
+        // Scrap it
+        // Scrap only possible if the player holds the object.
+        if (context.interaction is HoldInteraction && m_isManipulatingBuilding)
         {
-
+            // Scrap
+            // TODO:
+            // Destroys the technically existing object and refunds the resources used to the player
+            // Refund the resources
+            // Destroy the object
+            Destroy(m_currentManipulatedBuilding.gameObject);
+            CancelCurrentBuildingAction();
         }
     }
-    public void OnRotateAction(InputAction.CallbackContext context)
+
+    public void OnRotateAction(Vector2 rotateValue)
     {
         // Rotate
         // Rotate the building along y axis. Transfer input Vector 2 to clock or counterclockwise rotation
-   //     if () ;
+        if(m_currentGhostBuilding != null)
+        {
+            // Counterclockwise Rotation
+            if (rotateValue.x < 0)
+            {
+                m_currentGhostBuilding.transform.Rotate(0, -m_rotateBuildingDegree, 0);
+            }
+            // Clockwise Rotation
+            else if (rotateValue.x > 0)
+            {
+                m_currentGhostBuilding.transform.Rotate(0, m_rotateBuildingDegree, 0);
+            }
+        }
+        // According to the value rotate the object along the y-axis
     }
     #endregion
-    private void CancelCurrentBuidlingAction()
+    public void CancelCurrentBuildingAction()
     {
-
+        if (m_currentGhostBuilding != null)
+        {
+            Destroy(m_currentGhostBuilding);
+        }
+        if (m_currentManipulatedBuilding != null)
+        {
+            m_currentManipulatedBuilding.gameObject.GetComponent<Renderer>().enabled = true;
+            m_currentManipulatedBuilding.gameObject.GetComponent<Collider>().enabled = true;
+            m_currentManipulatedBuilding = null;
+        }
+        m_currentBuildingData = null;
     }
+
 }

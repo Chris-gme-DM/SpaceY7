@@ -38,7 +38,7 @@ public class PlayerStats : MonoBehaviour
     public float PlayerEnergy => m_playerEnergy;
     [SerializeField] private float m_playerOxygen; // the oxygen available to the player
     public float PlayerOxygen => m_playerOxygen;
-    [SerializeField] private float m_playerWater; // hydrastion of the player
+    [SerializeField] private float m_playerWater; // hydration of the player
     public float PlayerWater => m_playerWater;
     [SerializeField] private float m_playerHumanity; // very abstract resource that we still need to figure out how to truly represent
     public float PlayerHumanity => m_playerHumanity; // Since the player is the only human i thought i can leave Player away. Until we make it multiplayer

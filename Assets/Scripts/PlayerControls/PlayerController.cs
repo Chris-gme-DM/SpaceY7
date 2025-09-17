@@ -28,7 +28,9 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     [SerializeField] private PlayerInput playerInput;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private PlayerStats playerStats;
-    [SerializeField] private CinemachineBrain mainCamera;
+    [SerializeField] private CinemachineBrain mainCameraBrain;
+    [SerializeField] private CinemachineCamera m_mainCamera;
+    [SerializeField] private CinemachineCamera m_focusCamera;
     private InputSystem_Actions inputActions; // Ill do  it manually
     private LayerMask groundMask;
     #endregion
@@ -73,6 +75,8 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     [SerializeField] private float m_jetpackWaterModifier = 2.0f;
 
     // Others
+    [SerializeField] private float m_focusedFov = 30f;
+    [SerializeField] private float m_focusSpeed = 5f;
     // move Input
     public Vector2 m_moveInput;
     public Vector2 MoveInput => m_moveInput;
@@ -94,6 +98,8 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     // JetPack
     private bool m_jetPackActive;
     public bool JetPackActive => m_jetPackActive;
+    // Focus
+    private bool m_isFocused;
     // Flashlight
     private bool m_flashLightActive;
     #endregion
@@ -137,15 +143,26 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         if (rb == null) rb = GetComponent<Rigidbody>();
         if (playerInput == null) playerInput = GetComponent<PlayerInput>();
         if (playerStats == null) playerStats = GetComponent<PlayerStats>();
-        if (mainCamera == null) mainCamera = FindAnyObjectByType<CinemachineBrain>();
+        if (mainCameraBrain == null) mainCameraBrain = FindAnyObjectByType<CinemachineBrain>();
+        if (m_focusCamera != null)
+        {
+            m_focusCamera.gameObject.SetActive(false);
+        }
+
         groundMask = LayerMask.GetMask("Ground");
     }
     // Update is called once per frame
     void Update()
     {
         // Update moveDirection
-        m_moveDirection = mainCamera.transform.right * m_moveInput.x + mainCamera.transform.forward * m_moveInput.y;
+        m_moveDirection = mainCameraBrain.transform.right * m_moveInput.x + mainCameraBrain.transform.forward * m_moveInput.y;
         m_moveDirection = Vector3.ProjectOnPlane(m_moveDirection, Vector3.up).normalized;
+        if (m_mainCamera != null)
+        {
+            float targetFov = m_isFocused ? m_focusedFov : 61f; // 61f is the default FOV
+            m_mainCamera.Lens.FieldOfView = Mathf.Lerp(m_mainCamera.Lens.FieldOfView, targetFov, Time.deltaTime * m_focusSpeed);
+        }
+
     }
     // Handling physics related actions
     void FixedUpdate()
@@ -260,10 +277,12 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     }
 
     //Enter Exploration Mode
+    public event Action OnBuilderModeDisabled;
     public void OnExplorationMode(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
+            OnBuilderModeDisabled?.Invoke();
             inputActions.Builder.Disable();
             inputActions.Exploration.Enable();
             Debug.Log("Explore that stuff");
@@ -351,7 +370,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         Debug.Log("Shift to the next tool");
     }
     #endregion
-    #region Exploration
+    #region Exploration Actions
     public event System.Action<InputAction.CallbackContext> OnInteractionAction;
     // Interacts with various objects in the world if the InteractionManager recognizes an interactable object
     public void OnInteract(InputAction.CallbackContext context)
@@ -365,13 +384,18 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     // A function i would like to add, but is not important atm, The idea is to have it act like a scope for the player
     public void OnFocus(InputAction.CallbackContext context)
     {
-        Debug.Log("Focus");
+        if (context.performed)
+        {
+            Debug.Log("Focus");
+            // Toggle the focus camera on/off
+            m_isFocused = !m_isFocused;
+        }
     }
 
     #endregion
-    #region Builder
+    #region Builder Actions
     public event Action<InputAction.CallbackContext> OnPlaceAction;
-    public event Action<InputAction.CallbackContext> OnRotateAction;
+    public event Action<Vector2> OnRotateAction;
     public event Action<InputAction.CallbackContext> OnManipulateAction;
     public event Action<InputAction.CallbackContext> OnScrapAction;
 
@@ -401,8 +425,15 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
 
     public void OnRotate(InputAction.CallbackContext context)
     {
-        Debug.Log("Rotate around");
-        OnRotateAction.Invoke(context);
+        // Read the value
+        // negative for counterclockwise Rotation
+        // positive for clockwise Rotation
+        Vector2 rotateValue = context.ReadValue<Vector2>();
+        if (context.performed)
+        {
+            Debug.Log("Rotate around");
+            OnRotateAction.Invoke(rotateValue);
+        }
     }
 
     #endregion
