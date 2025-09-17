@@ -55,11 +55,11 @@ public class BuildingManager : MonoBehaviour
         {
             Instance = this;
         }
-        if (m_playerController == null) { m_playerController = FindAnyObjectByType<PlayerController>(); }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (m_playerController == null) { m_playerController = FindAnyObjectByType<PlayerController>(); }
         if (m_cameraBrain == null) { m_cameraBrain = FindAnyObjectByType<CinemachineBrain>(); }
         if (m_camera == null) { m_camera = m_cameraBrain.GetComponent<Camera>(); }
         // Subscribe this scripts logic to the input actions in the playercontroller
@@ -132,7 +132,7 @@ public class BuildingManager : MonoBehaviour
                 return;
             }
             // Check the position of the Raycasthit
-            Ray ray = m_camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            Ray ray = m_camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             // Moves the ghost to the detected hit position
             if (Physics.Raycast(ray, out RaycastHit hit, m_placementRange, m_placementLayer))
             {
@@ -206,7 +206,7 @@ public class BuildingManager : MonoBehaviour
         if (context.performed && context.interaction is TapInteraction)
         {
             // Raycasthit to a placed object. 
-            Ray ray = m_camera.ScreenPointToRay(Mouse.current.position.ReadValue());
+            Ray ray = m_camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             if (Physics.Raycast(ray, out RaycastHit hit, m_placementRange))
             {
                 // Hit delivers object data
@@ -250,16 +250,9 @@ public class BuildingManager : MonoBehaviour
         // Rotate the building along y axis. Transfer input Vector 2 to clock or counterclockwise rotation
         if(m_currentGhostBuilding != null)
         {
-            // Counterclockwise Rotation
-            if (rotateValue.x < 0)
-            {
-                m_currentGhostBuilding.transform.Rotate(0, -m_rotateBuildingDegree, 0);
-            }
-            // Clockwise Rotation
-            else if (rotateValue.x > 0)
-            {
-                m_currentGhostBuilding.transform.Rotate(0, m_rotateBuildingDegree, 0);
-            }
+            // Counterclockwise Rotation if rotateValue.x < 0
+            // Clockwise Rotation if rotateValue.x > 0
+            m_currentGhostBuilding.transform.Rotate(0, rotateValue.x * m_rotateBuildingDegree *Time.deltaTime, 0);
         }
         // According to the value rotate the object along the y-axis
     }

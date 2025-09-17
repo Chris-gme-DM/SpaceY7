@@ -371,14 +371,14 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     }
     #endregion
     #region Exploration Actions
-    public event System.Action<InputAction.CallbackContext> OnInteractionAction;
+    public event Action<GameObject> OnInteractAction;
     // Interacts with various objects in the world if the InteractionManager recognizes an interactable object
     public void OnInteract(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             Debug.Log("Interact with the stuff");
-            OnInteractionAction?.Invoke(context);
+            OnInteractAction?.Invoke(gameObject);
         }
     }
     // A function i would like to add, but is not important atm, The idea is to have it act like a scope for the player

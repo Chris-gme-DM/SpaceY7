@@ -43,10 +43,13 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float m_playerHumanity; // very abstract resource that we still need to figure out how to truly represent
     public float PlayerHumanity => m_playerHumanity; // Since the player is the only human i thought i can leave Player away. Until we make it multiplayer
     [Header("Base Resource Drain")]
-    [SerializeField] private float m_playerEnergyDrain = 0.2f; // Set relatively low for the start
-    [SerializeField] private float m_playerOxygenDrain = 0.2f;
-    [SerializeField] private float m_playerWaterDrain = 0.2f;
+    [SerializeField] private float m_playerEnergyDrain = 0.02f; // Set relatively low for the start
+    [SerializeField] private float m_playerOxygenDrain = 0.02f;
+    [SerializeField] private float m_playerWaterDrain = 0.02f;
     [SerializeField] private float m_playerHumanityDrain; // We still need to figure that one out
+    // There are some ideas like hazardous zones or state of resources that afect this drain.
+    // to replensih the can build stuff but we do not have enought stuff
+    // to replenish we can use the resources as to say the player is healthy and that helps her keep her humanity and sanity up
     
     private float m_playerEnergyDrainModifier = 1.0f;
     private float m_playerOxygenDrainModifier = 1.0f;
