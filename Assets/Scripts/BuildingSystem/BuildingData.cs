@@ -14,25 +14,6 @@ public class BuildingData : ScriptableObject
     public string BuildingDescription;
     public GameObject BuildingPrefab;
     public Vector3 PlacementDimensions;
-    public List<ResourceCost> BuildingCosts;
+    public List<Resources> BuildingCosts;
     public string[] EmbeddedInteractableIDs;
-}
-[Serializable]
-public class ResourceCost
-{
-    public ResourceType type;
-    public int amount;
-
-}
-public enum ResourceType
-{
-    Energy,
-    Oxygen,
-    Water,
-    Silicon,
-    Fiber,
-    Metal,
-    Tape,
-    Aluminium,
-    Lithium,
 }
