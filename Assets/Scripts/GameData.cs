@@ -27,16 +27,6 @@ public enum ResourceType
 }
 #endregion
 #region Interactables
-[Serializable]
-public class Interactable: MonoBehaviour, IInteractable
-{
-    public InteractableType interactableType;
-
-    public void Interact(GameObject Interactable)
-    {
-        throw new NotImplementedException();
-    }
-}
 public enum InteractableType
 {
     Resource,

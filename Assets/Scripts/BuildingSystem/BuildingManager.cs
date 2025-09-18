@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
 /// <summary>
+/// LAST EDIT: Chris, Adjusted the method to Check for valid placement to account for the bulding perfabs
 /// This script should handle the logic of placement and manipulation of the buildings the player can interact with.
 /// The player interacts with the rover to enter the building menu to select which building she wants to create.
 /// The buildingUI handles which object to create and feed that to this script.
@@ -103,19 +104,32 @@ public class BuildingManager : MonoBehaviour
         {
             if (m_isBuildingPlaceable)
             {
+                GameObject go;
+                // In case the player creates a nw building
                 if (m_currentManipulatedBuilding != null)
                 {
                     m_currentManipulatedBuilding.gameObject.GetComponent<Renderer>().enabled = true;
                     m_currentManipulatedBuilding.gameObject.GetComponent<Collider>().enabled = true;
                     m_currentManipulatedBuilding.transform.SetPositionAndRotation(m_currentGhostBuilding.transform.position, m_currentGhostBuilding.transform.rotation);
+                    go = m_currentManipulatedBuilding.gameObject;
                 }
-                else
+                // In case the player manipulates a building
+                else 
                 {
-                    Instantiate(
+                    go = Instantiate(
                         m_currentBuildingData.BuildingPrefab,
                         m_currentGhostBuilding.transform.position,
                         m_currentGhostBuilding.transform.rotation);
 
+                }
+                // Find the BuildingBox collider on the placed building and disable it
+                Transform sizingBoxTransform = go.transform.Find("BuildingBox");
+                if (sizingBoxTransform != null)
+                {
+                    if (sizingBoxTransform.TryGetComponent<Collider>(out var sizingCollider))
+                    {
+                        sizingCollider.enabled = false;
+                    }
                 }
                 CancelCurrentBuildingAction();
             }
@@ -124,65 +138,73 @@ public class BuildingManager : MonoBehaviour
     }
     private void CheckPlacementValidity()
     {
+        Transform sizingBoxTransform = m_currentGhostBuilding.transform.Find("BuildingBox");
+        if(sizingBoxTransform == null)
         {
-            // If player doesnt hold an object
-            if (m_currentBuildingData == null || m_currentGhostBuilding == null)
-            {
-                m_isBuildingPlaceable = false;
-                return;
-            }
-            // Check the position of the Raycasthit
-            Ray ray = m_camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            // Moves the ghost to the detected hit position
-            if (Physics.Raycast(ray, out RaycastHit hit, m_placementRange, m_placementLayer))
-            {
-                m_currentGhostBuilding.transform.position = hit.point;
+            Debug.Log("This building needs an object called BuildingBox with a box collider to make sure this works");
+            m_isBuildingPlaceable = false; 
+            return;
+        }
+        // Get the BoxCollider of BuildingBox
+        // This is to enable automatic generation of colliders of more complex buildings without disrupting the building process
+        BoxCollider sizingCollider = sizingBoxTransform.GetComponent<BoxCollider>();
+        // Check the position of the Raycasthit
+        Ray ray = m_camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        // Moves the ghost to the detected hit position
+        if (Physics.Raycast(ray, out RaycastHit hit, m_placementRange, m_placementLayer))
+        {
+            m_currentGhostBuilding.transform.position = hit.point;
 
-                float currentHeightAdjustment = 0f;
-                m_isBuildingPlaceable = false;
-                // It's fine as long as the AdjustmentHeight is in range
-                while (currentHeightAdjustment <= m_maxHeightAdjustment)
-                {
-                    // BoxCast to check for collisions at the current position
-                    if (!Physics.CheckBox(m_currentGhostBuilding.transform.position, m_currentBuildingData.PlacementDimensions / 2f, m_currentGhostBuilding.transform.rotation, ~0, QueryTriggerInteraction.Ignore))
-                    {
-                        m_isBuildingPlaceable = true;
-                        break;
-                    }
-                    // If a collision is found, need to move the ghost up.
-                    // BoxCast non-allocating to get the hit information.
-                    Collider[] colliders = Physics.OverlapBox(
+            float currentHeightAdjustment = 0f;
+            m_isBuildingPlaceable = false;
+            // It's fine as long as the AdjustmentHeight is in range
+            while (currentHeightAdjustment <= m_maxHeightAdjustment)
+            {
+                // BoxCast to check for collisions at the current position
+                if (!Physics.CheckBox(
                         m_currentGhostBuilding.transform.position,
-                        m_currentBuildingData.PlacementDimensions / 2f,
+                        sizingCollider.size / 2,
                         m_currentGhostBuilding.transform.rotation,
-                        ~0,
-                        QueryTriggerInteraction.Ignore); // This one, took hours
-                    if (colliders.Length > 0)
+                        ~0, 
+                        QueryTriggerInteraction.Ignore))
+                {
+                    m_isBuildingPlaceable = true;
+                    break;
+                }
+                // If a collision is found, need to move the ghost up.
+                // BoxCast non-allocating to get the hit information.
+                Collider[] colliders = Physics.OverlapBox(
+                    m_currentGhostBuilding.transform.position,
+                    sizingCollider.size / 2,
+                    m_currentGhostBuilding.transform.rotation,
+                    ~0,
+                    QueryTriggerInteraction.Ignore); // This one, took hours
+                if (colliders.Length > 0)
+                {
+                    // Find the highest point of collision and adjust accordingly
+                    float highestCollisionPoint = -Mathf.Infinity;
+                    // Move up as long as any collision is detected
+                    foreach (var collider in colliders)
                     {
-                        // Find the highest point of collision and adjust accordingly
-                        float highestCollisionPoint = -Mathf.Infinity;
-                        // Move up as long as any collision is detected
-                        foreach (var collider in colliders)
+                        if (collider.bounds.max.y > highestCollisionPoint)
                         {
-                            if (collider.bounds.max.y > highestCollisionPoint)
-                            {
-                                highestCollisionPoint = collider.bounds.max.y;
-                            }
+                            highestCollisionPoint = collider.bounds.max.y;
                         }
-                        float requiredMoveUp = highestCollisionPoint - m_currentGhostBuilding.transform.position.y;
-                        m_currentGhostBuilding.transform.position += Vector3.up * (requiredMoveUp + 0.01f); // Add a small offset
-                        currentHeightAdjustment += requiredMoveUp;
                     }
+                    float requiredMoveUp = highestCollisionPoint - m_currentGhostBuilding.transform.position.y;
+                    m_currentGhostBuilding.transform.position += Vector3.up * (requiredMoveUp + 0.01f); // Add a small offset
+                    currentHeightAdjustment += requiredMoveUp;
                 }
             }
-            else
-            {
-                m_isBuildingPlaceable = false;
-            }
-            // if true turn it green
-            // if false turn it red
-            SetGhostMaterial(m_currentGhostBuilding, m_isBuildingPlaceable ? m_validColor : m_invalidColor);
         }
+        else
+        {
+            m_isBuildingPlaceable = false;
+        }
+        // if true turn it green
+        // if false turn it red
+        SetGhostMaterial(m_currentGhostBuilding, m_isBuildingPlaceable ? m_validColor : m_invalidColor);
+        
     }
 
     private void SetGhostMaterial(GameObject ghost, Color color)
@@ -216,7 +238,7 @@ public class BuildingManager : MonoBehaviour
                 {
                     m_isManipulatingBuilding = true;
                     m_currentManipulatedBuilding = buildingToManipulate;
- //TODO: BuldingData u idiot                   m_currentBuildingData = buildingToManipulate.BuildingData;
+                    m_currentBuildingData = buildingToManipulate.BuildingData;
                     m_currentGhostBuilding = Instantiate(m_currentBuildingData.BuildingPrefab,
                         m_currentManipulatedBuilding.transform.position,
                         m_currentManipulatedBuilding.transform.rotation);
