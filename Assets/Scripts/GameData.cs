@@ -40,6 +40,8 @@ public class Interactable: MonoBehaviour, IInteractable
 public enum InteractableType
 {
     Resource,
+    Antenna,
+    Bed,
     Door,
     Inventory,
     Other,

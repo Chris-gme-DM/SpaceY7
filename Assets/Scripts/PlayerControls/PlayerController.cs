@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
 /// <summary>
-/// LAST EDIT: Comments, (Chris)
+/// LAST EDIT: Comments, (Chris), Focus Action removed, commented to lay it dormant
 /// PLAN: Expand the movement methods to determine drainage on the player resources.
 /// IMPORTANT: Switch ActionMaps MANUALLY! Keep that in mind when constructing other scripts
 /// This script is handling Inputs by the player. 
@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private CinemachineBrain mainCameraBrain;
     [SerializeField] private CinemachineCamera m_mainCamera;
-    [SerializeField] private CinemachineCamera m_focusCamera;
+//    [SerializeField] private CinemachineCamera m_focusCamera;
     private InputSystem_Actions inputActions; // Ill do  it manually
     private LayerMask groundMask;
     #endregion
@@ -75,8 +75,8 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     [SerializeField] private float m_jetpackWaterModifier = 2.0f;
 
     // Others
-    [SerializeField] private float m_focusedFov = 30f;
-    [SerializeField] private float m_focusSpeed = 5f;
+//    [SerializeField] private float m_focusedFov = 30f;
+//    [SerializeField] private float m_focusSpeed = 5f;
     // move Input
     public Vector2 m_moveInput;
     public Vector2 MoveInput => m_moveInput;
@@ -99,7 +99,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     private bool m_jetPackActive;
     public bool JetPackActive => m_jetPackActive;
     // Focus
-    private bool m_isFocused;
+//    private bool m_isFocused;
     // Flashlight
     private bool m_flashLightActive;
     #endregion
@@ -144,10 +144,10 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         if (playerInput == null) playerInput = GetComponent<PlayerInput>();
         if (playerStats == null) playerStats = GetComponent<PlayerStats>();
         if (mainCameraBrain == null) mainCameraBrain = FindAnyObjectByType<CinemachineBrain>();
-        if (m_focusCamera != null)
-        {
-            m_focusCamera.gameObject.SetActive(false);
-        }
+//       if (m_focusCamera != null)
+//       {
+//           m_focusCamera.gameObject.SetActive(false);
+//       }
 
         groundMask = LayerMask.GetMask("Ground");
     }
@@ -157,11 +157,11 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         // Update moveDirection
         m_moveDirection = mainCameraBrain.transform.right * m_moveInput.x + mainCameraBrain.transform.forward * m_moveInput.y;
         m_moveDirection = Vector3.ProjectOnPlane(m_moveDirection, Vector3.up).normalized;
-        if (m_mainCamera != null)
-        {
-            float targetFov = m_isFocused ? m_focusedFov : 61f; // 61f is the default FOV
-            m_mainCamera.Lens.FieldOfView = Mathf.Lerp(m_mainCamera.Lens.FieldOfView, targetFov, Time.deltaTime * m_focusSpeed);
-        }
+//        if (m_mainCamera != null)
+//        {
+//            float targetFov = m_isFocused ? m_focusedFov : 61f; // 61f is the default FOV
+//            m_mainCamera.Lens.FieldOfView = Mathf.Lerp(m_mainCamera.Lens.FieldOfView, targetFov, Time.deltaTime * m_focusSpeed);
+//        }
 
     }
     // Handling physics related actions
@@ -382,15 +382,15 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         }
     }
     // A function i would like to add, but is not important atm, The idea is to have it act like a scope for the player
-    public void OnFocus(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            Debug.Log("Focus");
-            // Toggle the focus camera on/off
-            m_isFocused = !m_isFocused;
-        }
-    }
+//    public void OnFocus(InputAction.CallbackContext context)
+//    {
+//        if (context.performed)
+//        {
+//            Debug.Log("Focus");
+//            // Toggle the focus camera on/off
+//            m_isFocused = !m_isFocused;
+//        }
+//    }
 
     #endregion
     #region Builder Actions

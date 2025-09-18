@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "InteractableData", menuName = "Scriptable Objects/InteractableData")]

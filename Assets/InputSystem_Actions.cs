@@ -137,15 +137,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Focus"",
-                    ""type"": ""Button"",
-                    ""id"": ""ee96320d-e494-48bd-99bc-9089eb76549b"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Previous"",
                     ""type"": ""Button"",
                     ""id"": ""2776c80d-3c14-4091-8c56-d04ced07a2b0"",
@@ -301,28 +292,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""BuilderMode"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""69bf0f8a-c423-4b3a-b9b9-ca4d7d0550b5"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Focus"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""228ace88-7fbe-4fa9-aa3b-b26116f9acd9"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
-                    ""interactions"": ""Hold"",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Focus"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -634,15 +603,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Focus"",
-                    ""type"": ""Button"",
-                    ""id"": ""90f4cbc3-21c4-437f-9190-70de1d817ab5"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Previous"",
                     ""type"": ""Button"",
                     ""id"": ""25405cc4-b62d-42a4-90fa-8066b83c177a"",
@@ -923,28 +883,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Flashlight"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b8820fdb-b3be-488e-9c7d-8c557ca8f52a"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";Keyboard&Mouse"",
-                    ""action"": ""Focus"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""10827e6d-fc01-49e5-842c-c613fba88ce9"",
-                    ""path"": ""<Gamepad>/leftTrigger"",
-                    ""interactions"": ""Hold"",
-                    ""processors"": """",
-                    ""groups"": "";Gamepad"",
-                    ""action"": ""Focus"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1724,7 +1662,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Exploration_Jetpack = m_Exploration.FindAction("Jetpack", throwIfNotFound: true);
         m_Exploration_Sprint = m_Exploration.FindAction("Sprint", throwIfNotFound: true);
         m_Exploration_Flashlight = m_Exploration.FindAction("Flashlight", throwIfNotFound: true);
-        m_Exploration_Focus = m_Exploration.FindAction("Focus", throwIfNotFound: true);
         m_Exploration_Previous = m_Exploration.FindAction("Previous", throwIfNotFound: true);
         m_Exploration_Next = m_Exploration.FindAction("Next", throwIfNotFound: true);
         m_Exploration_BuilderMode = m_Exploration.FindAction("BuilderMode", throwIfNotFound: true);
@@ -1740,7 +1677,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Builder_ExplorationMode = m_Builder.FindAction("ExplorationMode", throwIfNotFound: true);
         m_Builder_Rotate = m_Builder.FindAction("Rotate", throwIfNotFound: true);
         m_Builder_Flashlight = m_Builder.FindAction("Flashlight", throwIfNotFound: true);
-        m_Builder_Focus = m_Builder.FindAction("Focus", throwIfNotFound: true);
         m_Builder_Previous = m_Builder.FindAction("Previous", throwIfNotFound: true);
         m_Builder_Next = m_Builder.FindAction("Next", throwIfNotFound: true);
         // UI
@@ -1842,7 +1778,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Exploration_Jetpack;
     private readonly InputAction m_Exploration_Sprint;
     private readonly InputAction m_Exploration_Flashlight;
-    private readonly InputAction m_Exploration_Focus;
     private readonly InputAction m_Exploration_Previous;
     private readonly InputAction m_Exploration_Next;
     private readonly InputAction m_Exploration_BuilderMode;
@@ -1878,10 +1813,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Exploration/Flashlight".
         /// </summary>
         public InputAction @Flashlight => m_Wrapper.m_Exploration_Flashlight;
-        /// <summary>
-        /// Provides access to the underlying input action "Exploration/Focus".
-        /// </summary>
-        public InputAction @Focus => m_Wrapper.m_Exploration_Focus;
         /// <summary>
         /// Provides access to the underlying input action "Exploration/Previous".
         /// </summary>
@@ -1939,9 +1870,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Flashlight.started += instance.OnFlashlight;
             @Flashlight.performed += instance.OnFlashlight;
             @Flashlight.canceled += instance.OnFlashlight;
-            @Focus.started += instance.OnFocus;
-            @Focus.performed += instance.OnFocus;
-            @Focus.canceled += instance.OnFocus;
             @Previous.started += instance.OnPrevious;
             @Previous.performed += instance.OnPrevious;
             @Previous.canceled += instance.OnPrevious;
@@ -1980,9 +1908,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Flashlight.started -= instance.OnFlashlight;
             @Flashlight.performed -= instance.OnFlashlight;
             @Flashlight.canceled -= instance.OnFlashlight;
-            @Focus.started -= instance.OnFocus;
-            @Focus.performed -= instance.OnFocus;
-            @Focus.canceled -= instance.OnFocus;
             @Previous.started -= instance.OnPrevious;
             @Previous.performed -= instance.OnPrevious;
             @Previous.canceled -= instance.OnPrevious;
@@ -2041,7 +1966,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Builder_ExplorationMode;
     private readonly InputAction m_Builder_Rotate;
     private readonly InputAction m_Builder_Flashlight;
-    private readonly InputAction m_Builder_Focus;
     private readonly InputAction m_Builder_Previous;
     private readonly InputAction m_Builder_Next;
     /// <summary>
@@ -2091,10 +2015,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Builder/Flashlight".
         /// </summary>
         public InputAction @Flashlight => m_Wrapper.m_Builder_Flashlight;
-        /// <summary>
-        /// Provides access to the underlying input action "Builder/Focus".
-        /// </summary>
-        public InputAction @Focus => m_Wrapper.m_Builder_Focus;
         /// <summary>
         /// Provides access to the underlying input action "Builder/Previous".
         /// </summary>
@@ -2156,9 +2076,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Flashlight.started += instance.OnFlashlight;
             @Flashlight.performed += instance.OnFlashlight;
             @Flashlight.canceled += instance.OnFlashlight;
-            @Focus.started += instance.OnFocus;
-            @Focus.performed += instance.OnFocus;
-            @Focus.canceled += instance.OnFocus;
             @Previous.started += instance.OnPrevious;
             @Previous.performed += instance.OnPrevious;
             @Previous.canceled += instance.OnPrevious;
@@ -2203,9 +2120,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Flashlight.started -= instance.OnFlashlight;
             @Flashlight.performed -= instance.OnFlashlight;
             @Flashlight.canceled -= instance.OnFlashlight;
-            @Focus.started -= instance.OnFocus;
-            @Focus.performed -= instance.OnFocus;
-            @Focus.canceled -= instance.OnFocus;
             @Previous.started -= instance.OnPrevious;
             @Previous.performed -= instance.OnPrevious;
             @Previous.canceled -= instance.OnPrevious;
@@ -2548,13 +2462,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFlashlight(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Focus" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnFocus(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "Previous" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -2653,13 +2560,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFlashlight(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Focus" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnFocus(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Previous" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
