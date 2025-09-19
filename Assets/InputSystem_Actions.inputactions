@@ -51,15 +51,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Focus",
-                    "type": "Button",
-                    "id": "ee96320d-e494-48bd-99bc-9089eb76549b",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Previous",
                     "type": "Button",
                     "id": "2776c80d-3c14-4091-8c56-d04ced07a2b0",
@@ -215,28 +206,6 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "BuilderMode",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "69bf0f8a-c423-4b3a-b9b9-ca4d7d0550b5",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Focus",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "228ace88-7fbe-4fa9-aa3b-b26116f9acd9",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Focus",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -548,15 +517,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Focus",
-                    "type": "Button",
-                    "id": "90f4cbc3-21c4-437f-9190-70de1d817ab5",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Previous",
                     "type": "Button",
                     "id": "25405cc4-b62d-42a4-90fa-8066b83c177a",
@@ -837,28 +797,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Flashlight",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b8820fdb-b3be-488e-9c7d-8c557ca8f52a",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "Focus",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "10827e6d-fc01-49e5-842c-c613fba88ce9",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "Hold",
-                    "processors": "",
-                    "groups": ";Gamepad",
-                    "action": "Focus",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

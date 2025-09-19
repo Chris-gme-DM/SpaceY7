@@ -10,6 +10,6 @@ public class InventoryItemData : ScriptableObject
     public Sprite Icon;
     public int MaxStackSize;
     // public string Type       // is it a a ressource for the player, a material, something else...?
-
+    public Resources type;
 
 }
