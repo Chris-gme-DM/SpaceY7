@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -54,7 +56,7 @@ public class PlayerStats : MonoBehaviour
     private float m_playerEnergyDrainModifier = 1.0f;
     private float m_playerOxygenDrainModifier = 1.0f;
     private float m_playerWaterDrainModifier = 1.0f;
-    private float m_playerHumanityDrainModifier = 1.0f;
+    private float m_playerHumanityDrainModifier = 1.0f; // Currently dormant
 
 
     #endregion
@@ -89,6 +91,24 @@ public class PlayerStats : MonoBehaviour
         m_playerWater -= (m_playerWaterDrain * m_playerWaterDrainModifier) * Time.deltaTime;
     }
     #endregion
+    public void ChangeVitals(List<Resources> vitals)
+    {
+        foreach (var vital in vitals)
+        {
+            switch (vital.resourceType)
+            {
+                case ResourceType.Energy:
+                    ChangeEnergy(vital.amount);
+                    break;
+                case ResourceType.Oxygen:
+                    ChangeOxygen(vital.amount);
+                    break;
+                case ResourceType.Water:
+                    ChangeWater(vital.amount);
+                    break;
+            }
+        }
+    }
     // Methods need to manage the resources of the player
     // Every resource has its own method and ways to manipulate them
     // these methods can be accessed by other scripts
@@ -135,25 +155,25 @@ public class PlayerStats : MonoBehaviour
     /// Add or subtract a chunk of the resource. For example picking up certain resources takes a lot of effort or doing something else is increasing by a lot
     /// </summary>
     /// <param name="amount"></param>
-    public void ChangeEnergy(float amount)
+    public void ChangeEnergy(int amount)
     {
         m_playerEnergy += amount;
         m_playerEnergy = Mathf.Clamp(m_playerEnergy, 0f, m_maxEnergy);
 
     }
-    public void ChangeOxygen(float amount)
+    public void ChangeOxygen(int amount)
     {
         m_playerOxygen += amount;
         m_playerOxygen = Mathf.Clamp(m_playerOxygen, 0f, m_maxOxygen);
 
     }
-    public void ChangeWater(float amount)
+    public void ChangeWater(int amount)
     {
         m_playerWater += amount;
         m_playerOxygen = Mathf.Clamp(m_playerWater, 0f, m_maxWater);
 
     }
-    public void ChangeHumanity(float amount) // I wish
+    public void ChangeHumanity(int amount) // I wish
     {
         m_playerHumanity += amount;
         m_playerHumanity = Mathf.Clamp(m_playerHumanity, 0f, m_maxHumanity);

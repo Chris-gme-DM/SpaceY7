@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class OxyBall : MonoBehaviour
+public class AntennaDisplayScript : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

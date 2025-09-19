@@ -91,10 +91,10 @@ MonoBehaviour:
   m_playerOxygen: 100
   m_playerWater: 100
   m_playerHumanity: 100
-  m_playerEnergyDrain: 0
-  m_playerOxygenDrain: 0
-  m_playerWaterDrain: 0
-  m_playerHumanityDrain: 0
+  m_playerEnergyDrain: 0.1
+  m_playerOxygenDrain: 0.1
+  m_playerWaterDrain: 0.1
+  m_playerHumanityDrain: 0.1
 --- !u!114 &8377877351922925764
 MonoBehaviour:
   m_ObjectHideFlags: 0

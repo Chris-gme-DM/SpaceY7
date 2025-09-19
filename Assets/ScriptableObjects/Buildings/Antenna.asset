@@ -16,6 +16,6 @@ MonoBehaviour:
   BuildingName: Antenna
   BuildingDescription: Call ISO to reveal the plans of Melon Husk
   BuildingPrefab: {fileID: 378124910936761280, guid: ee4bdda61d24e7d40a083d997609e181, type: 3}
-  PlacementDimensions: {x: 0, y: 0, z: 0}
   BuildingCosts: []
-  EmbeddedInteractableIDs: []
+  EmbeddedInteractableIDs:
+  - 

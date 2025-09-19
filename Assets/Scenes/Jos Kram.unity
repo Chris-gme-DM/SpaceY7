@@ -5547,7 +5547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &110925130
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5766,6 +5766,7 @@ MonoBehaviour:
   playerStats: {fileID: 110925135}
   mainCameraBrain: {fileID: 0}
   m_mainCamera: {fileID: 0}
+  m_flashLight: {fileID: 0}
   m_maxSpeed: 0
   m_moveSpeed: 8
   m_runSpeed: 16

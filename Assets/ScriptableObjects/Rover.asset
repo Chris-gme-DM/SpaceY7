@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27552d66099e28546bf2ddc66b52d8f3, type: 3}
-  m_Name: Enys
+  m_Name: Rover
   m_EditorClassIdentifier: 
   InteractableID: 0
-  InteractableName: Enys
-  InteractableDescription: "Ein von Space Y entwickelter Beh\xE4lter. \nRegeneriert
-    Energie.\n\"Es scheint als w\xFCrde irgendetwas darin wild herum rennen...\""
-  InteractablePrefab: {fileID: 0}
-  InteractableType: 0
+  InteractableName: Peter
+  InteractableDescription: 'Our trusty Rover
+
+'
+  InteractablePrefab: {fileID: 3449461407496101160, guid: aa1fcca62d9689045a1f9d4754959f57, type: 3}
+  InteractableType: 5

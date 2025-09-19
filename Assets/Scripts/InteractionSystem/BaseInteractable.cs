@@ -1,12 +1,10 @@
 using UnityEngine;
+using UnityEngine.Scripting;
 
 [System.Serializable]
-public class BaseInteractable : MonoBehaviour, IInteractable
+public abstract class BaseInteractable : MonoBehaviour, IInteractable
 {
     public InteractableData interactableData;
 
-    public void Interact(GameObject interactor)
-    {
-        throw new System.NotImplementedException();
-    }
+    public abstract void Interact(GameObject interactor);
 }

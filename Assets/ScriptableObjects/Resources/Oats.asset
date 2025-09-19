@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27552d66099e28546bf2ddc66b52d8f3, type: 3}
-  m_Name: Drops
+  m_Name: Oats
   m_EditorClassIdentifier: 
-  InteractableID: 0
-  InteractableName: Drops
+  InteractableID: 11
+  InteractableName: Oats
   InteractableDescription: "Ein von Space Y entwickelter Beh\xE4lter. \nRegeneriert
-    Wasser."
-  InteractablePrefab: {fileID: 0}
+    Luft."
+  InteractablePrefab: {fileID: 7497032734703287732, guid: aa0464a5779459c4e9a93eaebd48cd39, type: 3}
   InteractableType: 0
+  Resources:
+  - resourceType: 2
+    amount: 10

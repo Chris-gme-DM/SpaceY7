@@ -337,7 +337,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
             rb.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
             Debug.Log("$JUMP");
         } 
-        else if(context.performed && context.interaction is HoldInteraction)
+        else if(context.interaction is HoldInteraction)
         {
             // Since we would like to give full control to the player we set the froce of the jetpack reasonable enough to keep them afloat while its active only
             m_jetPackActive = !m_jetPackActive;

@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27552d66099e28546bf2ddc66b52d8f3, type: 3}
   m_Name: Doors
   m_EditorClassIdentifier: 
-  InteractableID: 0
+  InteractableID: 6
   InteractableName: 
   InteractableDescription: 
   InteractablePrefab: {fileID: 0}
+  InteractableType: 3
