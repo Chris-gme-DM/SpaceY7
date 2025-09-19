@@ -266,14 +266,15 @@ public class BuildingManager : MonoBehaviour
         }
     }
 
-    public void OnRotateAction(Vector2 rotateValue)
+    public void OnRotateAction(InputAction.CallbackContext context)
     {
         // Rotate
         // Rotate the building along y axis. Transfer input Vector 2 to clock or counterclockwise rotation
-        if(m_currentGhostBuilding != null)
+        if(m_currentGhostBuilding != null && context.performed)
         {
             // Counterclockwise Rotation if rotateValue.x < 0
             // Clockwise Rotation if rotateValue.x > 0
+            Vector2 rotateValue = context.ReadValue<Vector2>();
             m_currentGhostBuilding.transform.Rotate(0, rotateValue.x * m_rotateBuildingDegree *Time.deltaTime, 0);
         }
         // According to the value rotate the object along the y-axis
