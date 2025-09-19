@@ -1,6 +1,7 @@
 using System;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Script that handles the player interaction with ojects in the world
@@ -70,11 +71,11 @@ public class InteractionManager : MonoBehaviour
             }
         }
     }
-    public void OnInteractAction(GameObject Interactable)
+    public void OnInteractAction(InputAction.CallbackContext context)
     {
         if (m_currentInteractable != null)
         {
-            m_currentInteractable.Interact(Interactable);
+            m_currentInteractable.Interact(gameObject);
         }
         else
         {

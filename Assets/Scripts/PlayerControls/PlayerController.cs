@@ -109,6 +109,14 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     /// sub- and unsubscribing to input actions. The player can switch between the ActionMaps fluently by pressing or holding Q.
     /// 
     /// </summary>
+    /// 
+
+    public event Action<InputAction.CallbackContext> OnInteractAction;
+    public event Action<InputAction.CallbackContext> OnPlaceAction;
+    public event Action<InputAction.CallbackContext> OnRotateAction;
+    public event Action<InputAction.CallbackContext> OnManipulateAction;
+    public event Action<InputAction.CallbackContext> OnScrapAction;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -125,11 +133,23 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     }
     private void OnEnable()
     {
+        inputActions.Exploration.Interact.performed += ctx => OnInteractAction?.Invoke(ctx);
+        inputActions.Builder.Place.performed += ctx => OnPlaceAction?.Invoke(ctx);
+        inputActions.Builder.Rotate.performed += ctx => OnRotateAction?.Invoke(ctx);
+        inputActions.Builder.Manipulate.performed += ctx => OnManipulateAction?.Invoke(ctx);
+        inputActions.Builder.Manipulate.performed += ctx => OnScrapAction?.Invoke(ctx);
+
         // Enable the exploration Action map as default
         inputActions?.Exploration.Enable();
     }
     private void OnDisable()
     {
+        inputActions.Exploration.Interact.performed -= ctx => OnInteractAction?.Invoke(ctx);
+        inputActions.Builder.Place.performed -= ctx => OnPlaceAction?.Invoke(ctx);
+        inputActions.Builder.Rotate.performed -= ctx => OnRotateAction?.Invoke(ctx);
+        inputActions.Builder.Manipulate.performed -= ctx => OnManipulateAction?.Invoke(ctx);
+        inputActions.Builder.Manipulate.performed -= ctx => OnScrapAction?.Invoke(ctx);
+
         // Disable both when switching to UI
         inputActions?.Exploration.Disable();
         inputActions?.Builder.Disable();
@@ -270,8 +290,9 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     {
         if(context.performed)
         {
-            inputActions.Exploration.Disable();
-            inputActions.Builder.Enable();
+            playerInput.SwitchCurrentActionMap("Builder");
+//           inputActions.Exploration.Disable();
+//           inputActions.Builder.Enable();
             Debug.Log("Build that stuff");
         }
     }
@@ -283,8 +304,9 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         if (context.performed)
         {
             OnBuilderModeDisabled?.Invoke();
-            inputActions.Builder.Disable();
-            inputActions.Exploration.Enable();
+            playerInput.SwitchCurrentActionMap("Exploartion");
+ //           inputActions.Builder.Disable();
+ //           inputActions.Exploration.Enable();
             Debug.Log("Explore that stuff");
         }
     }
@@ -311,7 +333,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
             rb.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
             Debug.Log("$JUMP");
         } 
-        else if(context.performed && context.interaction is HoldInteraction && !m_isGrounded)
+        else if(context.performed && context.interaction is HoldInteraction)
         {
             // Since we would like to give full control to the player we set the froce of the jetpack reasonable enough to keep them afloat while its active only
             m_jetPackActive = !m_jetPackActive;
@@ -371,14 +393,13 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     }
     #endregion
     #region Exploration Actions
-    public event Action<GameObject> OnInteractAction;
     // Interacts with various objects in the world if the InteractionManager recognizes an interactable object
     public void OnInteract(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             Debug.Log("Interact with the stuff");
-            OnInteractAction?.Invoke(gameObject);
+            OnInteractAction?.Invoke(context);
         }
     }
     // A function i would like to add, but is not important atm, The idea is to have it act like a scope for the player
@@ -394,10 +415,6 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
 
     #endregion
     #region Builder Actions
-    public event Action<InputAction.CallbackContext> OnPlaceAction;
-    public event Action<Vector2> OnRotateAction;
-    public event Action<InputAction.CallbackContext> OnManipulateAction;
-    public event Action<InputAction.CallbackContext> OnScrapAction;
 
     // Dislodges an existing object, placed by the player and enables anewed manipulation to its placement or allows to scrap it
     public void OnManipulate(InputAction.CallbackContext context)
@@ -432,7 +449,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         if (context.performed)
         {
             Debug.Log("Rotate around");
-            OnRotateAction.Invoke(rotateValue);
+            OnRotateAction.Invoke(context);
         }
     }
 

@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  m_NotificationBehavior: 3
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -171,10 +171,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 0373cb2e-3cbb-4201-8b4f-fce1d67647dc
     m_ActionName: 'Exploration/Flashlight[/Keyboard/r]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ee96320d-e494-48bd-99bc-9089eb76549b
-    m_ActionName: 'Exploration/Focus[/Keyboard/f]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 2776c80d-3c14-4091-8c56-d04ced07a2b0
@@ -229,10 +225,6 @@ MonoBehaviour:
     m_ActionName: 'Builder/Flashlight[/Keyboard/r]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 90f4cbc3-21c4-437f-9190-70de1d817ab5
-    m_ActionName: 'Builder/Focus[/Keyboard/f]'
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 25405cc4-b62d-42a4-90fa-8066b83c177a
     m_ActionName: 'Builder/Previous[/Keyboard/1]'
   - m_PersistentCalls:
@@ -279,7 +271,7 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
-  m_NeverAutoSwitchControlSchemes: 1
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Exploration
   m_SplitScreenIndex: -1
