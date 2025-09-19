@@ -3,6 +3,9 @@ using UnityEngine;
 
 /// <summary>
 /// This script holds information and configuration of the playerObject to keep it collected and accesable to other scripts
+/// The attributes that reperesent the player health overall nee to be public to be accessed by the HUD
+/// LAST UPDATE: Comments
+/// PLAN: Expand once, HUD and stuff should be called to update the display or warn the player
 /// </summary>
 public class PlayerStats : MonoBehaviour
 {
@@ -19,21 +22,35 @@ public class PlayerStats : MonoBehaviour
     /// all fields have their public getters assigned
     /// </summary>
     [Header("Survival")]
-    [SerializeField] private float m_playerEnergy = 100f; // Represents power available to the suit of the player, used over time and for specific actions, e.g. Jetpack
+    // Introduced Maxima to clamp the values.
+    [Tooltip("Max Energy. Starting value.")]
+    [SerializeField] private float m_maxEnergy = 100f;
+    [Tooltip("Max Oxygen. Starting value.")]
+    [SerializeField] private float m_maxOxygen = 100f;
+    [Tooltip("Max Water. Starting value.")]
+    [SerializeField] private float m_maxWater = 100f;
+    [Tooltip("Max Humantiy. starting value")]
+    [SerializeField] private float m_maxHumanity = 100f;
+    // Maybe we can introduce upgrades to the Suit, once everything else is established
+    
+    [SerializeField] private float m_playerEnergy; // Represents power available to the suit of the player, used over time and for specific actions, e.g. Jetpack
     public float PlayerEnergy => m_playerEnergy;
-    [SerializeField] private float m_playerOxygen = 100f; // the oxygen available to the player
+    [SerializeField] private float m_playerOxygen; // the oxygen available to the player
     public float PlayerOxygen => m_playerOxygen;
-    [SerializeField] private float m_playerWater = 100f; // hydrastion of the player
+    [SerializeField] private float m_playerWater; // hydrastion of the player
     public float PlayerWater => m_playerWater;
-
-    private float m_playerEnergyDrain;
-    private float m_playerOxygenDrain;
-    private float m_playerWaterDrain;
-
-    private float m_playerEnergyDrainModifier;
-    private float m_playerOxygenDrainModifier;
-    private float m_playerWaterDrainModifier;
-
+    [SerializeField] private float m_playerHumanity; // very abstract resource that we still need to figure out how to truly represent
+    public float PlayerHumanity => m_playerHumanity; // Since the player is the only human i thought i can leave Player away. Until we make it multiplayer
+    [Header("Base Resource Drain")]
+    [SerializeField] private float m_playerEnergyDrain = 0.2f; // Set relatively low for the start
+    [SerializeField] private float m_playerOxygenDrain = 0.2f;
+    [SerializeField] private float m_playerWaterDrain = 0.2f;
+    [SerializeField] private float m_playerHumanityDrain; // We still need to figure that one out
+    
+    private float m_playerEnergyDrainModifier = 1.0f;
+    private float m_playerOxygenDrainModifier = 1.0f;
+    private float m_playerWaterDrainModifier = 1.0f;
+    private float m_playerHumanityDrainModifier = 1.0f;
 
 
     #endregion
@@ -49,14 +66,79 @@ public class PlayerStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // Apply passive drain with modifiers.
+        m_playerEnergy -= (m_playerEnergyDrain * m_playerEnergyDrainModifier) * Time.deltaTime;
+        m_playerOxygen -= (m_playerOxygenDrain * m_playerOxygenDrainModifier) * Time.deltaTime;
+        m_playerWater -= (m_playerWaterDrain * m_playerWaterDrainModifier) * Time.deltaTime;
     }
     // Methods need to manage the resources of the player
     // Every resource has its own method and ways to manipulate them
     // these methods can be accessed by other scripts
-    // each Update a resource diminishes
+    // each Update resources diminishes
     // They are fed modifiers by the environment for everything that uses resources, almost every player action requires a certain amount or modifies it
     // We need to depend the usage upon time. and stop it whenevever no time is passing.
     // I need to think.
     // Each script should call upon respective warning methods once threshholds are met
+    ///<summary>
+    ///The following regions contain methods that can be called by other objects, for example items that replenish resources
+    ///Modifiers can be set to positive values to increase the drain, or negative to decrease it.
+    ///Or we expand the methods, maybe.
+    /// </summary>
+    #region Modifiers
+    public void SetEnergyDrainModifier(float modifier)
+    {
+        m_playerEnergyDrainModifier = modifier;
+    }
+
+    public void SetOxygenDrainModifier(float modifier)
+    {
+        m_playerOxygenDrainModifier = modifier;
+    }
+
+    public void SetWaterDrainModifier(float modifier)
+    {
+        m_playerWaterDrainModifier = modifier;
+    }
+    public void SetHumanityDrainModifier(float modifier) // Depression may be a terrifying modifier, if the player doesnt do stuff to combat it
+    { 
+        m_playerHumanityDrainModifier = modifier;
+    }
+    // A reset method to reset all the modifiers at once instead of making it complicated
+    public void ResetDrainModifiers()
+    {
+        m_playerEnergyDrainModifier = 1.0f;
+        m_playerOxygenDrainModifier = 1.0f;
+        m_playerWaterDrainModifier = 1.0f;
+        m_playerHumanityDrainModifier = 1.0f;
+    }
+    #endregion
+    #region Chunk changes
+    /// <summary>
+    /// Add or subtract a chunk of the resource. For example picking up certain resources takes a lot of effort or doing something else is increasing by a lot
+    /// </summary>
+    /// <param name="amount"></param>
+    public void ChangeEnergy(float amount)
+    {
+        m_playerEnergy += amount;
+        m_playerEnergy = Mathf.Clamp(m_playerEnergy, 0f, m_maxEnergy);
+
+    }
+    public void ChangeOxygen(float amount)
+    {
+        m_playerOxygen += amount;
+        m_playerOxygen = Mathf.Clamp(m_playerOxygen, 0f, m_maxOxygen);
+
+    }
+    public void ChangeWater(float amount)
+    {
+        m_playerWater += amount;
+        m_playerOxygen = Mathf.Clamp(m_playerWater, 0f, m_maxWater);
+
+    }
+    public void ChangeHumanity(float amount) // I wish
+    {
+        m_playerHumanity += amount;
+        m_playerHumanity = Mathf.Clamp(m_playerHumanity, 0f, m_maxHumanity);
+    }
+    #endregion
 }
