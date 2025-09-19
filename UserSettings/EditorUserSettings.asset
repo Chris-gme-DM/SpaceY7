@@ -5,57 +5,15 @@ EditorUserSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 4
   m_ConfigSettings:
-    GraphicsSettingsInspector_UserSettings:
-      value: 18134705175a055722080a3115371d4a0d55006876786860616b0471b8b56569acb72ba5a52a362c3c0ee63201181433fe3e101bf3250b06144ca74c24f1190708e016c213c61a52f91c12cac80fd8edd298e1e4d1fde2cacddeacbcc1fee7eef0e3b6faa69af9ceaeaaec81a6d2c2c8c8c4b2e5dfd5ccd3f8cf
-      flags: 0
     RecentlyUsedSceneGuid-0:
-<<<<<<< HEAD
       value: 5006565001575803095c0a764827594412161c722a2b74622f791f66b6e4373c
-=======
-      value: 5609555e070d580e5f5f58721227064410161d2c7d2e70367e714f63e6b8326d
->>>>>>> origin/JoDoesThings
       flags: 0
     RecentlyUsedSceneGuid-1:
-      value: 5a08575f5207595a0f5d59741173094444164f7d7d2a23317c7a4465bbe1646d
+      value: 50025656070c0c595e5e5f7116215a4415154c2b287972687b7c4e36b7e4673d
       flags: 0
     RecentlyUsedSceneGuid-2:
-<<<<<<< HEAD
-      value: 5401525251500c5f5d560f2347770b4417164e2e287d73692e781b63bab4646f
-      flags: 0
-    RecentlyUsedSceneGuid-3:
-      value: 50025656070c0c595e5e5f7116215a4415154c2b287972687b7c4e36b7e4673d
-      flags: 0
-    RecentlyUsedSceneGuid-4:
       value: 52010d00500c0c585b5e597341220e44134f482f7d2a7736282f1f65b4e16d6d
       flags: 0
-    RecentlyUsedSceneGuid-5:
-      value: 5202045601075c0d5a595f2311255e44464f497979792461797d4961e6e2663d
-      flags: 0
-    RecentlyUsedSceneGuid-6:
-      value: 5755015653005f03540b5e7040775a44144e497b7c7a22367d28456abbb66269
-      flags: 0
-=======
-      value: 5a08575f5207595a0f5d59741173094444164f7d7d2a23317c7a4465bbe1646d
-      flags: 0
-    RecentlyUsedSceneGuid-3:
-      value: 52010d00500c0c585b5e597341220e44134f482f7d2a7736282f1f65b4e16d6d
-      flags: 0
-    RecentlyUsedSceneGuid-4:
-      value: 5755015653005f03540b5e7040775a44144e497b7c7a22367d28456abbb66269
-      flags: 0
-    RecentlyUsedSceneGuid-5:
-      value: 50025656070c0c595e5e5f7116215a4415154c2b287972687b7c4e36b7e4673d
-      flags: 0
-    RecentlyUsedSceneGuid-6:
-      value: 0509510251000c5e54595c7049260944174e4f7f787171627f784d61e3b86369
-      flags: 0
-    RecentlyUsedSceneGuid-7:
-      value: 5006565001575803095c0a764827594412161c722a2b74622f791f66b6e4373c
-      flags: 0
-    lightmappingBakingProfile:
-      value: 51
-      flags: 0
->>>>>>> origin/JoDoesThings
     vcSharedLogLevel:
       value: 0d5e400f0650
       flags: 0
