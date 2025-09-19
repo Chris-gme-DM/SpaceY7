@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/2D/HUDElements.meta
 guid: ecd3e17f54db4b246aa0e5c669f06073
+========
+guid: a83bb92288a86b64f94f73c904983310
+>>>>>>>> origin/JoDoesThings:Assets/2D/HUD.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
