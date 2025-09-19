@@ -15,4 +15,4 @@ MonoBehaviour:
   InteractableID: 0
   InteractableName: InventoryChest
   InteractableDescription: Inventory Holder in the PlayerBase
-  InteractablePrefab: {fileID: 0}
+  InteractablePrefab: {fileID: 3630706587756532169, guid: 9208b6afd6a66c04f9c6decf3b8bd3cd, type: 3}
