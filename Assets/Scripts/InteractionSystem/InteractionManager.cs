@@ -35,7 +35,8 @@ public class InteractionManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if(m_camera == null) { m_camera = Camera.main; }
+        if (m_cameraBrain == null) { m_cameraBrain = FindAnyObjectByType<CinemachineBrain>(); }
+        if(m_camera == null) { m_camera = FindAnyObjectByType<Camera>(); }
         if(m_playerController == null) { m_playerController = FindAnyObjectByType<PlayerController>(); }
         m_playerController.OnInteractAction += OnInteractAction;
     }

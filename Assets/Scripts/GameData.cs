@@ -15,6 +15,7 @@ public class Resources
 }
 public enum ResourceType
 {
+    None,
     Energy,
     Oxygen,
     Water,
@@ -38,12 +39,6 @@ public enum InteractableType
 }
 public interface IInteractable
 {
-    public void Interact(GameObject Interactable);
-}
-#endregion
-#region Collectables
-public interface ICollectable
-{
-    void Pickup(GameObject Interactable);
+    public abstract void Interact(GameObject interactor);
 }
 #endregion

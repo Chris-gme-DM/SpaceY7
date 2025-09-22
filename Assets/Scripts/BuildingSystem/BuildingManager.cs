@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
 /// <summary>
+/// TODO: Jo, I point out the places you can add Sounds to. Keep in mind how you call upon them.
+/// TODO: Where we need to call on animations. Depending on the structure we can outsoruce these to another script that handles animations and sounds together with the public Getters of the Booleans
 /// LAST EDIT: Chris, Adjusted the method to Check for valid placement to account for the bulding perfabs
 /// This script should handle the logic of placement and manipulation of the buildings the player can interact with.
 /// The player interacts with the rover to enter the building menu to select which building she wants to create.
@@ -72,6 +74,7 @@ public class BuildingManager : MonoBehaviour
             m_playerController.OnScrapAction += OnScrapAction;
             m_playerController.OnBuilderModeDisabled += CancelCurrentBuildingAction;
         }
+        m_placementLayer = LayerMask.GetMask("BuildingShell", "Ground");
     }
     // Update is called once per frame
     void Update()
@@ -120,7 +123,7 @@ public class BuildingManager : MonoBehaviour
                         m_currentBuildingData.BuildingPrefab,
                         m_currentGhostBuilding.transform.position,
                         m_currentGhostBuilding.transform.rotation);
-
+// ADD Sound to place building here, if it exists
                 }
                 // Find the BuildingBox collider on the placed building and disable it
                 Transform sizingBoxTransform = go.transform.Find("BuildingBox");
@@ -245,6 +248,7 @@ public class BuildingManager : MonoBehaviour
                     // Holds it
                     m_currentManipulatedBuilding.gameObject.GetComponent<Renderer>().enabled = false;
                     m_currentManipulatedBuilding.gameObject.GetComponent<Collider>().enabled = false;
+// ADD sound here, if available
                 }
             }
 
@@ -261,6 +265,7 @@ public class BuildingManager : MonoBehaviour
             // Destroys the technically existing object and refunds the resources used to the player
             // Refund the resources
             // Destroy the object
+// ADD Sound here if available
             Destroy(m_currentManipulatedBuilding.gameObject);
             CancelCurrentBuildingAction();
         }
@@ -282,6 +287,7 @@ public class BuildingManager : MonoBehaviour
     #endregion
     public void CancelCurrentBuildingAction()
     {
+// ADD placement Sound here if available
         if (m_currentGhostBuilding != null)
         {
             Destroy(m_currentGhostBuilding);
