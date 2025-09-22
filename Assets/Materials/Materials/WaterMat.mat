@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WaterMat
-  m_Shader: {fileID: -6465566751694194690, guid: ac610c76e650fc548a955e80ad525885, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: fb5f3aa11a9cb314eae934c9c1b2c65c, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []

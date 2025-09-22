@@ -1139,7 +1139,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!114 &296044390
 MonoBehaviour:
@@ -2874,7 +2874,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -1.7999878, y: -5.1999817}
+  m_AnchoredPosition: {x: -1.7999878, y: -5.199951}
   m_SizeDelta: {x: -0.0020751953, y: -149.1618}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1202146333
@@ -4401,6 +4401,7 @@ GameObject:
   - component: {fileID: 2037758256}
   - component: {fileID: 2037758255}
   - component: {fileID: 2037758259}
+  - component: {fileID: 2037758260}
   m_Layer: 0
   m_Name: SoundEffectManager
   m_TagString: Untagged
@@ -4457,6 +4458,34 @@ MonoBehaviour:
     - {fileID: 8300000, guid: a81adcd7b0f99c24da925f0f31e30c73, type: 3}
     - {fileID: 8300000, guid: 04e600d5cc24a8142886cbe0d1fc0aaf, type: 3}
     - {fileID: 8300000, guid: 148e0c99694b2364e83b4ce201a11617, type: 3}
+  - name: FS Grass
+    audioClips:
+    - {fileID: 8300000, guid: 2004aee367589c54e82e5fde5c1025ce, type: 3}
+    - {fileID: 8300000, guid: d8ccaf74b59325d48953445ddb8fbcc7, type: 3}
+    - {fileID: 8300000, guid: 0d3c652ab0dbd1647ad0f91d7367c30d, type: 3}
+    - {fileID: 8300000, guid: e1a3b52b3de89ca44ad6a689492f539c, type: 3}
+    - {fileID: 8300000, guid: 771ec354c53f08d41910eea35660fe78, type: 3}
+  - name: FS Water
+    audioClips:
+    - {fileID: 8300000, guid: 724e0ad2758c3634998f61c40b609502, type: 3}
+    - {fileID: 8300000, guid: 724e0ad2758c3634998f61c40b609502, type: 3}
+    - {fileID: 8300000, guid: 83d3bb6a74772ed44bd384d2fa154ed6, type: 3}
+    - {fileID: 8300000, guid: a9df12f9146a3164497837fc1d7b5e61, type: 3}
+    - {fileID: 8300000, guid: 3f271d54149152b48af94b5d34822790, type: 3}
+    - {fileID: 8300000, guid: 635203930f6437b46a500b8ca53c663b, type: 3}
+    - {fileID: 8300000, guid: 1dcd438131878f842976c3e27e196c20, type: 3}
+    - {fileID: 8300000, guid: e9791b8a0e9bab7468f6776d38123f86, type: 3}
+    - {fileID: 8300000, guid: d8b88c553c0e8ba4e8fd8358f6dd80ae, type: 3}
+  - name: FS Stone
+    audioClips:
+    - {fileID: 8300000, guid: 47b9944ccf9dbc545aa63daf3ca35ec6, type: 3}
+    - {fileID: 8300000, guid: 8802d7268d7126948a3c00856ae3dd93, type: 3}
+    - {fileID: 8300000, guid: 0eaa8bef9265b394daaf73240a85eab8, type: 3}
+    - {fileID: 8300000, guid: 1e6fe31f364b81d4e9d4039fa39ae2a7, type: 3}
+  - name: FS Sand
+    audioClips:
+    - {fileID: 8300000, guid: 309be0430c6d618478720f69b537abf2, type: 3}
+    - {fileID: 8300000, guid: ea3b5fa988f2fec4d811057d8804ef32, type: 3}
 --- !u!82 &2037758257
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4581,6 +4610,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 357eb970979c7824faf2796a2065d5e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2037758260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2037758254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d398d85173c74a8489998225a110c6db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
 --- !u!1 &2145854607
 GameObject:
   m_ObjectHideFlags: 0
