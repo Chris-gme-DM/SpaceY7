@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 
 
 public class TimeManager : MonoBehaviour
@@ -10,27 +11,50 @@ public class TimeManager : MonoBehaviour
     [SerializeField] private Texture2D skyboxDay;
     [SerializeField] private Texture2D skyboxSunset;
 
+    public TextMeshProUGUI timeText;
 
-    private int Minutes
-    { get { return Minutes;  } set { Minutes = value; OnMinutesChange(value); } }
+    private int minutes;
+    public int Minutes
+    { get { return minutes;  } set { minutes = value; OnMinutesChange(value); } }
 
-    private int Hours
-        { get { return Hours;  } set { Hours = value; OnHoursChange(value);  } }
-    private int Days
-    { get { return Days;  } set { Days = value; OnDaysChange(value); } }
+    private int hours;
+    public int Hours
+        { get { return hours;  } set { hours = value; OnHoursChange(value);  } }
+
+    private int days;
+    public int Days
+    { get { return days;  } set { days = value; OnDaysChange(value); } }
 
 
     private float tempSecond;
 
+    public void Awake()
+    {
+        Time.timeScale = 1f;
+        //timeText.text = "This is your timeDisplay.";
+    }
+
     public void Update()
     {
-        tempSecond = Time.deltaTime;
+        tempSecond = Time.deltaTime * 100;      // atm this is framerate dependant PLEASE CHANGE IT
 
         if(tempSecond >= 1)
         {
+            Debug.Log("Ja, es ist Zeit vergangen.");
+
             Minutes += 1;
             tempSecond = 0;
+
+            timeText.text = "Time is:" + days + "d " + hours + "h " + minutes + "min";
         }
+
+        //timeText.text = "Time is:" + days + "d " + hours + "h " + minutes + "min";
+        //timeText.text = Time.deltaTime.ToString();
+    }
+
+    public void Start()
+    {
+        // timeText.text = "This is your timeDisplay.";
     }
 
     private void OnMinutesChange(int value)
@@ -40,10 +64,10 @@ public class TimeManager : MonoBehaviour
             Hours++;
             Minutes = 0;
         }
-        if (value >= 24)
+        if (Hours >= 24)
         {
-            Days++;
             Hours = 0;
+            Days++;
         }
     }
 
@@ -51,19 +75,19 @@ public class TimeManager : MonoBehaviour
     {
         if (value == 3)
         {
-            StartCoroutine(LerpSkybox(skyboxNight, skyboxSunrise, 10f));
+            StartCoroutine(LerpSkybox(skyboxNight, skyboxSunrise, 10f));        // sonnenaufgang
         }
         if (value == 6)
         {
-            StartCoroutine(LerpSkybox(skyboxSunrise, skyboxDay, 10f));
+            StartCoroutine(LerpSkybox(skyboxSunrise, skyboxDay, 10f));          // tag
         }
         if (value == 18)
         {
-            StartCoroutine(LerpSkybox(skyboxDay, skyboxSunset, 10f));
+            StartCoroutine(LerpSkybox(skyboxDay, skyboxSunset, 10f));           // sonnenuntergang
         }
         if (value == 21)
         {
-            StartCoroutine(LerpSkybox(skyboxSunset, skyboxNight, 10f));
+            StartCoroutine(LerpSkybox(skyboxSunset, skyboxNight, 10f));         // nacht
         }
         // 0 - 3 nacht
         // 3 - 6 dämmerung
@@ -75,7 +99,7 @@ public class TimeManager : MonoBehaviour
 
     private void OnDaysChange(int value)
     {
-        //throw new NotImplementedException();
+        Debug.Log("It's a new day!");
     }
 
     private IEnumerator LerpSkybox(Texture2D a, Texture2D b, float time)
