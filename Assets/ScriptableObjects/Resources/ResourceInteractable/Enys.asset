@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27552d66099e28546bf2ddc66b52d8f3, type: 3}
-  m_Name: InventoryChest
+  m_Name: Enys
   m_EditorClassIdentifier: 
   InteractableID: 0
-  InteractableName: InventoryChest
-  InteractableDescription: Inventory Holder in the PlayerBase
-  InteractablePrefab: {fileID: 3630706587756532169, guid: 9208b6afd6a66c04f9c6decf3b8bd3cd, type: 3}
-  InteractableType: 4
+  InteractableName: Enys
+  InteractableDescription: "Ein von Space Y entwickelter Beh\xE4lter. \nRegeneriert
+    Energie.\n\"Es scheint als w\xFCrde irgendetwas darin wild herum rennen...\""
+  InteractablePrefab: {fileID: 0}
+  InteractableType: 0

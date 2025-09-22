@@ -160,12 +160,20 @@ public class PlayerStats : MonoBehaviour
     }
     #endregion
     #region Respawn
-    // As soon as one of the vital stats reaches zero
-    // Make the player lose all items in the inventory
-    // Kill the player
-    // Open the Menu to decide to respawn
-    // Respawn locations are the bed in the Hub, if placed or the starting point if they failed to do so
-    // How do we handle Saving and Loading? Maybe we can offer to use blueprint chips to save a progress at any time. and offer to Save and Exit to avoid frustration.
-    // The Quicksave mechanic works the same way basically. Using a Neurochip
+    public void Respawn()
+    {
+        // As soon as one of the vital stats reaches zero
+        if ( m_playerOxygen <= 0.1f || m_playerWater <= 0.1f || m_playerEnergy <= 0.1f )
+        {
+            // Make the player lose all items in the inventory
+            // Kill the player
+            // Open the Menu to decide to respawn
+            // Respawn locations are the bed in the Hub, if placed or the starting point if they failed to do so
+            // How do we handle Saving and Loading? Maybe we can offer to use blueprint chips to save a progress at any time. and offer to Save and Exit to avoid frustration.
+            // The Quicksave mechanic works the same way basically. Using a Neurochip
+
+        }
+
+    }
     #endregion
 }

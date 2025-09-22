@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 
 /// <summary>
+/// TODO: Jo, I point out the places you can add Sounds to. Keep in mind how you call upon them.
+/// TODO: Where we need to call on animations. Depending on the structure we can outsoruce these to another script that handles animations and sounds together with the public Getters of the Booleans
 /// LAST EDIT: Comments, (Chris), Focus Action removed, commented to lay it dormant
 /// PLAN: Expand the movement methods to determine drainage on the player resources.
 /// IMPORTANT: Switch ActionMaps MANUALLY! Keep that in mind when constructing other scripts
@@ -30,9 +32,10 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private CinemachineBrain mainCameraBrain;
     [SerializeField] private CinemachineCamera m_mainCamera;
+    [SerializeField] private GameObject m_flashLight;
 //    [SerializeField] private CinemachineCamera m_focusCamera;
     private InputSystem_Actions inputActions; // Ill do  it manually
-    private LayerMask groundMask;
+    private LayerMask m_groundMask;
     #endregion
     #region Attributes
     [Header("Movement")]
@@ -164,12 +167,12 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         if (playerInput == null) playerInput = GetComponent<PlayerInput>();
         if (playerStats == null) playerStats = GetComponent<PlayerStats>();
         if (mainCameraBrain == null) mainCameraBrain = FindAnyObjectByType<CinemachineBrain>();
-//       if (m_focusCamera != null)
-//       {
-//           m_focusCamera.gameObject.SetActive(false);
-//       }
+        //       if (m_focusCamera != null)
+        //       {
+        //           m_focusCamera.gameObject.SetActive(false);
+        //       }
 
-        groundMask = LayerMask.GetMask("Ground");
+        m_groundMask = LayerMask.GetMask("Ground", "Building");
     }
     // Update is called once per frame
     void Update()
@@ -191,6 +194,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         IdleCheck();
         CheckGround();
         EvaluateDrainModifiers();
+// We can create a method to handle animation and sounds and deal with it with a sort of state machine here.
         // Let the Physics engine handle
         // Determine which velocity to apply
         float currentMoveSpeed = m_isSprinting ? m_runSpeed : m_moveSpeed; // If sets the moveSpeed to apply to the current MoveSpeed
@@ -273,7 +277,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         // else the player is airbourne
         float offset = GetComponent<Collider>().bounds.extents.y;
         Vector3 checkPosition = new (rb.position.x, rb.position.y - offset, rb.position.z);
-        m_isGrounded = Physics.CheckSphere(checkPosition, 0.1f, groundMask);
+        m_isGrounded = Physics.CheckSphere(checkPosition, 0.1f, m_groundMask);
         return m_isGrounded;
     }
 
@@ -291,7 +295,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         if(context.performed)
         {
             playerInput.SwitchCurrentActionMap("Builder");
-//           inputActions.Exploration.Disable();
+//           inputActions.Exploration.Disable(); deprecated due to refactoring. But this would be the manual switch
 //           inputActions.Builder.Enable();
             Debug.Log("Build that stuff");
         }
@@ -371,12 +375,9 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         if (context.performed)
         {
             m_flashLightActive = !m_flashLightActive;
-            if (m_flashLightActive)
-            {
-                // Flash Light
-                Debug.Log("Blinded by the light");
-                return;
-            }
+            // Flash Light
+            m_flashLight.SetActive(m_flashLightActive);
+                        
         }
     }
 
