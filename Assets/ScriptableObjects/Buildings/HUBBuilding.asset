@@ -13,8 +13,13 @@ MonoBehaviour:
   m_Name: HUBBuilding
   m_EditorClassIdentifier: 
   BuildingID: 2
-  BuildingName: 
-  BuildingDescription: 
-  BuildingPrefab: {fileID: 0}
-  BuildingCosts: []
+  BuildingName: HUB
+  BuildingDescription: "Einheit, in der ein gem\xFCtliche Bett aufgestellt ist und
+    man sich erholen kann"
+  BuildingPrefab: {fileID: 1810027596089864544, guid: 82528a111a82f9042b0d9356f9404091, type: 3}
+  BuildingCosts:
+  - resourceType: 6
+    amount: 5
+  - resourceType: 8
+    amount: 10
   EmbeddedInteractableIDs: []

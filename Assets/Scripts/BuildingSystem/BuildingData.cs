@@ -14,5 +14,5 @@ public class BuildingData : ScriptableObject
     public string BuildingDescription;
     public GameObject BuildingPrefab;
     public List<Resources> BuildingCosts;
-    public string[] EmbeddedInteractableIDs;
+    public List<InteractableData> EmbeddedInteractableIDs;
 }

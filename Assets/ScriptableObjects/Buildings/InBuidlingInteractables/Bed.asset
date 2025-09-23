@@ -13,7 +13,14 @@ MonoBehaviour:
   m_Name: Bed
   m_EditorClassIdentifier: 
   InteractableID: 5
-  InteractableName: 
-  InteractableDescription: 
-  InteractablePrefab: {fileID: 0}
+  InteractableName: Bett
+  InteractableDescription: Replenish the player, and save the game
+  InteractablePrefab: {fileID: 2838243614714530107, guid: a40c8dfd25863764fb4d94b6de129586, type: 3}
   InteractableType: 2
+  Resources:
+  - resourceType: 1
+    amount: 100
+  - resourceType: 2
+    amount: 100
+  - resourceType: 3
+    amount: 100

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 348140574889175646}
   - component: {fileID: 7840793187510520131}
   - component: {fileID: 1260627628951222678}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RecourseBall_H2O
   m_TagString: Untagged
   m_Icon: {fileID: 0}

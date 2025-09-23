@@ -1,16 +1,16 @@
 using UnityEngine;
 
-public class BedScript : MonoBehaviour
+public class BedScript : BaseInteractable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Interact(GameObject interactor)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Replenish the player resources.
+        PlayerStats.Instance.ChangeVitals(interactableData.Resources);
+        // Timeskip
+        // Ask Jos TimeManager
+        // Save the game
+        // WRITE THAT
+        // Set the RespawnPoint in case of death
+        // Write that
     }
 }

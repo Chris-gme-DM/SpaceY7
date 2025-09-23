@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Warehouse
   m_EditorClassIdentifier: 
   BuildingID: 3
-  BuildingName: 
-  BuildingDescription: 
-  BuildingPrefab: {fileID: 0}
+  BuildingName: Warenhaus
+  BuildingDescription: "Ein Geb\xE4ude, in dem man gesammelte Ressourcen in die Kisten
+    ablegen kann."
+  BuildingPrefab: {fileID: 1839318357690015878, guid: a94ff98cc7c7d704da08c65be259012f, type: 3}
   BuildingCosts: []
   EmbeddedInteractableIDs: []

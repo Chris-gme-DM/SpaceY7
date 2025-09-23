@@ -15,5 +15,6 @@ MonoBehaviour:
   InteractableID: 4
   InteractableName: 
   InteractableDescription: 
-  InteractablePrefab: {fileID: 0}
+  InteractablePrefab: {fileID: 8025850089986240277, guid: c1602f457399bfb46985f26b6db73ff9, type: 3}
   InteractableType: 1
+  Resources: []

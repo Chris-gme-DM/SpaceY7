@@ -332,17 +332,16 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
 
     public void OnJetpack(InputAction.CallbackContext context)
     {
-        if(context.performed && context.interaction is TapInteraction && m_isGrounded)
+        if (context.performed && context.interaction is TapInteraction && m_isGrounded)
         {
             rb.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
             Debug.Log("$JUMP");
-        } 
-        else if(context.interaction is HoldInteraction)
+        }
+        else if (context.interaction is HoldInteraction)
         {
             // Since we would like to give full control to the player we set the froce of the jetpack reasonable enough to keep them afloat while its active only
             m_jetPackActive = !m_jetPackActive;
             Debug.Log("WE are flying, woohoo");
-
         }
     }
     // Depending on input it makes the player sprint or applies force to the thrusters of the jetpack

@@ -44,6 +44,7 @@ public class PlayerStats : MonoBehaviour
     public float PlayerWater => m_playerWater;
     [SerializeField] private float m_playerHumanity; // very abstract resource that we still need to figure out how to truly represent
     public float PlayerHumanity => m_playerHumanity; // Since the player is the only human i thought i can leave Player away. Until we make it multiplayer
+
     [Header("Base Resource Drain")]
     [SerializeField] private float m_playerEnergyDrain = 0.02f; // Set relatively low for the start
     [SerializeField] private float m_playerOxygenDrain = 0.02f;
@@ -155,25 +156,25 @@ public class PlayerStats : MonoBehaviour
     /// Add or subtract a chunk of the resource. For example picking up certain resources takes a lot of effort or doing something else is increasing by a lot
     /// </summary>
     /// <param name="amount"></param>
-    public void ChangeEnergy(int amount)
+    private void ChangeEnergy(int amount)
     {
         m_playerEnergy += amount;
         m_playerEnergy = Mathf.Clamp(m_playerEnergy, 0f, m_maxEnergy);
 
     }
-    public void ChangeOxygen(int amount)
+    private void ChangeOxygen(int amount)
     {
         m_playerOxygen += amount;
         m_playerOxygen = Mathf.Clamp(m_playerOxygen, 0f, m_maxOxygen);
 
     }
-    public void ChangeWater(int amount)
+    private void ChangeWater(int amount)
     {
         m_playerWater += amount;
         m_playerOxygen = Mathf.Clamp(m_playerWater, 0f, m_maxWater);
 
     }
-    public void ChangeHumanity(int amount) // I wish
+    private void ChangeHumanity(int amount) // I wish
     {
         m_playerHumanity += amount;
         m_playerHumanity = Mathf.Clamp(m_playerHumanity, 0f, m_maxHumanity);

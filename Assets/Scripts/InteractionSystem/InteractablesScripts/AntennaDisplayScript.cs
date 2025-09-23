@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class AntennaDisplayScript : MonoBehaviour
+public class AntennaDisplayScript : BaseInteractable
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -13,4 +13,10 @@ public class AntennaDisplayScript : MonoBehaviour
     {
         
     }
+    public override void Interact(GameObject interactor)
+    {
+        throw new System.NotImplementedException();
+        // Win the game woohoo
+    }
+
 }
