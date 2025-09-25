@@ -171,6 +171,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""87c04a03-71e3-48e5-9cfa-e879c5d45997"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -512,6 +521,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Jetpack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""35f377a5-7ca8-426b-a4de-4f4c2a98013a"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Menu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1666,6 +1686,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Exploration_Next = m_Exploration.FindAction("Next", throwIfNotFound: true);
         m_Exploration_BuilderMode = m_Exploration.FindAction("BuilderMode", throwIfNotFound: true);
         m_Exploration_Rover = m_Exploration.FindAction("Rover", throwIfNotFound: true);
+        m_Exploration_Menu = m_Exploration.FindAction("Menu", throwIfNotFound: true);
         // Builder
         m_Builder = asset.FindActionMap("Builder", throwIfNotFound: true);
         m_Builder_Move = m_Builder.FindAction("Move", throwIfNotFound: true);
@@ -1782,6 +1803,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Exploration_Next;
     private readonly InputAction m_Exploration_BuilderMode;
     private readonly InputAction m_Exploration_Rover;
+    private readonly InputAction m_Exploration_Menu;
     /// <summary>
     /// Provides access to input actions defined in input action map "Exploration".
     /// </summary>
@@ -1829,6 +1851,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Exploration/Rover".
         /// </summary>
         public InputAction @Rover => m_Wrapper.m_Exploration_Rover;
+        /// <summary>
+        /// Provides access to the underlying input action "Exploration/Menu".
+        /// </summary>
+        public InputAction @Menu => m_Wrapper.m_Exploration_Menu;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1882,6 +1908,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Rover.started += instance.OnRover;
             @Rover.performed += instance.OnRover;
             @Rover.canceled += instance.OnRover;
+            @Menu.started += instance.OnMenu;
+            @Menu.performed += instance.OnMenu;
+            @Menu.canceled += instance.OnMenu;
         }
 
         /// <summary>
@@ -1920,6 +1949,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Rover.started -= instance.OnRover;
             @Rover.performed -= instance.OnRover;
             @Rover.canceled -= instance.OnRover;
+            @Menu.started -= instance.OnMenu;
+            @Menu.performed -= instance.OnMenu;
+            @Menu.canceled -= instance.OnMenu;
         }
 
         /// <summary>
@@ -2489,6 +2521,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRover(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Menu" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnMenu(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "Builder" which allows adding and removing callbacks.

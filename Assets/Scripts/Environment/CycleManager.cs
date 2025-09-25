@@ -2,9 +2,10 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.SceneManagement;
 
 
-public class TimeManager : MonoBehaviour
+public class CycleManager : MonoBehaviour
 {
     [SerializeField] private Texture2D skyboxNight;
     [SerializeField] private Texture2D skyboxSunrise;
@@ -19,24 +20,53 @@ public class TimeManager : MonoBehaviour
 
     private int hours;
     public int Hours
-        { get { return hours;  } set { hours = value; OnHoursChange(value);  } }
+        { get { return hours; } set { hours = value; OnHoursChange(value);  } }
 
     private int days;
     public int Days
-    { get { return days;  } set { days = value; OnDaysChange(value); } }
-
+        { get { return days;  } set { days = value; OnDaysChange(value); } }
 
     private float tempSecond;
 
+    private List<RessourceObject> ressourceObjects = new List<RessourceObject>();
+
+    public static CycleManager instance;
+
+    [SerializeField] private RessourceSO ressource;
+
+    public string currentCycle;
+    public bool night;
+    public bool sunrise;
+    public bool day;
+    public bool sunset;
+
+    //enum Cycle
+    //{ 
+    //    Night,
+    //    Sunrise,
+    //    Day,
+    //    Sunset,
+    //};
+
     public void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        
         Time.timeScale = 1f;
         //timeText.text = "This is your timeDisplay.";
     }
 
+    public void Start()
+    {
+        //Cycle cycle;
+    }
+
     public void Update()
     {
-        tempSecond = Time.deltaTime * 100;      // atm this is framerate dependant PLEASE CHANGE IT
+        tempSecond += Time.deltaTime * 10;
 
         if(tempSecond >= 1)
         {
@@ -48,13 +78,16 @@ public class TimeManager : MonoBehaviour
             timeText.text = "Time is:" + days + "d " + hours + "h " + minutes + "min";
         }
 
+        foreach (RessourceObject ressourceObject in ressourceObjects)
+        {
+            ressourceObject.CheckRessource();
+        }
+
+        Debug.Log("maxStage is: " + ressource.MaxStage);
+
+
         //timeText.text = "Time is:" + days + "d " + hours + "h " + minutes + "min";
         //timeText.text = Time.deltaTime.ToString();
-    }
-
-    public void Start()
-    {
-        // timeText.text = "This is your timeDisplay.";
     }
 
     private void OnMinutesChange(int value)
@@ -76,18 +109,22 @@ public class TimeManager : MonoBehaviour
         if (value == 3)
         {
             StartCoroutine(LerpSkybox(skyboxNight, skyboxSunrise, 10f));        // sonnenaufgang
+            CheckCycle();
         }
         if (value == 6)
         {
             StartCoroutine(LerpSkybox(skyboxSunrise, skyboxDay, 10f));          // tag
+            CheckCycle();
         }
         if (value == 18)
         {
             StartCoroutine(LerpSkybox(skyboxDay, skyboxSunset, 10f));           // sonnenuntergang
+            CheckCycle();
         }
         if (value == 21)
         {
             StartCoroutine(LerpSkybox(skyboxSunset, skyboxNight, 10f));         // nacht
+            CheckCycle();
         }
         // 0 - 3 nacht
         // 3 - 6 dämmerung
@@ -114,5 +151,57 @@ public class TimeManager : MonoBehaviour
             yield return null;
         }
         RenderSettings.skybox.SetTexture("_Texture1", b);
+    }
+
+    private void CheckCycle()
+    {
+        Debug.Log("Der aktuelle Cycle wird gecheckt");
+
+        // was wenn es keinen cycle gibt du genie
+
+        if (night)
+        {
+            sunrise = true;
+            night = false;
+            ChangeCycle("sunrise");
+            return;
+        }
+        if (sunrise)
+        {
+            day = true;
+            sunrise = false;
+            ChangeCycle("day");
+            return;
+        }
+        if (day)
+        {
+            sunset = true;
+            day = false;
+            ChangeCycle("sunset");
+            return;
+        }
+        if (sunset)
+        {
+            night = true;
+            sunset = false;
+            ChangeCycle("night");
+            return;
+        }
+    }
+
+    public void ChangeCycle(string cycle)
+    {
+        currentCycle = cycle;
+        Debug.Log("Es ist gerade " + cycle);
+    }
+
+    public void RegisterRessource(RessourceObject ressourceObject) 
+    {
+       ressourceObjects.Add(ressourceObject);
+    }
+
+    public void UnregisterRessource(RessourceObject ressourceObject)
+    {
+        ressourceObjects.Remove(ressourceObject);
     }
 }
