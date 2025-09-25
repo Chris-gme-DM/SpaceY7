@@ -19,12 +19,12 @@ public class UIManagement : MonoBehaviour
         {
             Destroy(this);
         }
+
         else
         {
             Instance = this;
         }
         menu.SetActive(false);
-        Debug.Log("nich aktiv");
     }
 
     public void Start()
@@ -45,23 +45,19 @@ public class UIManagement : MonoBehaviour
 
     public void OnMenuAction(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        //if (menu.activeInHierarchy && context.performed)
+        //{
+        //    Debug.Log("Closing the Menu");
+        //    menu.SetActive(false);
+        //    //return;
+        //}
+
+        if (!menu.activeInHierarchy && context.performed)
         {
-
-            //if (menu.activeInHierarchy)
-            //{
-            //    Debug.Log("Closing the Menu");
-            //    menu.SetActive(false);
-            //    return;
-            //}
-
-            if (!menu.activeInHierarchy)
-            {
-                Debug.Log("Opening the Menu");
-                menu.SetActive(true);
-                return;
-            }
-
+            Debug.Log("Opening the Menu");
+            menu.SetActive(true);
+            //return;
         }
+
     }
 }

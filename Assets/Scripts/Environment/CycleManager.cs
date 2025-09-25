@@ -82,7 +82,6 @@ public class CycleManager : MonoBehaviour
         {
             ressourceObject.CheckRessource();
         }
-
         Debug.Log("maxStage is: " + ressource.MaxStage);
 
 
