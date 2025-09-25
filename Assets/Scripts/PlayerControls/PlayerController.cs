@@ -115,10 +115,11 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     /// 
 
     public event Action<InputAction.CallbackContext> OnInteractAction;
+    public event Action<InputAction.CallbackContext> OnMenuAction;
     public event Action<InputAction.CallbackContext> OnPlaceAction;
     public event Action<InputAction.CallbackContext> OnRotateAction;
     public event Action<InputAction.CallbackContext> OnManipulateAction;
-    public event Action<InputAction.CallbackContext> OnScrapAction;
+    public event Action<InputAction.CallbackContext> OnScrapAction;    
 
     private void Awake()
     {
@@ -137,6 +138,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     private void OnEnable()
     {
         inputActions.Exploration.Interact.performed += ctx => OnInteractAction?.Invoke(ctx);
+        inputActions.Exploration.Menu.performed += ctx => OnMenuAction?.Invoke(ctx);
         inputActions.Builder.Place.performed += ctx => OnPlaceAction?.Invoke(ctx);
         inputActions.Builder.Rotate.performed += ctx => OnRotateAction?.Invoke(ctx);
         inputActions.Builder.Manipulate.performed += ctx => OnManipulateAction?.Invoke(ctx);
@@ -148,6 +150,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     private void OnDisable()
     {
         inputActions.Exploration.Interact.performed -= ctx => OnInteractAction?.Invoke(ctx);
+        inputActions.Exploration.Menu.performed -= ctx => OnMenuAction?.Invoke(ctx);
         inputActions.Builder.Place.performed -= ctx => OnPlaceAction?.Invoke(ctx);
         inputActions.Builder.Rotate.performed -= ctx => OnRotateAction?.Invoke(ctx);
         inputActions.Builder.Manipulate.performed -= ctx => OnManipulateAction?.Invoke(ctx);
@@ -403,16 +406,26 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
             OnInteractAction?.Invoke(context);
         }
     }
+    public void OnMenu(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            OnMenuAction?.Invoke(context);
+            //Debug.Log("Opening the Menu");
+            //menu.SetActive(true);
+        }
+    }
+
     // A function i would like to add, but is not important atm, The idea is to have it act like a scope for the player
-//    public void OnFocus(InputAction.CallbackContext context)
-//    {
-//        if (context.performed)
-//        {
-//            Debug.Log("Focus");
-//            // Toggle the focus camera on/off
-//            m_isFocused = !m_isFocused;
-//        }
-//    }
+    //    public void OnFocus(InputAction.CallbackContext context)
+    //    {
+    //        if (context.performed)
+    //        {
+    //            Debug.Log("Focus");
+    //            // Toggle the focus camera on/off
+    //            m_isFocused = !m_isFocused;
+    //        }
+    //    }
 
     #endregion
     #region Builder Actions
