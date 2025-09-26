@@ -22,4 +22,5 @@ MonoBehaviour:
     amount: 5
   - resourceType: 8
     amount: 10
-  EmbeddedInteractableIDs: []
+  EmbeddedInteractableIDs:
+  - {fileID: 11400000, guid: 0f39c19636109124aa28a6d194456519, type: 2}
