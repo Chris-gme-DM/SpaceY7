@@ -16,10 +16,12 @@ public class RessourceObject : MonoBehaviour, IInteractable
     public string currentCycle;
     //public GameObject resourceSO;
     public string harvestCycle;
+    public string respawnCycle;
+    public bool isNotRespawned;
 
     private PlayerController m_playerController;
 
-    public InventoryItemData tempItem; // temp for testing
+    public InventoryItemData resourceItem; // temp for testing
     public InventoryHolder playerInventory;
 
     public UnityAction<IInteractable> OnInteractionComplete { get; set; }
@@ -29,6 +31,7 @@ public class RessourceObject : MonoBehaviour, IInteractable
         string currentCycle = cycleManager.GetComponent<CycleManager>().currentCycle; // i mean, you can already access cycleManager...
         //string harvestCycle = FindFirstObjectByType<RessourceSO>().HarvestCycle;
         string harvestCycle = ressource.HarvestCycle;
+        string respawnCycle = ressource.RespawnCycle;
 
     }
 
@@ -47,7 +50,7 @@ public class RessourceObject : MonoBehaviour, IInteractable
         //}
     }
 
-    public void CheckRessource() // überflüssig, change it
+    public void CheckRessource() // ï¿½berflï¿½ssig, change it
     {
         CheckRessource(harvestCycle);
     }
@@ -55,7 +58,6 @@ public class RessourceObject : MonoBehaviour, IInteractable
     public void CheckRessource(string harvestCycle)
     {
         currentCycle = cycleManager.GetComponent<CycleManager>().currentCycle;
-
 
         if (currentCycle == harvestCycle && currentStage < ressource.MaxStage)   //und was wenn es schon in der zweiten stage ist? // && currentStage < ressource.MaxStage
         {
@@ -66,12 +68,24 @@ public class RessourceObject : MonoBehaviour, IInteractable
             Destroy(currentRessource);
             currentRessource = Instantiate(ressource.GetRessourceByStage(ressource.MaxStage), transform);
 
+            isNotRespawned = true;
+            Debug.Log("isNotRespawned: " + isNotRespawned);
+
             Debug.Log("It's Harvest Time!");
 
             //if (currentStage >= ressource.MaxStage)
             //{
             //    CycleManager.instance.UnregisterRessource(this);
             //}
+        }
+        if (currentCycle == respawnCycle && isNotRespawned)
+        {
+            { 
+            Destroy(currentRessource);
+            
+                currentRessource = Instantiate(ressource.GetRessourceByStage(ressource.FirstStage), transform);
+                isNotRespawned = false;
+            }
         }
     }
 
@@ -85,13 +99,15 @@ public class RessourceObject : MonoBehaviour, IInteractable
         if (context.performed)
         {
             Debug.Log("You are trying to interact with a possible resource.");
-            Debug.Log(tempItem);
+            Debug.Log(resourceItem);
 
             if (HasMaxLevel())
             {
-                playerInventory.InventorySystem.AddToInventory(tempItem, tempItem.type.amount);
-                //Destroy(currentRessource);
+                playerInventory.InventorySystem.AddToInventory(resourceItem, resourceItem.type.amount);
+                Destroy(currentRessource);
 
+                //todo jo: boolean for isHarvested on RessourceSO, then respawn that shit with a new
+                // respawnCycle
             }
             else
             {
@@ -106,7 +122,7 @@ public class RessourceObject : MonoBehaviour, IInteractable
 
             if (HasMaxLevel())
             {
-                playerInventory.InventorySystem.AddToInventory(tempItem, tempItem.type.amount);
+                playerInventory.InventorySystem.AddToInventory(resourceItem, resourceItem.type.amount);
                 Destroy(currentRessource);
             }
             else
