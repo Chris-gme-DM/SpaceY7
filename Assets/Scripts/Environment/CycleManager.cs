@@ -7,10 +7,10 @@ using UnityEditor.SceneManagement;
 
 public class CycleManager : MonoBehaviour
 {
-    [SerializeField] private Texture2D skyboxNight;
-    [SerializeField] private Texture2D skyboxSunrise;
-    [SerializeField] private Texture2D skyboxDay;
-    [SerializeField] private Texture2D skyboxSunset;
+    [SerializeField] private Material skyboxNight;
+    [SerializeField] private Material skyboxSunrise;
+    [SerializeField] private Material skyboxDay;
+    [SerializeField] private Material skyboxSunset;
 
     public TextMeshProUGUI timeText;
 
@@ -138,10 +138,10 @@ public class CycleManager : MonoBehaviour
         Debug.Log("It's a new day!");
     }
 
-    private IEnumerator LerpSkybox(Texture2D a, Texture2D b, float time)
+    private IEnumerator LerpSkybox(Material a, Material b, float time)
     {
-        RenderSettings.skybox.SetTexture("_Texture1", a);
-        RenderSettings.skybox.SetTexture("_Texture2", b);
+        RenderSettings.skybox = a;  // ("_Texture1", a);
+        RenderSettings.skybox = b;  // ("_Texture2", b);
         RenderSettings.skybox.SetFloat("_Blend", 0);
 
         for (float i = 0; i < time; i += Time.deltaTime)
@@ -149,7 +149,7 @@ public class CycleManager : MonoBehaviour
             RenderSettings.skybox.SetFloat("_Blend", i / time);
             yield return null;
         }
-        RenderSettings.skybox.SetTexture("_Texture1", b);
+        RenderSettings.skybox = b;  // ("_Texture1", b);
     }
 
     private void CheckCycle()
