@@ -31,8 +31,9 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     [SerializeField] private Rigidbody rb;
     [SerializeField] private PlayerStats playerStats;
     [SerializeField] private CinemachineBrain mainCameraBrain;
-    [SerializeField] private CinemachineCamera m_mainCamera;
-    [SerializeField] private GameObject m_flashLight;
+    [SerializeField] private CinemachineCamera m_mainCamera; // Not automatically allocated
+    [SerializeField] private GameObject m_flashLight; // Not automatically allocated
+    [SerializeField] private PlayerAnimationController m_animationController;
 //    [SerializeField] private CinemachineCamera m_focusCamera;
     private InputSystem_Actions inputActions; // Ill do  it manually
     private LayerMask m_groundMask;
@@ -99,12 +100,16 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     private bool m_isSprinting;
     public bool IsSprinting => m_isSprinting;
     // JetPack
-    private bool m_jetPackActive;
-    public bool JetPackActive => m_jetPackActive;
+    private bool m_jetpackActive;
+    public bool IsJetpackActive => m_jetpackActive;
+    // Builder mode active
+    private bool m_isBuilding;
+    public bool IsBuilding => m_isBuilding;
     // Focus
 //    private bool m_isFocused;
     // Flashlight
     private bool m_flashLightActive;
+    public bool IsFlashLightActive => m_flashLightActive;
     #endregion
     #region InputAction Subscription
     /// <summary>
@@ -149,16 +154,19 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     }
     private void OnDisable()
     {
-        inputActions.Exploration.Interact.performed -= ctx => OnInteractAction?.Invoke(ctx);
-        inputActions.Exploration.Menu.performed -= ctx => OnMenuAction?.Invoke(ctx);
-        inputActions.Builder.Place.performed -= ctx => OnPlaceAction?.Invoke(ctx);
-        inputActions.Builder.Rotate.performed -= ctx => OnRotateAction?.Invoke(ctx);
-        inputActions.Builder.Manipulate.performed -= ctx => OnManipulateAction?.Invoke(ctx);
-        inputActions.Builder.Manipulate.performed -= ctx => OnScrapAction?.Invoke(ctx);
+        if (inputActions != null)
+        {
+            inputActions.Exploration.Interact.performed -= ctx => OnInteractAction?.Invoke(ctx);
+            inputActions.Exploration.Menu.performed -= ctx => OnMenuAction?.Invoke(ctx);
+            inputActions.Builder.Place.performed -= ctx => OnPlaceAction?.Invoke(ctx);
+            inputActions.Builder.Rotate.performed -= ctx => OnRotateAction?.Invoke(ctx);
+            inputActions.Builder.Manipulate.performed -= ctx => OnManipulateAction?.Invoke(ctx);
+            inputActions.Builder.Manipulate.performed -= ctx => OnScrapAction?.Invoke(ctx);
 
-        // Disable both when switching to UI
-        inputActions?.Exploration.Disable();
-        inputActions?.Builder.Disable();
+            // Disable both when switching to UI
+            inputActions?.Exploration.Disable();
+            inputActions?.Builder.Disable();
+        }
     }
     #endregion
     #region Important
@@ -170,6 +178,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         if (playerInput == null) playerInput = GetComponent<PlayerInput>();
         if (playerStats == null) playerStats = GetComponent<PlayerStats>();
         if (mainCameraBrain == null) mainCameraBrain = FindAnyObjectByType<CinemachineBrain>();
+        if (m_animationController == null) m_animationController = GetComponent<PlayerAnimationController>();
         //       if (m_focusCamera != null)
         //       {
         //           m_focusCamera.gameObject.SetActive(false);
@@ -203,7 +212,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         float currentMoveSpeed = m_isSprinting ? m_runSpeed : m_moveSpeed; // If sets the moveSpeed to apply to the current MoveSpeed
         Vector3 horizontalVelocity = m_moveDirection * currentMoveSpeed; // Sets the velocity, although i am not happy
         // Add Jetpack if active
-        if (m_jetPackActive)
+        if (m_jetpackActive)
         {
             // Increase drain for jetpack.
             // Add Jetpack Force
@@ -260,7 +269,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
             _waterDrainModifier *= m_sprintWaterModifier;
         }
         // Jetpack
-        if (m_jetPackActive)
+        if (m_jetpackActive)
         {
             _energyDrainModifier *= m_jetpackEnergyModifier;
             _oxygenDrainModifier *= m_jetpackOxygenModifier;
@@ -297,9 +306,9 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     {
         if(context.performed)
         {
-            playerInput.SwitchCurrentActionMap("Builder");
-//           inputActions.Exploration.Disable(); deprecated due to refactoring. But this would be the manual switch
-//           inputActions.Builder.Enable();
+            m_isBuilding = true;
+            inputActions.Exploration.Disable();
+            inputActions.Builder.Enable();
             Debug.Log("Build that stuff");
         }
     }
@@ -311,9 +320,9 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         if (context.performed)
         {
             OnBuilderModeDisabled?.Invoke();
-            playerInput.SwitchCurrentActionMap("Exploartion");
- //           inputActions.Builder.Disable();
- //           inputActions.Exploration.Enable();
+            m_isBuilding = false;
+            inputActions.Builder.Disable();
+            inputActions.Exploration.Enable();
             Debug.Log("Explore that stuff");
         }
     }
@@ -339,11 +348,13 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         {
             rb.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
             Debug.Log("$JUMP");
+
+            m_animationController.SetAnimationTriggers("JetpackLaunch");
         }
-        else if (context.interaction is HoldInteraction)
+        else if (context.performed && context.interaction is HoldInteraction)
         {
             // Since we would like to give full control to the player we set the froce of the jetpack reasonable enough to keep them afloat while its active only
-            m_jetPackActive = !m_jetPackActive;
+            m_jetpackActive = !m_jetpackActive;
             Debug.Log("WE are flying, woohoo");
         }
     }
@@ -369,6 +380,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     {
         // In principle this should call upon the Rover Menu, if it is in range.
         // If not in range, call the rover over until the distance is acceptable. then open the menu
+        m_animationController.SetAnimationTriggers("CallRoverAction");
         Debug.Log("Come over here");
     }
     // Toggle the Flashlight of the helmet
@@ -376,6 +388,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     {
         if (context.performed)
         {
+            m_animationController.SetAnimationTriggers("FlashlightAction");
             m_flashLightActive = !m_flashLightActive;
             // Flash Light
             m_flashLight.SetActive(m_flashLightActive);
@@ -438,12 +451,16 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         {
         Debug.Log("Replacement method of buildings, initiated");
             OnManipulateAction.Invoke(context);
+            m_animationController.SetAnimationTriggers("ManipulateAction");
+
         }
         // Scrap
         if (context.performed && context.interaction is HoldInteraction)
         {
             Debug.Log("Scrapt it");
             OnScrapAction.Invoke(context);
+            m_animationController.SetAnimationTriggers("Destroy");
+
         }
     }
 
@@ -451,6 +468,8 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     {
         Debug.Log("Place it down");
         OnPlaceAction.Invoke(context);
+        m_animationController.SetAnimationTriggers("PlaceAction");
+
     }
 
     public void OnRotate(InputAction.CallbackContext context)
@@ -463,6 +482,8 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         {
             Debug.Log("Rotate around");
             OnRotateAction.Invoke(context);
+            m_animationController.SetAnimationTriggers("RotateAction");
+
         }
     }
 
