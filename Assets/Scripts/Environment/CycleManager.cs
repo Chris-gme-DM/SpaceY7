@@ -32,7 +32,7 @@ public class CycleManager : MonoBehaviour
 
     public static CycleManager instance;
 
-    [SerializeField] private RessourceSO ressource;
+    //[SerializeField] private RessourceSO ressource;
 
     public string currentCycle;
     public bool night;
@@ -70,7 +70,7 @@ public class CycleManager : MonoBehaviour
 
         if(tempSecond >= 1)
         {
-            Debug.Log("Ja, es ist Zeit vergangen.");
+            //Debug.Log("Ja, es ist Zeit vergangen.");
 
             Minutes += 1;
             tempSecond = 0;
@@ -82,7 +82,7 @@ public class CycleManager : MonoBehaviour
         {
             ressourceObject.CheckRessource();
         }
-        Debug.Log("maxStage is: " + ressource.MaxStage);
+        //Debug.Log("maxStage is: " + ressource.MaxStage);
 
 
         //timeText.text = "Time is:" + days + "d " + hours + "h " + minutes + "min";
@@ -135,7 +135,7 @@ public class CycleManager : MonoBehaviour
 
     private void OnDaysChange(int value)
     {
-        Debug.Log("It's a new day!");
+        //Debug.Log("It's a new day!");
     }
 
     private IEnumerator LerpSkybox(Material a, Material b, float time)
@@ -154,7 +154,7 @@ public class CycleManager : MonoBehaviour
 
     private void CheckCycle()
     {
-        Debug.Log("Der aktuelle Cycle wird gecheckt");
+        //Debug.Log("Der aktuelle Cycle wird gecheckt");
 
         // was wenn es keinen cycle gibt du genie
 
@@ -191,7 +191,7 @@ public class CycleManager : MonoBehaviour
     public void ChangeCycle(string cycle)
     {
         currentCycle = cycle;
-        Debug.Log("Es ist gerade " + cycle);
+        //Debug.Log("Es ist gerade " + cycle);
     }
 
     public void RegisterRessource(RessourceObject ressourceObject) 

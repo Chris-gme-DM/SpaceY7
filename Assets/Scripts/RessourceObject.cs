@@ -3,14 +3,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
-public class RessourceObject : MonoBehaviour, IInteractable
+// to do: let this inherit tihngs from InteractableData (aka merge it)
+
+public class RessourceObject : BaseInteractable, IInteractable
 {
-    [SerializeField] private RessourceSO ressource;
+    [SerializeField] private RessourceSO ressource; 
 
+    //public int InteractableID;
     public int currentStage;
     //private float currentTime;
-    private GameObject currentRessource;
+    public GameObject currentRessource;
 
     public GameObject cycleManager;
     public string currentCycle;
@@ -20,8 +24,9 @@ public class RessourceObject : MonoBehaviour, IInteractable
     public bool isNotRespawned;
 
     private PlayerController m_playerController;
+    private InteractionManager interactionManager;
 
-    public InventoryItemData resourceItem; // temp for testing
+    public InventoryItemData resourceItem; // temp for testing. and now for the final game bc i don't have the time
     public InventoryHolder playerInventory;
 
     public UnityAction<IInteractable> OnInteractionComplete { get; set; }
@@ -41,7 +46,7 @@ public class RessourceObject : MonoBehaviour, IInteractable
         currentRessource = Instantiate(ressource.GetRessourceByStage(currentStage), transform);
 
         if (m_playerController == null) { m_playerController = FindAnyObjectByType<PlayerController>(); }
-        m_playerController.OnInteractAction += OnInteractAction;
+       // m_playerController.OnInteractAction += OnInteractAction;
 
         //Debug.Log("Starting");
         //for (int i = 0; i < ressource.MaxStage; i++)
@@ -59,24 +64,21 @@ public class RessourceObject : MonoBehaviour, IInteractable
     {
         currentCycle = cycleManager.GetComponent<CycleManager>().currentCycle;
 
-        if (currentCycle == harvestCycle && currentStage < ressource.MaxStage)   //und was wenn es schon in der zweiten stage ist? // && currentStage < ressource.MaxStage
+        if (currentCycle == harvestCycle && currentStage < ressource.MaxStage)
+
+        //und was wenn es schon in der zweiten stage ist? // && currentStage < ressource.MaxStage
         {
-            Debug.Log("READY FOR HARVESTING");
-            //harvestCycle = null;
+            //Debug.Log("READY FOR HARVESTING");
             currentStage++;
 
             Destroy(currentRessource);
             currentRessource = Instantiate(ressource.GetRessourceByStage(ressource.MaxStage), transform);
 
             isNotRespawned = true;
-            Debug.Log("isNotRespawned: " + isNotRespawned);
+           // Debug.Log("isNotRespawned: " + isNotRespawned);
 
-            Debug.Log("It's Harvest Time!");
+           // Debug.Log("It's Harvest Time!");
 
-            //if (currentStage >= ressource.MaxStage)
-            //{
-            //    CycleManager.instance.UnregisterRessource(this);
-            //}
         }
         if (currentCycle == respawnCycle && isNotRespawned)
         {
@@ -96,45 +98,44 @@ public class RessourceObject : MonoBehaviour, IInteractable
 
     public void OnInteractAction(InputAction.CallbackContext context)
     {
+        //if (interactionManager.newGameObject == this && context.performed)
         if (context.performed)
         {
             Debug.Log("You are trying to interact with a possible resource.");
-            Debug.Log(resourceItem);
 
-            if (HasMaxLevel())
-            {
-                playerInventory.InventorySystem.AddToInventory(resourceItem, resourceItem.type.amount);
-                Destroy(currentRessource);
+            //Debug.Log(resourceItem);
+            //interactionManager.CheckforInteractable();
 
-                //todo jo: boolean for isHarvested on RessourceSO, then respawn that shit with a new
-                // respawnCycle
-            }
-            else
-            {
-                Debug.Log("There is nothing to harvest here");
-            }
+
+
+            //if (HasMaxLevel())
+            //{
+            //    playerInventory.InventorySystem.AddToInventory(resourceItem, resourceItem.type.amount);
+            //    Destroy(currentRessource);
+
+            //}
+            //else
+            //{
+            //    Debug.Log("There is nothing to harvest here");
+            //}
         }
     }
 
-    public void Interact(GameObject interactor)
+    public override void Interact(GameObject interactor)
     {
         Debug.Log("(INTERACT) You are interacting with a possible resource.");
+        //interactionManager.CheckforInteractable();
 
-            if (HasMaxLevel())
-            {
-                playerInventory.InventorySystem.AddToInventory(resourceItem, resourceItem.type.amount);
-                Destroy(currentRessource);
-            }
-            else
-            {
-                Debug.Log("There is nothing to harvest here");
-            }
+        if (HasMaxLevel())
+        {
+            playerInventory.InventorySystem.AddToInventory(resourceItem, resourceItem.type.amount);
+            Destroy(currentRessource);
+
         }
-
-    public void Harvest(GameObject gameObject)
-    {
-
+        else
+        {
+            Debug.Log("There is nothing to harvest here");
+        }
     }
-
 
 }

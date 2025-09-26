@@ -10,128 +10,64 @@ public class RoverScript : BaseInteractable
 {
     #region Settings
     private Transform m_playerTransform;
-    private Rigidbody m_rb;
     private NavMeshAgent m_agent;
-    [SerializeField] private float m_minFollowDistance = 5f;
-    [SerializeField] private float m_hoverForceUp = 200f;
-    [SerializeField] private float m_hoverForceForward = 40f;
-    [SerializeField] private float m_hoverDuration = 5f;
-    [SerializeField] private float m_rotationSpeed = 5f;
+    private float distanceToPlayer;
+    [SerializeField] private float m_minFollowDistance = 4f;
     private bool m_isHovering;
-    private float m_hoverTimer;
+    public bool IsHovering => m_isHovering;
     #endregion
     #region Important
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        m_rb = GetComponent<Rigidbody>();
-        m_agent = GetComponent<NavMeshAgent>();
         if (m_playerTransform == null )
         {
             m_playerTransform = FindAnyObjectByType<PlayerController>().transform;
         }
-        m_agent.updatePosition = false;
-        m_agent.updateRotation = false;
-
-        StartNavMeshMode();
-        m_isHovering = false;
+        if ( m_agent == null )
+        {
+            m_agent = GetComponent<NavMeshAgent>();
+        }
+        m_isHovering = true; // Currently it is the only animation available due to time
+        m_agent.updatePosition = true;
+        m_agent.updateRotation = true;
     }
-
-    // Update is called once per frame
     void Update()
     {
-        // Determine distance between Rover and player
-        float distanceToPlayer = Vector3.Distance(transform.position, m_playerTransform.position);
-        // Determine direction of player
+        if (m_playerTransform == null || m_agent == null) return;
 
-        if (m_isHovering)
-        {
-            StartCoroutine(Hover());
-        }
-        else
-        {
-            HandleNavMeshMovement(distanceToPlayer);
-        }
     }
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        if (!m_isHovering)
-        {
-            // Determine new position for the agent to follow
-            Vector3 newPosition = Vector3.Lerp(m_rb.position, m_agent.nextPosition, Time.fixedDeltaTime * 10f);
-            m_rb.MovePosition(newPosition);
+        // Check distance to player
+        distanceToPlayer = Vector3.Distance(transform.position, m_playerTransform.position);
+        HandleNavMeshMovement();
+    }
+    private void HandleNavMeshMovement()
+    {
+        // Check if the Agent is currently on a baked surface.
+        if (!m_agent.isOnNavMesh) return;
 
-            if (m_agent.velocity.magnitude >= 0.1f)
-            {
-                Vector3 direction = m_agent.velocity.normalized;
-                Rotate(direction);
-            }
-            
+        // 1. Get the player's current position (the target).
+        Vector3 playerPosition = m_playerTransform.position;
+
+        // 2. The ONLY necessary complexity: Find the ground under the player.
+        // This prevents the Rover from freezing or snapping when the player jumps.
+        // It projects the player's 3D position down onto the 2D NavMesh surface.
+        if (NavMesh.SamplePosition(playerPosition, out NavMeshHit hit, 5.0f, NavMesh.AllAreas))
+        {
+            // 3. Set the destination to the ground spot under the player.
+            // The Agent's built-in Stopping Distance (set to 8.0f) will now handle the offset and stopping.
+            m_agent.SetDestination(hit.position);
         }
     }
-
     public override void Interact(GameObject interactor)
     {
-        // Open the Rover Menu;
-    }
-    #endregion
-    #region Movement
-    private void HandleNavMeshMovement(float distanceToPlayer)
-    {
-        if (m_agent.isOnNavMesh)
+        if( distanceToPlayer <= m_minFollowDistance )
         {
-            m_agent.isStopped = false;
-            m_agent.SetDestination(m_playerTransform.position);
-
-            if(distanceToPlayer <= m_minFollowDistance)
-            {
-                m_agent.isStopped = true;
-            }
-            if (m_agent.pathStatus == NavMeshPathStatus.PathPartial && distanceToPlayer >= m_minFollowDistance)
-            {
-                StartCoroutine(Hover());
-            }
+            // Open the Rover Menu;
 
         }
-
     }
-    private void Rotate(Vector3 direction)
-    {
-        direction.y = 0;
-        Quaternion lookRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * m_rotationSpeed);
-    }
-    private IEnumerator Hover()
-    {
-        m_isHovering = true;
-        m_agent.enabled = false;
-        m_rb.isKinematic = false;
-        m_rb.useGravity = false;
-
-        m_hoverTimer = m_hoverDuration;
-        while (m_hoverTimer > 0)
-        {
-            Vector3 directionOfPlayer = (m_playerTransform.position - transform.position).normalized;
-            directionOfPlayer.y = 0;
-            directionOfPlayer.Normalize();
-
-            m_rb.AddForce(m_hoverForceUp * Time.deltaTime * Vector3.up, ForceMode.Force);
-            m_rb.AddForce(m_hoverForceForward * Time.deltaTime * directionOfPlayer, ForceMode.Force);
-
-            m_hoverTimer -= Time.deltaTime;
-            yield return null;
-        }
-        StartNavMeshMode();
-    }
-
     #endregion
-    private void StartNavMeshMode()
-    {
-        m_isHovering = false;
-        m_agent.enabled = true;
-        m_agent.isStopped = false;
-        m_rb.isKinematic = true;
-        m_rb.useGravity = true;
-
-    }
 }

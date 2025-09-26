@@ -25,6 +25,7 @@ public enum ResourceType
     Tape,
     Aluminium,
     Lithium,
+
 }
 #endregion
 #region Interactables
@@ -35,10 +36,23 @@ public enum InteractableType
     Bed,
     Door,
     Inventory,
+    Rover,
     Other,
 }
 public interface IInteractable
 {
     public abstract void Interact(GameObject interactor);
+}
+public enum InteractionType
+{
+    None,
+    // Resources
+    CollectPlant,
+    ColelctRock,
+    // Generic Actions
+    Rover,
+    Inventory,
+    Door,
+
 }
 #endregion
