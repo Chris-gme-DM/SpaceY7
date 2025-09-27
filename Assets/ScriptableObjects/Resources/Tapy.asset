@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1e06a12bef330e469f4863fa4b5a491, type: 3}
   m_Name: Tapy
   m_EditorClassIdentifier: 
-  RessourceName: 
-  RessourcePrefabs: []
-  HarvestCycle: 
-  RespawnCycle: 
-  HarvestRessource: 0
+  RessourceName: TapySO
+  RessourcePrefabs:
+  - {fileID: 2433991473067654412, guid: 2de7cfbaa9d1fa140bf767d6b30dd13e, type: 3}
+  - {fileID: 5416949651401491031, guid: 076152a520d3b634fb5209a4441881d3, type: 3}
+  HarvestCycle: day
+  RespawnCycle: sunset
+  HarvestRessource: 1
