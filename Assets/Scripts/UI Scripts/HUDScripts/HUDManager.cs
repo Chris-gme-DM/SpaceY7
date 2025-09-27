@@ -1,7 +1,8 @@
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using TMPro;
 using static UnityEngine.Rendering.DebugUI;
+using System;
 
 public class HUDManager : MonoBehaviour
 {
@@ -15,17 +16,24 @@ public class HUDManager : MonoBehaviour
     // Gravity
     [SerializeField] private Panel m_gravimeterPanel;
     [SerializeField] private Image m_gravimeterImage;
+    [SerializeField] private Text m_gravimeterText;
+    [SerializeField] private float m_gravimeterRange = 300f;
     // Energy
     [SerializeField] private Panel m_energyMeterPanel;
     [SerializeField] private Image m_energyBarImage;
+    [SerializeField] private Text m_energyText;
     // Oxygen
     [SerializeField] private Panel m_oxygenMeterPanel;
     [SerializeField] private Image m_oxygenBarImage;
+    [SerializeField] private Text m_oxygenText;
     // Water
     [SerializeField] private Panel m_waterMeterPanel;
     [SerializeField] private Image m_waterBarImage;
+    [SerializeField] private Text m_waterText;
     
     private PlayerStats m_playerStats;
+    private GravityManager m_gravityManager;
+    private Transform m_playerCameraTransform;
     private void Awake()
     {
         if(Instance != null && Instance != this)
@@ -40,12 +48,73 @@ public class HUDManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if(m_playerStats == null) { m_playerStats = FindAnyObjectByType<PlayerStats>(); }
+        if (m_playerStats == null) { m_playerStats = FindAnyObjectByType<PlayerStats>(); }
+        if (m_gravityManager == null) { m_gravityManager = FindAnyObjectByType<GravityManager>(); }
+        if (m_playerCameraTransform == null) { m_playerCameraTransform = Camera.main.transform; }
+        if (m_HUDCanvas == null)
+        {
+            GameObject canvasObject = GameObject.FindWithTag("HUDCanvas");
+            
+            if (canvasObject.TryGetComponent<Canvas>(out m_HUDCanvas))
+            {
+                // Compass
+                Transform compassTransform = m_HUDCanvas.transform.Find("CompassPanel/CompassImage");
+                m_compassImage = compassTransform.GetComponent<Image>();
+                // Gravimeter
+                Transform graviMeterTransform = m_HUDCanvas.transform.Find("GravitationPanel/GravitationBallImage");
+                m_gravimeterImage = graviMeterTransform.GetComponent<Image>();
+                // EnergyBar
+                Transform energyBarTransform = m_HUDCanvas.transform.Find("EnergyPanel/EnergyBarImage");
+                m_energyBarImage = energyBarTransform.GetComponent<Image>();
+                // OxygenBar
+                Transform oxygenBarTransform = m_HUDCanvas.transform.Find("OxygenPanel/OxygenBarImage");
+                m_oxygenBarImage = oxygenBarTransform.GetComponent<Image>();
+                // WaterBar
+                Transform waterBarTransform = m_HUDCanvas.transform.Find("WaterPanel/WaterBarImage");
+                m_waterBarImage = waterBarTransform.GetComponent<Image>();
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateGravimeterDisplay();
+        UpdateCompassDisplay();
+        UpdateEnergyDisplay(m_playerStats.PlayerEnergy);
+        UpdateOxygenDisplay(m_playerStats.PlayerOxygen);
+        UpdateWaterDisplay(m_playerStats.PlayerWater);
+    }
+    private void UpdateEnergyDisplay(float EnergyLevel)
+    {
+        m_energyBarImage.fillAmount = Mathf.Clamp01(EnergyLevel / 100f);
+    }
+    private void UpdateOxygenDisplay(float OxygenLevel) 
+    {
+        m_oxygenBarImage.fillAmount = Mathf.Clamp01(OxygenLevel / 100f);
+    }
+    private void UpdateWaterDisplay(float WaterLevel) 
+    {
+        m_waterBarImage.fillAmount = Mathf.Clamp01(WaterLevel / 100f);
+    }
+    private void UpdateCompassDisplay()
+    {
+        float cameraY = m_playerCameraTransform.eulerAngles.y;
+        m_compassImage.rectTransform.localRotation = Quaternion.Euler(0, 0, -cameraY);
+    
+    }
+
+    private void UpdateGravimeterDisplay()
+    {
+        float targetY = Mathf.Lerp(
+            -m_gravimeterRange / 2f,
+            m_gravimeterRange / 2f,
+            (1f -m_gravityManager.NormalizedGravityPosition)
+        );
+        // Determine new position
+        Vector3 newPosition = m_gravimeterImage.rectTransform.localPosition;
+        newPosition.y = targetY;
+        m_gravimeterImage.rectTransform.localPosition = newPosition;
+
     }
 }
