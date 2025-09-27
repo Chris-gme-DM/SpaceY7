@@ -339,7 +339,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     public void OnMove(InputAction.CallbackContext context)
     {
         m_moveInput = context.ReadValue<Vector2>();
-        Debug.Log("Move Input: " + m_moveInput);
+        //Debug.Log("Move Input: " + m_moveInput);
     }
 
     public void OnJetpack(InputAction.CallbackContext context)
@@ -415,7 +415,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         if (context.performed)
         {
             Debug.Log("Interact with the stuff");
-            OnInteractAction?.Invoke(context);
+            // notes for jo: will automatically invoke the OnInteractAction in ResourceObject
         }
     }
     public void OnMenu(InputAction.CallbackContext context)
