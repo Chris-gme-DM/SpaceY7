@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27552d66099e28546bf2ddc66b52d8f3, type: 3}
   m_Name: AntennaDisplay
   m_EditorClassIdentifier: 
-  InteractableID: 4
-  InteractableName: 
-  InteractableDescription: 
-  InteractablePrefab: {fileID: 8025850089986240277, guid: c1602f457399bfb46985f26b6db73ff9, type: 3}
+  InteractableID: 12
+  InteractableName: AntennaDisplay
+  InteractableDescription: Press to send a signal to warn humanity of Melon Husks
+    plan
+  InteractablePrefab: {fileID: 5995484311708647094, guid: ac962ab8e5bddf440a976dfada238401, type: 3}
   InteractableType: 1
   Resources: []

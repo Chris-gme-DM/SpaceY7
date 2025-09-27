@@ -13,6 +13,7 @@ public class BuildingData : ScriptableObject
     [TextArea(4,4)]
     public string BuildingDescription;
     public GameObject BuildingPrefab;
+    public Sprite PreviewImage;
     public List<Resources> BuildingCosts;
     public List<InteractableData> EmbeddedInteractableIDs;
 }

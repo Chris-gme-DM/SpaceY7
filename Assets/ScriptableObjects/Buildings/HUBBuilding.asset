@@ -17,10 +17,11 @@ MonoBehaviour:
   BuildingDescription: "Einheit, in der ein gem\xFCtliche Bett aufgestellt ist und
     man sich erholen kann"
   BuildingPrefab: {fileID: 1810027596089864544, guid: 82528a111a82f9042b0d9356f9404091, type: 3}
+  PreviewImage: {fileID: 0}
   BuildingCosts:
   - resourceType: 6
-    amount: 5
+    amount: 1
   - resourceType: 8
-    amount: 10
+    amount: 1
   EmbeddedInteractableIDs:
   - {fileID: 11400000, guid: 0f39c19636109124aa28a6d194456519, type: 2}
