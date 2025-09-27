@@ -491,6 +491,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 571482248455070595, guid: 3690b9ad91aaee048b72d4d5030259a2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 1237527910213413651, guid: 3690b9ad91aaee048b72d4d5030259a2, type: 3}
       propertyPath: m_CullTransparentMesh
       value: 1
@@ -526,6 +530,10 @@ PrefabInstance:
     - target: {fileID: 1772176992538589756, guid: 3690b9ad91aaee048b72d4d5030259a2, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2415271485106846344, guid: 3690b9ad91aaee048b72d4d5030259a2, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2674228709804887711, guid: 3690b9ad91aaee048b72d4d5030259a2, type: 3}
       propertyPath: m_AnchorMax.y

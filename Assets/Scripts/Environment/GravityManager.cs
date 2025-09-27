@@ -33,6 +33,7 @@ public class GravityManager : MonoBehaviour
     #endregion
 
     [SerializeField] private float m_currentGravity;
+    public float CurrentGravityDisplay => m_currentGravity/baseGravity; // HUD Manager calls this
     private float m_targetGravity;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

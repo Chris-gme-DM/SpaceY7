@@ -16,20 +16,20 @@ public class HUDManager : MonoBehaviour
     // Gravity
     [SerializeField] private Panel m_gravimeterPanel;
     [SerializeField] private Image m_gravimeterImage;
-    [SerializeField] private Text m_gravimeterText;
+    [SerializeField] private TextMeshProUGUI m_gravimeterText;
     [SerializeField] private float m_gravimeterRange = 300f;
     // Energy
     [SerializeField] private Panel m_energyMeterPanel;
     [SerializeField] private Image m_energyBarImage;
-    [SerializeField] private Text m_energyText;
+    [SerializeField] private TextMeshProUGUI m_energyText;
     // Oxygen
     [SerializeField] private Panel m_oxygenMeterPanel;
     [SerializeField] private Image m_oxygenBarImage;
-    [SerializeField] private Text m_oxygenText;
+    [SerializeField] private TextMeshProUGUI m_oxygenText;
     // Water
     [SerializeField] private Panel m_waterMeterPanel;
     [SerializeField] private Image m_waterBarImage;
-    [SerializeField] private Text m_waterText;
+    [SerializeField] private TextMeshProUGUI m_waterText;
     
     private PlayerStats m_playerStats;
     private GravityManager m_gravityManager;
@@ -63,15 +63,19 @@ public class HUDManager : MonoBehaviour
                 // Gravimeter
                 Transform graviMeterTransform = m_HUDCanvas.transform.Find("GravitationPanel/GravitationBallImage");
                 m_gravimeterImage = graviMeterTransform.GetComponent<Image>();
+                m_gravimeterText = graviMeterTransform.GetComponentInChildren<TextMeshProUGUI>();
                 // EnergyBar
                 Transform energyBarTransform = m_HUDCanvas.transform.Find("EnergyPanel/EnergyBarImage");
                 m_energyBarImage = energyBarTransform.GetComponent<Image>();
+                m_energyText = energyBarTransform.GetComponentInChildren<TextMeshProUGUI>();
                 // OxygenBar
                 Transform oxygenBarTransform = m_HUDCanvas.transform.Find("OxygenPanel/OxygenBarImage");
                 m_oxygenBarImage = oxygenBarTransform.GetComponent<Image>();
+                m_oxygenText = oxygenBarTransform.GetComponentInChildren<TextMeshProUGUI>();
                 // WaterBar
                 Transform waterBarTransform = m_HUDCanvas.transform.Find("WaterPanel/WaterBarImage");
                 m_waterBarImage = waterBarTransform.GetComponent<Image>();
+                m_waterText = waterBarTransform.GetComponentInChildren<TextMeshProUGUI>();
             }
         }
     }
@@ -88,14 +92,18 @@ public class HUDManager : MonoBehaviour
     private void UpdateEnergyDisplay(float EnergyLevel)
     {
         m_energyBarImage.fillAmount = Mathf.Clamp01(EnergyLevel / 100f);
+        m_energyText.text = $"{EnergyLevel:F0}%";
     }
     private void UpdateOxygenDisplay(float OxygenLevel) 
     {
         m_oxygenBarImage.fillAmount = Mathf.Clamp01(OxygenLevel / 100f);
+        m_oxygenText.text = $"{OxygenLevel:F0}%";
+
     }
     private void UpdateWaterDisplay(float WaterLevel) 
     {
         m_waterBarImage.fillAmount = Mathf.Clamp01(WaterLevel / 100f);
+        m_waterText.text = $"{WaterLevel:F0}%";
     }
     private void UpdateCompassDisplay()
     {
@@ -115,6 +123,7 @@ public class HUDManager : MonoBehaviour
         Vector3 newPosition = m_gravimeterImage.rectTransform.localPosition;
         newPosition.y = targetY;
         m_gravimeterImage.rectTransform.localPosition = newPosition;
+        m_gravimeterText.text = $"{-m_gravityManager.CurrentGravityDisplay:F2}G";
 
     }
 }
