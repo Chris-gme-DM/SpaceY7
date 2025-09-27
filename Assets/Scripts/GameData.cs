@@ -21,10 +21,10 @@ public enum ResourceType
     Water,
     Silicon,
     Fiber,
-    Metal,
     Tape,
     Aluminium,
     Lithium,
+    Copper,
 
 }
 #endregion

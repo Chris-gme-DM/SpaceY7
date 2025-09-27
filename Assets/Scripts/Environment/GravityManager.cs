@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 /// <summary>
@@ -22,7 +23,6 @@ public class GravityManager : MonoBehaviour
 
     [Tooltip("maximum percentage in comparison to base")]
     [SerializeField] private float maxGravityPercentage = 1.1f; // the maximum gravity compared to base
-
     [Header("Timer Settings")]
     [Tooltip("Minimum  Transition time in sec")]
     [SerializeField] private float minTransitionTime = 120f; // in seconds
@@ -32,15 +32,14 @@ public class GravityManager : MonoBehaviour
 
     #endregion
 
-    private float m_currentGravity;
-    public float CurrentGravity => m_currentGravity; // Needed later to be displayed in HUD
-
+    [SerializeField] private float m_currentGravity;
+    public float CurrentGravityDisplay => m_currentGravity/baseGravity; // HUD Manager calls this
     private float m_targetGravity;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
-        m_currentGravity = baseGravity;
+        m_currentGravity = -baseGravity;
         Physics.gravity = new Vector3(0, m_currentGravity, 0);
         StartCoroutine(ManageGravityRoutine());
     }
@@ -51,7 +50,7 @@ public class GravityManager : MonoBehaviour
         {
             // Determine target gravity
             float randomMultiplier = Random.Range(minGravityPercentage, maxGravityPercentage);
-            m_targetGravity = baseGravity * randomMultiplier;
+            m_targetGravity = -baseGravity * randomMultiplier;
             // Determine transition duration
             float transitionDuration = Random.Range(minTransitionTime, maxTrasnitionTime);
             float elapsedTime = 0;
@@ -67,7 +66,18 @@ public class GravityManager : MonoBehaviour
             }
             m_currentGravity = m_targetGravity;
             Physics.gravity = new Vector3(0, m_currentGravity, 0);
-            yield return null;
+            yield return new WaitForSeconds(3f);
+        }
+    }
+    // For the HUDManager
+    public float NormalizedGravityPosition
+    {
+        get
+        {
+            float currentMultiplier = m_currentGravity / -baseGravity;
+            float gravityRange = maxGravityPercentage - minGravityPercentage;
+            float normalizedValue = (currentMultiplier -minGravityPercentage) / gravityRange;
+            return Mathf.Clamp01(normalizedValue);
         }
     }
 }
