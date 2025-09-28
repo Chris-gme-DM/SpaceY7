@@ -8,7 +8,7 @@ using System;
 public class BlueprintButton : MonoBehaviour
 {
     [SerializeField] private Image m_previewImage;
-    [SerializeField] private TextMeshPro m_buildingNameText;
+    [SerializeField] private TextMeshProUGUI m_buildingNameText;
     private Button m_button;
 
     private BuildingData m_buildingData;

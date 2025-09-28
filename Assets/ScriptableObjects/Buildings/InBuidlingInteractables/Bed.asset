@@ -15,12 +15,15 @@ MonoBehaviour:
   InteractableID: 5
   InteractableName: Bett
   InteractableDescription: Replenish the player, and save the game
-  InteractablePrefab: {fileID: 2838243614714530107, guid: a40c8dfd25863764fb4d94b6de129586, type: 3}
+  InteractablePrefab: {fileID: 8689712970969750102, guid: def7b95358d8dca4ba90eaf64b1f8633, type: 3}
   InteractableType: 2
   Resources:
   - resourceType: 1
     amount: 100
+    ResourceIcon: {fileID: 21300000, guid: d329c99def4651a4ba5848fe2e19eb6d, type: 3}
   - resourceType: 2
     amount: 100
+    ResourceIcon: {fileID: 21300000, guid: 36224ce5322527e4dae2f356bb9b27f3, type: 3}
   - resourceType: 3
     amount: 100
+    ResourceIcon: {fileID: 21300000, guid: 55b3dac87fea9834a8c795155917419f, type: 3}

@@ -17,3 +17,7 @@ MonoBehaviour:
   Description: 
   Icon: {fileID: 21300000, guid: 523fab7c9ff674a4e8d01f8c94aa5c8d, type: 3}
   MaxStackSize: 1
+  type:
+    resourceType: 0
+    amount: 0
+    ResourceIcon: {fileID: 21300000, guid: 523fab7c9ff674a4e8d01f8c94aa5c8d, type: 3}

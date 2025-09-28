@@ -36,7 +36,7 @@ public class InventoryUIController : MonoBehaviour
         }
     }
 
-    void DisplayInventory (InventorySystem invToDisplay)
+    public void DisplayInventory (InventorySystem invToDisplay)
     {
         inventoryPanel.gameObject.SetActive(true);
         inventoryPanel.RefreshDynamicInventory(invToDisplay);

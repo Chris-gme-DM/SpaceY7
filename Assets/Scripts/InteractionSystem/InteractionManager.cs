@@ -56,10 +56,8 @@ public class InteractionManager : MonoBehaviour
         // Raycast to the point the player is lokking at
         Ray ray = m_camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         // if the ray hits an interactable
-        Debug.Log("Raycasting beep beep boop");             
         if (Physics.Raycast(ray, out RaycastHit hit, m_interactionRange, interactableLayer ))
         {
-            Debug.Log("2_Raycasting beep beep boop");           
             // Get the interactbale by the hit
             IInteractable newInteractable = hit.collider.gameObject.GetComponentInParent<IInteractable>();
             GameObject newGameObject = hit.collider.gameObject; // JG

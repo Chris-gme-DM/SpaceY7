@@ -6,10 +6,10 @@ using System;
 
 public class HUDManager : MonoBehaviour
 {
-    public static HUDManager Instance;
+    public static HUDManager Instance { get; private set; }
 
     [Header("Panels")]
-    [SerializeField] private Canvas m_HUDCanvas;
+    [SerializeField] private GameObject m_HUDPanel;
     // Compass
     [SerializeField] private Panel m_compassPanel;
     [SerializeField] private Image m_compassImage;
@@ -33,7 +33,7 @@ public class HUDManager : MonoBehaviour
     
     private PlayerStats m_playerStats;
     private GravityManager m_gravityManager;
-    private Transform m_playerCameraTransform;
+    [SerializeField] private Transform m_playerCameraTransform;
     private void Awake()
     {
         if(Instance != null && Instance != this)
@@ -44,40 +44,15 @@ public class HUDManager : MonoBehaviour
         {
             Instance = this;
         }
+        if (m_HUDPanel == null) m_HUDPanel = GameObject.FindGameObjectWithTag("HUDPanel");
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
-        if (m_playerStats == null) { m_playerStats = FindAnyObjectByType<PlayerStats>(); }
-        if (m_gravityManager == null) { m_gravityManager = FindAnyObjectByType<GravityManager>(); }
-        if (m_playerCameraTransform == null) { m_playerCameraTransform = Camera.main.transform; }
-        if (m_HUDCanvas == null)
-        {
-            GameObject canvasObject = GameObject.FindWithTag("HUDCanvas");
-            
-            if (canvasObject.TryGetComponent<Canvas>(out m_HUDCanvas))
-            {
-                // Compass
-                Transform compassTransform = m_HUDCanvas.transform.Find("CompassPanel/CompassImage");
-                m_compassImage = compassTransform.GetComponent<Image>();
-                // Gravimeter
-                Transform graviMeterTransform = m_HUDCanvas.transform.Find("GravitationPanel/GravitationBallImage");
-                m_gravimeterImage = graviMeterTransform.GetComponent<Image>();
-                m_gravimeterText = graviMeterTransform.GetComponentInChildren<TextMeshProUGUI>();
-                // EnergyBar
-                Transform energyBarTransform = m_HUDCanvas.transform.Find("EnergyPanel/EnergyBarImage");
-                m_energyBarImage = energyBarTransform.GetComponent<Image>();
-                m_energyText = energyBarTransform.GetComponentInChildren<TextMeshProUGUI>();
-                // OxygenBar
-                Transform oxygenBarTransform = m_HUDCanvas.transform.Find("OxygenPanel/OxygenBarImage");
-                m_oxygenBarImage = oxygenBarTransform.GetComponent<Image>();
-                m_oxygenText = oxygenBarTransform.GetComponentInChildren<TextMeshProUGUI>();
-                // WaterBar
-                Transform waterBarTransform = m_HUDCanvas.transform.Find("WaterPanel/WaterBarImage");
-                m_waterBarImage = waterBarTransform.GetComponent<Image>();
-                m_waterText = waterBarTransform.GetComponentInChildren<TextMeshProUGUI>();
-            }
-        }
+    { 
+        if (m_playerStats == null) m_playerStats = FindAnyObjectByType<PlayerStats>(); 
+        if (m_gravityManager == null) m_gravityManager = FindAnyObjectByType<GravityManager>();
+        if (m_playerCameraTransform == null) m_playerCameraTransform = Camera.main.transform;
+        m_gravityManager = GravityManager.Instance;
     }
 
     // Update is called once per frame
@@ -114,6 +89,7 @@ public class HUDManager : MonoBehaviour
 
     private void UpdateGravimeterDisplay()
     {
+
         float targetY = Mathf.Lerp(
             -m_gravimeterRange / 2f,
             m_gravimeterRange / 2f,
