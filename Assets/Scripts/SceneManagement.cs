@@ -5,6 +5,6 @@ public class SceneManagement : MonoBehaviour
 {
     public void LoadInventoryScene()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(1);      // TO-DO: async!
     }
 }
