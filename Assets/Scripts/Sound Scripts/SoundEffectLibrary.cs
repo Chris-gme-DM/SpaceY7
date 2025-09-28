@@ -3,16 +3,18 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// customizable sfx library
+/// </summary>
 public class SoundEffectLibrary : MonoBehaviour
 {
-    [SerializeField] private SoundEffectGroup[]soundEffectGroups;
+    [SerializeField] private SoundEffectGroup[] soundEffectGroups;
     private Dictionary<string, List<AudioClip>> soundDictionary;
-    // string = name sound
 
     private void Awake()
     {
         InitializeDictonary();
-
     }
 
     private void InitializeDictonary()
@@ -24,6 +26,7 @@ public class SoundEffectLibrary : MonoBehaviour
         }
     }
 
+    // randomization so we can change it up and not hear the same sound over and over and over again
     public AudioClip GetRandomClip(string name)
     {
         if (soundDictionary.ContainsKey(name))

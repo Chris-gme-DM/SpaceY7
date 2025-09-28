@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// will get a warning when entering the object, will respawn when exiting
+/// because we don't want them to see the void around the crater
+/// </summary>
 public class DeathZone : MonoBehaviour
 {
     private bool wasWarned;

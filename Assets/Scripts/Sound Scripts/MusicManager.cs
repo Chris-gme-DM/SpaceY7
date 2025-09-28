@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+/// <summary>
+/// a script for a music manager with the hope to attach a library to it 
+/// </summary>
 public class MusicManager : MonoBehaviour
 {
     private static MusicManager Instance;
