@@ -20,11 +20,15 @@ MonoBehaviour:
     height: 989
   m_ShowMode: 4
 <<<<<<< HEAD
+<<<<<<< HEAD
   m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
 <<<<<<< Updated upstream
 =======
+=======
+  m_Title: Hierarchy
+>>>>>>> origin/JoResources
 =======
   m_Title: Hierarchy
 >>>>>>> origin/JoResources
@@ -300,7 +304,11 @@ MonoBehaviour:
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
 <<<<<<< HEAD
+<<<<<<< HEAD
   controlID: 50
+>>>>>>> origin/JoResources
+=======
+  controlID: 53
 >>>>>>> origin/JoResources
 =======
   controlID: 53
@@ -328,6 +336,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -335,6 +344,9 @@ MonoBehaviour:
     height: 564
 =======
     width: 360
+=======
+    width: 279
+>>>>>>> origin/JoResources
 =======
     width: 279
 >>>>>>> origin/JoResources
@@ -366,6 +378,7 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -382,6 +395,10 @@ MonoBehaviour:
     x: 279
 >>>>>>> origin/JoResources
     y: 0
+=======
+    x: 279
+    y: 0
+>>>>>>> origin/JoResources
     width: 1219
     height: 602
 <<<<<<< HEAD
@@ -428,6 +445,7 @@ MonoBehaviour:
     width: 1374
     height: 331
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> origin/JoResources
   m_MinSize: {x: 231, y: 276}
   m_MaxSize: {x: 10001, y: 10026}
@@ -442,6 +460,11 @@ MonoBehaviour:
   m_MaxSize: {x: 10001, y: 10026}
   m_ActualView: {fileID: 15}
 >>>>>>> Stashed changes
+=======
+  m_MinSize: {x: 101, y: 126}
+  m_MaxSize: {x: 4001, y: 4026}
+  m_ActualView: {fileID: 19}
+>>>>>>> origin/JoResources
   m_Panes:
   - {fileID: 15}
   - {fileID: 16}
@@ -513,8 +536,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Project\u200B"
   m_Pos:
     serializedVersion: 2
-    x: -546
-    y: 682
+    x: 1375
+    y: 24
     width: 122
     height: 305
   m_SerializedDataModeController:
@@ -558,7 +581,11 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 771}
     m_SelectedIDs: c2e50000
     m_LastClickedID: 58818
+<<<<<<< HEAD
     m_ExpandedIDs: 000000004ce300004ee3000050e3000052e3000054e3000056e3000058e300005ae300005ce300002ee4000090e4000098e4000000ca9a3b
+=======
+    m_ExpandedIDs: 000000003ee3000040e3000042e3000044e3000046e3000048e300004ae300004ce300004ee3000050e3000052e30000
+>>>>>>> origin/JoResources
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -587,7 +614,11 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
+<<<<<<< HEAD
     m_ExpandedIDs: 000000004ce300004ee3000050e3000052e3000054e3000056e3000058e300005ae300005ce30000
+=======
+    m_ExpandedIDs: 000000003ee3000040e3000042e3000044e3000046e3000048e300004ae300004ce300004ee3000050e3000052e30000
+>>>>>>> origin/JoResources
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -772,12 +803,15 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 24
+<<<<<<< HEAD
     width: 310
     height: 538
 <<<<<<< Updated upstream
 =======
     x: -1920
     y: 80
+=======
+>>>>>>> origin/JoResources
     width: 278
     height: 576
 >>>>>>> origin/JoResources
@@ -799,6 +833,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -812,6 +847,9 @@ MonoBehaviour:
 =======
       m_ExpandedIDs: 1a8efcffeea6fcffccadfcff70b1fcff56bafcff8ebffcffd8d2fcff12ecfcff3095fdff7eb2fdff62b3fdff94cdfdff7cd9fdfffef2fdff54f9fdff4c07feff1809feffa60efeffde0ffefff210feff0211feffa21ffeff8e30feff90a9ffff94a9ffffa8a9ffffaaa9ffff9ab4ffff28c3ffff66ccffff00e4ffffe0faffff6edd000042f400005af400007cf40000b6f40000d0f4000056fa000076fa00008efa0000b0fa0000eafa000004fb000090960100c69601005c9701001e9e0100f6ad0100fead01002cae010036ae0100dcfa0100
 >>>>>>> Stashed changes
+=======
+      m_ExpandedIDs: dafaffff
+>>>>>>> origin/JoResources
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -857,6 +895,7 @@ MonoBehaviour:
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
     serializedVersion: 2
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -873,6 +912,10 @@ MonoBehaviour:
     x: -1641
 >>>>>>> origin/JoResources
     y: 80
+=======
+    x: 280
+    y: 24
+>>>>>>> origin/JoResources
     width: 1217
     height: 576
 >>>>>>> origin/JoResources
@@ -1460,6 +1503,7 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1481,6 +1525,11 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: -177.81406, y: -148.23022, z: 493.48825}
 >>>>>>> Stashed changes
+=======
+    m_Target: {x: -186.71013, y: -523.31323, z: 1184.2866}
+    speed: 2
+    m_Value: {x: -186.71013, y: -523.31323, z: 1184.2866}
+>>>>>>> origin/JoResources
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1526,6 +1575,7 @@ MonoBehaviour:
     m_GridAxis: 0
     m_gridOpacity: 0.5
   m_Rotation:
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1559,6 +1609,15 @@ MonoBehaviour:
 =======
     m_Value: 599.1475
 >>>>>>> Stashed changes
+=======
+    m_Target: {x: -0.22240815, y: 0.09255508, z: -0.021207541, w: -0.97035944}
+    speed: 2
+    m_Value: {x: -0.22240815, y: 0.09255509, z: -0.021207541, w: -0.97035944}
+  m_Size:
+    m_Target: 808.1666
+    speed: 2
+    m_Value: 808.1666
+>>>>>>> origin/JoResources
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1639,6 +1698,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1652,6 +1712,9 @@ MonoBehaviour:
 =======
     - Assets/Scripts/InteractionSystem
 >>>>>>> Stashed changes
+=======
+    - Assets/Scripts/Sound Scripts/Footsteps
+>>>>>>> origin/JoResources
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1661,6 +1724,7 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1683,11 +1747,15 @@ MonoBehaviour:
 =======
   - Assets/Scripts/Sound Scripts/Footsteps
 >>>>>>> origin/JoResources
+=======
+  - Assets/Scripts/Sound Scripts/Footsteps
+>>>>>>> origin/JoResources
   m_LastFoldersGridSize: 55
   m_LastProjectPath: C:\Users\Teilnehmer\Downloads\Space7\clon_git\SpaceY7
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
+<<<<<<< HEAD
 <<<<<<< HEAD
     scrollPos: {x: 0, y: 595}
     m_SelectedIDs: dae20000
@@ -1706,6 +1774,12 @@ MonoBehaviour:
     m_LastClickedID: 53358
     m_ExpandedIDs: 00000000e0d10000e2d10000e4d10000e6d10000e8d10000ead10000ecd10000eed10000f0d10000f2d10000f4d10000
 >>>>>>> Stashed changes
+=======
+    scrollPos: {x: 0, y: 771}
+    m_SelectedIDs: c2e50000
+    m_LastClickedID: 58818
+    m_ExpandedIDs: 000000003ee3000040e3000042e3000044e3000046e3000048e300004ae300004ce300004ee3000050e3000052e30000
+>>>>>>> origin/JoResources
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1734,6 +1808,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1747,6 +1822,9 @@ MonoBehaviour:
 =======
     m_ExpandedIDs: 00000000e0d10000e2d10000e4d10000e6d10000e8d10000ead10000ecd10000eed10000f0d10000f2d10000f4d10000
 >>>>>>> Stashed changes
+=======
+    m_ExpandedIDs: 000000003ee3000040e3000042e3000044e3000046e3000048e300004ae300004ce300004ee3000050e3000052e30000
+>>>>>>> origin/JoResources
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1826,9 +1904,15 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
+<<<<<<< HEAD
     y: 643
     width: 1311
     height: 343
+=======
+    y: 24
+    width: 1373
+    height: 305
+>>>>>>> origin/JoResources
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1938,9 +2022,15 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
+<<<<<<< HEAD
     x: 1313
     y: 24
     width: 607
+=======
+    x: 1499
+    y: 24
+    width: 421
+>>>>>>> origin/JoResources
     height: 907
   m_SerializedDataModeController:
     m_DataMode: 0

@@ -24,7 +24,7 @@ public class CycleManager : MonoBehaviour
     private bool day;
     private bool sunset;
 
-    private TextMeshProUGUI timeText;
+    [SerializeField] TextMeshProUGUI timeText;
 
     public static CycleManager instance;
 
@@ -56,7 +56,7 @@ public class CycleManager : MonoBehaviour
         }
         
         Time.timeScale = 1f;
-        //timeText.text = "This is your timeDisplay.";
+        timeText.text = "This is your timeDisplay.";
     }
 
     public void Update()
@@ -66,7 +66,7 @@ public class CycleManager : MonoBehaviour
         // every tempSecond wil lbecome a Minute
         if(tempSecond >= 1)
         {
-            //Debug.Log("Ja, es ist Zeit vergangen.");
+            Debug.Log("Ja, es ist Zeit vergangen.");
 
             Minutes += 1;
             tempSecond = 0;
@@ -121,9 +121,9 @@ public class CycleManager : MonoBehaviour
             CheckCycle();
         }
         // 0 - 3 nacht
-        // 3 - 6 dämmerung
+        // 3 - 6 dï¿½mmerung
         // 6 - 6 tag
-        // 6 - 9 dämmerung
+        // 6 - 9 dï¿½mmerung
         // 9 -12 nacht
 
     }
