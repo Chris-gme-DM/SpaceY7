@@ -18,7 +18,7 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] private float m_interactionRange = 5f;
 
     public IInteractable m_currentInteractable;
-    public GameObject currentGameObject;
+    public GameObject currentGameObject;                         // JG
     private PlayerController m_playerController;
     [SerializeField] private CinemachineBrain m_cameraBrain;
     private Camera m_camera;
@@ -56,13 +56,13 @@ public class InteractionManager : MonoBehaviour
         // Raycast to the point the player is lokking at
         Ray ray = m_camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         // if the ray hits an interactable
-        Debug.Log("Raycasting beep beep boop");
+        Debug.Log("Raycasting beep beep boop");             
         if (Physics.Raycast(ray, out RaycastHit hit, m_interactionRange, interactableLayer ))
         {
-            Debug.Log("2_Raycasting beep beep boop");
+            Debug.Log("2_Raycasting beep beep boop");           
             // Get the interactbale by the hit
             IInteractable newInteractable = hit.collider.gameObject.GetComponentInParent<IInteractable>();
-            GameObject newGameObject = hit.collider.gameObject; //jo
+            GameObject newGameObject = hit.collider.gameObject; // JG
             //Debug.Log(newGameObject);
             // if the newInteractable is not the same switch
             if (newInteractable != null && newInteractable != m_currentInteractable)

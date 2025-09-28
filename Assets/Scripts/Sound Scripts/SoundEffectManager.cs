@@ -25,6 +25,11 @@ public class SoundEffectManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        sfxSlider.onValueChanged.AddListener(delegate { OnValueChanged(); });
+    }
+
     public static void Play(string soundName)
     {
         AudioClip audioClip = soundEffectLibrary.GetRandomClip(soundName);
@@ -32,11 +37,6 @@ public class SoundEffectManager : MonoBehaviour
         {
             audioSource.PlayOneShot(audioClip);
         }
-    }
-
-    void Start()
-    {
-        sfxSlider.onValueChanged.AddListener(delegate { OnValueChanged(); });
     }
 
     public static void SetVolume(float volume)
