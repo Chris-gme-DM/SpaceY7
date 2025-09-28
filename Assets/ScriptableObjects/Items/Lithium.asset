@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e5e60c3ec750ad449b99514600199f1, type: 3}
-  m_Name: 0_Sakura
+  m_Name: Lithium
   m_EditorClassIdentifier: 
   ID: 0
-  DisplayName: Sakura
-  Description: This is a testi testi test :)
-  Icon: {fileID: 21300000, guid: 5a9f72f76814c3d499f26d888ec02a50, type: 3}
-  MaxStackSize: 4
+  DisplayName: Lithium
+  Description: 
+  Icon: {fileID: 21300000, guid: faf0a137f179209448d977de6fefb83d, type: 3}
+  MaxStackSize: 9
   type:
-    resourceType: 0
+    resourceType: 8
     amount: 1

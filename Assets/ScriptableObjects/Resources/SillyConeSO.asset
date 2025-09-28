@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1e06a12bef330e469f4863fa4b5a491, type: 3}
-  m_Name: Tapy
+  m_Name: SillyConeSO
   m_EditorClassIdentifier: 
-  RessourceName: TapySO
+  RessourceName: Silicone
   RessourcePrefabs:
-  - {fileID: 2433991473067654412, guid: 2de7cfbaa9d1fa140bf767d6b30dd13e, type: 3}
-  - {fileID: 5416949651401491031, guid: 076152a520d3b634fb5209a4441881d3, type: 3}
-  HarvestCycle: day
-  RespawnCycle: sunset
-  HarvestRessource: 1
+  - {fileID: 7519008870480793648, guid: e9e734987b4486b4298c98c31c8e64a9, type: 3}
+  - {fileID: 4960944407071905081, guid: 99a6b6b37be1ae247a40b9cd2552bbf3, type: 3}
+  HarvestCycle: night
+  RespawnCycle: sunrise
+  HarvestRessource: 0

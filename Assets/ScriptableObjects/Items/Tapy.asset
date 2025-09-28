@@ -19,4 +19,4 @@ MonoBehaviour:
   MaxStackSize: 9
   type:
     resourceType: 7
-    amount: 0
+    amount: 1

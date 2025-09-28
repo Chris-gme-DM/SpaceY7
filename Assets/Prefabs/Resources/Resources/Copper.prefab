@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3711367912334413227}
   - component: {fileID: 6832212747044399847}
   m_Layer: 6
-  m_Name: empty Resourceobject
+  m_Name: Copper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 2514180493797269935}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.05, y: -1.61, z: -2.76}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44,12 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba99517bfa3ff4a42b31df212ba25a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ressource: {fileID: 0}
+  interactableData: {fileID: 0}
+  ressource: {fileID: 11400000, guid: 7fa6eacddca57314e895b66db86f7d88, type: 2}
   currentStage: 0
+  currentRessource: {fileID: 0}
   cycleManager: {fileID: 0}
   currentCycle: 
-  harvestCycle: 
-  respawnCycle: 
+  harvestCycle: day
+  respawnCycle: sunset
   isNotRespawned: 0
-  resourceItem: {fileID: 0}
+  resourceItem: {fileID: 11400000, guid: 71ac6adab5558e84ba0d7f45d22bed2e, type: 2}
   playerInventory: {fileID: 0}
