@@ -166,5 +166,18 @@ public class UIManager : MonoBehaviour
         }
         UpdateGlobalState();
     }
+
+
+    #endregion
+    #region Death
+    internal void FadeToBlack(float v)
+    {
+        throw new NotImplementedException();
+    }
+    internal void FadeFromBlack(float v)
+    {
+        throw new NotImplementedException();
+    }
+
     #endregion
 }

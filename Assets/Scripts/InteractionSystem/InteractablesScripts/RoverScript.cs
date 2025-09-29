@@ -28,14 +28,12 @@ public class RoverScript : BaseInteractable
         {
             m_agent = GetComponent<NavMeshAgent>();
         }
-        m_isHovering = true; // Currently it is the only animation available due to time
         m_agent.updatePosition = true;
         m_agent.updateRotation = true;
     }
     void Update()
     {
         if (m_playerTransform == null || m_agent == null) return;
-
     }
     void FixedUpdate()
     {

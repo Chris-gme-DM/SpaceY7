@@ -26,7 +26,8 @@ public enum ResourceType
     Aluminium,
     Lithium,
     Copper,
-    Chip,
+    NeuroChip,
+    MicroChip,
     Glühbirnchen,
 }
 #endregion
