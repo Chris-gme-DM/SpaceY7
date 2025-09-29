@@ -6857,6 +6857,10 @@ PrefabInstance:
       propertyPath: m_blueprintContainer
       value: 
       objectReference: {fileID: 5456379223309307589}
+    - target: {fileID: 6202027432551856838, guid: 940cee22320660341ab9033239c0d5b8, type: 3}
+      propertyPath: m_buildingCostSlotPrefab
+      value: 
+      objectReference: {fileID: 1889512886751797380, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
     - target: {fileID: 8523477682160945809, guid: 940cee22320660341ab9033239c0d5b8, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
