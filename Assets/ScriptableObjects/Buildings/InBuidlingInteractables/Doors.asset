@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: Doors
   m_EditorClassIdentifier: 
   InteractableID: 6
-  InteractableName: 
-  InteractableDescription: 
-  InteractablePrefab: {fileID: 0}
+  InteractableName: Door
+  InteractableDescription: I hope you know how to operate one of these
+  InteractablePrefab: {fileID: 8890246227144336044, guid: 17dd8f737d9c84c409ecccc08c1b8e89, type: 3}
   InteractableType: 3
+  Resources: []
