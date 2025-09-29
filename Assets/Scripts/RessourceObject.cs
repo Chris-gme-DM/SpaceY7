@@ -9,12 +9,12 @@ using System.Collections.Generic;
 
 public class RessourceObject : BaseInteractable, IInteractable
 {
-    [SerializeField] private RessourceSO ressource; 
+    public RessourceSO ressource; 
 
     //public int InteractableID;
     public int currentStage;
     //private float currentTime;
-    public GameObject currentRessource;
+    private GameObject currentRessource;
 
     public GameObject cycleManager;
     public string currentCycle;
@@ -68,24 +68,25 @@ public class RessourceObject : BaseInteractable, IInteractable
 
         //und was wenn es schon in der zweiten stage ist? // && currentStage < ressource.MaxStage
         {
-            //Debug.Log("READY FOR HARVESTING");
+            Debug.Log("READY FOR HARVESTING");
             currentStage++;
 
             Destroy(currentRessource);
             currentRessource = Instantiate(ressource.GetRessourceByStage(ressource.MaxStage), transform);
 
             isNotRespawned = true;
-           // Debug.Log("isNotRespawned: " + isNotRespawned);
+            //Debug.Log("isNotRespawned: " + isNotRespawned);
 
-           // Debug.Log("It's Harvest Time!");
-
+            //Debug.Log("It's Harvest Time!");
         }
+
         if (currentCycle == respawnCycle && isNotRespawned)
         {
             { 
             Destroy(currentRessource);
             
                 currentRessource = Instantiate(ressource.GetRessourceByStage(ressource.FirstStage), transform);
+
                 isNotRespawned = false;
             }
         }
@@ -103,7 +104,7 @@ public class RessourceObject : BaseInteractable, IInteractable
         {
             Debug.Log("You are trying to interact with a possible resource.");
 
-            //Debug.Log(resourceItem);
+            Debug.Log(resourceItem);
             //interactionManager.CheckforInteractable();
 
 

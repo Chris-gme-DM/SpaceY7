@@ -19,10 +19,10 @@ public class CycleManager : MonoBehaviour
 
     [Header("Cycles")]
     public string currentCycle;
-    private bool night;
-    private bool sunrise;
-    private bool day;
-    private bool sunset;
+    public bool night;
+    public bool sunrise;
+    public bool day;
+    public bool sunset;
 
     [SerializeField] TextMeshProUGUI timeText;
 
@@ -63,13 +63,14 @@ public class CycleManager : MonoBehaviour
     {
         tempSecond += Time.deltaTime * 10;                                                       // TO-DO: change it before release
 
-        // every tempSecond wil lbecome a Minute
+        // every tempSecond will become a Minute
         if(tempSecond >= 1)
         {
             Debug.Log("Ja, es ist Zeit vergangen.");
 
             Minutes += 1;
             tempSecond = 0;
+
 
             timeText.text = "Time is:" + days + "d " + hours + "h " + minutes + "min";
         }
@@ -79,6 +80,7 @@ public class CycleManager : MonoBehaviour
         {
             ressourceObject.CheckRessource();
         }
+
         //Debug.Log("maxStage is: " + ressource.MaxStage);
     }
 
@@ -150,7 +152,7 @@ public class CycleManager : MonoBehaviour
 
     private void CheckCycle()
     {
-        //Debug.Log("Der aktuelle Cycle wird gecheckt");
+        Debug.Log("Der aktuelle Cycle wird gecheckt");
 
         if (night)
         {
@@ -180,6 +182,8 @@ public class CycleManager : MonoBehaviour
             ChangeCycle("night");
             return;
         }
+
+        Debug.Log(currentCycle);
     }
 
     public void ChangeCycle(string cycle)
