@@ -413,7 +413,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -399.99997, y: -224.8, z: 0}
-  m_LocalScale: {x: 0.076554365, y: 0.076554365, z: 0.076554365}
+  m_LocalScale: {x: 0.13664189, y: 0.13664189, z: 0.13664189}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1874633028}
@@ -770,6 +770,7 @@ MonoBehaviour:
   loadingText: {fileID: 103244476}
   startButton: {fileID: 1603539696}
   sceneID: 0
+  loadingInProgress: 0
 --- !u!4 &296044391
 Transform:
   m_ObjectHideFlags: 0
@@ -11544,7 +11545,7 @@ RectTransform:
   m_GameObject: {fileID: 2145854607}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.87488484, y: 0.2856767, z: 0.2856767}
+  m_LocalScale: {x: 1.0233529, y: 0.33415604, z: 0.33415604}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1874633028}
@@ -11574,7 +11575,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 13cc669fd9c1ee34abf48e3dad6c1210, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e58236efc85a5274d8e06a0247084343, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

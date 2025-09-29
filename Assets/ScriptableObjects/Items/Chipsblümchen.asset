@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e5e60c3ec750ad449b99514600199f1, type: 3}
-  m_Name: "1_\xC4ppel"
+  m_Name: "Chipsbl\xFCmchen"
   m_EditorClassIdentifier: 
-  ID: 1
-  DisplayName: "\xC4ppel"
+  ID: 0
+  DisplayName: "Chipsbl\xFCmchen"
   Description: 
-  Icon: {fileID: 21300000, guid: 523fab7c9ff674a4e8d01f8c94aa5c8d, type: 3}
-  MaxStackSize: 1
+  Icon: {fileID: 21300000, guid: 8bb780c9003f74348a3bcf64cae3b46f, type: 3}
+  MaxStackSize: 9
   type:
-    resourceType: 0
-    amount: 0
-    ResourceIcon: {fileID: 21300000, guid: 523fab7c9ff674a4e8d01f8c94aa5c8d, type: 3}
+    resourceType: 10
+    amount: 3
+    ResourceIcon: {fileID: 21300000, guid: 8bb780c9003f74348a3bcf64cae3b46f, type: 3}
