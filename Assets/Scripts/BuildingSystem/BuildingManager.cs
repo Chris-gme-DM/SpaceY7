@@ -24,12 +24,13 @@ public class BuildingManager : MonoBehaviour
     private BuildingData m_currentBuildingData;
     private GameObject m_currentGhostBuilding;
     private BaseBuilding m_currentManipulatedBuilding;
-
+    private Vector3 m_lastValidPosition;
 
     [Header("Builder Settings")]
     // Layer that is eligible to be built upon
     // Can expand on floor modules it´f we can build higher up, but this will take a lot of work
     [SerializeField] private LayerMask m_placementLayer;
+    [SerializeField] private LayerMask m_collisionLayer;
     [SerializeField] private float m_placementRange = 50f;
     [SerializeField] private float m_maxHeightAdjustment = 5f;
     [SerializeField] private float m_rotateBuildingDegree = 1f;
@@ -37,6 +38,9 @@ public class BuildingManager : MonoBehaviour
     [SerializeField] private Color m_validColor = Color.green;
     // Invalid placement color
     [SerializeField] private Color m_invalidColor = Color.red;
+
+    private Vector2 m_rotationInput;
+
     #endregion
     #region Booleans
     // To check if a buidling is "held" by the player
@@ -81,7 +85,13 @@ public class BuildingManager : MonoBehaviour
     {
         if (m_currentGhostBuilding != null)
         {
+            
             CheckPlacementValidity();
+            if (m_rotationInput.x != 0)
+            {
+                m_currentGhostBuilding.transform.Rotate(0, m_rotationInput.x * m_rotateBuildingDegree * Time.deltaTime, 0);
+            }
+
         }
     }
 
@@ -96,8 +106,24 @@ public class BuildingManager : MonoBehaviour
             m_currentBuildingData.BuildingPrefab, 
             spawnPosition,
             spawnRotation);
-        Rigidbody rb = m_currentGhostBuilding.GetComponent<Rigidbody>(); 
-        if (rb != null)  rb.isKinematic = true;
+        m_lastValidPosition = spawnPosition;
+        // Set colliders
+        SetBuildingState(m_currentGhostBuilding, false); 
+        // Consolidating the logic for selection and manipulation of existing buildings
+//        Collider[] ghostColliders = m_currentGhostBuilding.GetComponentsInChildren<Collider>();
+//        foreach (Collider col in ghostColliders)
+//        {
+//            col.enabled = false;
+//        }
+//        Transform sizingBoxTransform = m_currentGhostBuilding.transform.Find("BuildingBox");
+//        if (sizingBoxTransform != null)
+//        {
+//            BoxCollider sizingCollider = sizingBoxTransform.GetComponent<BoxCollider>();
+//            if (sizingCollider != null)
+//            {
+//                sizingCollider.enabled = true; // ONLY the BoxCollider is active now
+//            }
+//        }
     }
     #endregion
     #region Placement Logic
@@ -114,26 +140,30 @@ public class BuildingManager : MonoBehaviour
         {
             if (m_isBuildingPlaceable)
             {
-                GameObject go;
+                GameObject building;
                 // In case the player creates a nw building
                 if (m_currentManipulatedBuilding != null)
                 {
-                    m_currentManipulatedBuilding.gameObject.GetComponent<Renderer>().enabled = true;
-                    m_currentManipulatedBuilding.gameObject.GetComponent<Collider>().enabled = true;
+                    building = m_currentManipulatedBuilding.gameObject;
                     m_currentManipulatedBuilding.transform.SetPositionAndRotation(m_currentGhostBuilding.transform.position, m_currentGhostBuilding.transform.rotation);
-                    go = m_currentManipulatedBuilding.gameObject;
+                    Destroy(m_currentGhostBuilding);
+                    SetBuildingState(building, true);
                 }
                 // In case the player manipulates a building
                 else 
                 {
-                    go = Instantiate(
+                    building = Instantiate(
                         m_currentBuildingData.BuildingPrefab,
                         m_currentGhostBuilding.transform.position,
                         m_currentGhostBuilding.transform.rotation);
-// ADD Sound to place building here, if it exists
+                    SetBuildingState(building, true);
+                    Destroy(m_currentGhostBuilding);
+                    // ADD Sound to place building here, if it exists
                 }
+                // Enable the colliders again
+                // Consoslidating logic here
                 // Find the BuildingBox collider on the placed building and disable it
-                Transform sizingBoxTransform = go.transform.Find("BuildingBox");
+                Transform sizingBoxTransform = building.transform.Find("BuildingBox");
                 if (sizingBoxTransform != null)
                 {
                     if (sizingBoxTransform.TryGetComponent<Collider>(out var sizingCollider))
@@ -165,22 +195,24 @@ public class BuildingManager : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, m_placementRange, m_placementLayer))
         {
             m_currentGhostBuilding.transform.position = hit.point;
-            Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
+            m_lastValidPosition = hit.point;
+            Debug.Log($"GHOST BUILDING CHECK: Name: {m_currentGhostBuilding.name} | Position: {m_currentGhostBuilding.transform.position}");
 
             float currentHeightAdjustment = 0f;
             m_isBuildingPlaceable = false;
 
             int safetyBreakCount = 0;
             const int MAX_ITERATIONS = 100;
+            const float ADJUSTMENTSTEP = 0.1f;
             // It's fine as long as the AdjustmentHeight is in range
             while (currentHeightAdjustment <= m_maxHeightAdjustment && safetyBreakCount < MAX_ITERATIONS)
             {
                 // BoxCast to check for collisions at the current position
                 if (!Physics.CheckBox(
-                        m_currentGhostBuilding.transform.position,
+                        m_currentGhostBuilding.transform.position + sizingCollider.center,
                         sizingCollider.size / 2,
                         m_currentGhostBuilding.transform.rotation,
-                        m_placementLayer, 
+                        m_collisionLayer, 
                         QueryTriggerInteraction.Ignore))
                 {
                     m_isBuildingPlaceable = true;
@@ -188,34 +220,14 @@ public class BuildingManager : MonoBehaviour
                 }
                 // If a collision is found, need to move the ghost up.
                 // BoxCast non-allocating to get the hit information.
-                Collider[] colliders = Physics.OverlapBox(
-                    m_currentGhostBuilding.transform.position,
-                    sizingCollider.size / 2,
-                    m_currentGhostBuilding.transform.rotation,
-                    m_placementLayer,
-                    QueryTriggerInteraction.Ignore); // This one, took hours
-                if (colliders.Length > 0)
-                {
-                    // Find the highest point of collision and adjust accordingly
-                    float highestCollisionPoint = -Mathf.Infinity;
-                    // Move up as long as any collision is detected
-                    foreach (var collider in colliders)
-                    {
-                        if (collider.bounds.max.y > highestCollisionPoint)
-                        {
-                            highestCollisionPoint = collider.bounds.max.y;
-                        }
-                    }
-                    float requiredMoveUp = highestCollisionPoint - m_currentGhostBuilding.transform.position.y;
-                    m_currentGhostBuilding.transform.position += Vector3.up * (requiredMoveUp + 0.01f); // Add a small offset
-                    currentHeightAdjustment += requiredMoveUp;
-                }
-                else break;
+                m_currentGhostBuilding.transform.Translate(Vector3.up * ADJUSTMENTSTEP, Space.World); // Add a small offset
+                currentHeightAdjustment += ADJUSTMENTSTEP;
                 safetyBreakCount++;
             }
         }
         else
         {
+            m_currentGhostBuilding.transform.position = m_lastValidPosition;
             m_isBuildingPlaceable = false;
         }
         // if true turn it green
@@ -227,15 +239,40 @@ public class BuildingManager : MonoBehaviour
     private void SetGhostMaterial(GameObject ghost, Color color)
     {
         Renderer[] renderers = ghost.GetComponentsInChildren<Renderer>();
-        foreach (Renderer renderer in renderers)
+        foreach (Renderer r in renderers)
         {
-            Material tempMaterial = new(renderer.material)
+            Material tempMaterial = new(r.material)
             {
                 color = new Color(color.r, color.g, color.b, 0.5f)
             };
-            renderer.material = tempMaterial;
+            r.material = tempMaterial;
         }
 
+    }
+    private void SetBuildingState(GameObject go, bool isState)
+    {
+        Collider[] Colliders = go.GetComponentsInChildren<Collider>(true);
+        foreach (Collider col in Colliders)
+        {
+            col.enabled = isState;
+        }
+        Renderer[] renderers = go.GetComponentsInChildren<Renderer>(true);
+        foreach (Renderer r in renderers)
+        {
+            r.enabled = true;
+        }
+        if (!isState)
+        {
+            Transform sizingBoxTransform = go.transform.Find("BuildingBox");
+            if (sizingBoxTransform != null)
+            {
+                BoxCollider sizingCollider = sizingBoxTransform.GetComponent<BoxCollider>();
+                if (sizingCollider != null)
+                {
+                    sizingCollider.enabled = true;
+                }
+            }
+        }
     }
     #endregion
     #region Manipulation Logic
@@ -253,15 +290,14 @@ public class BuildingManager : MonoBehaviour
                 // Dislodge the object from its placement
                 if (buildingToManipulate != null)
                 {
+                    CancelCurrentBuildingAction();
+
                     m_isManipulatingBuilding = true;
                     m_currentManipulatedBuilding = buildingToManipulate;
                     m_currentBuildingData = buildingToManipulate.BuildingData;
-                    m_currentGhostBuilding = Instantiate(m_currentBuildingData.BuildingPrefab,
-                        m_currentManipulatedBuilding.transform.position,
-                        m_currentManipulatedBuilding.transform.rotation);
+                    m_currentGhostBuilding = buildingToManipulate.gameObject;
+                    SetBuildingState(m_currentGhostBuilding, false);
                     // Holds it
-                    m_currentManipulatedBuilding.gameObject.GetComponent<Renderer>().enabled = false;
-                    m_currentManipulatedBuilding.gameObject.GetComponent<Collider>().enabled = false;
 // ADD sound here, if available
                 }
             }
@@ -289,30 +325,32 @@ public class BuildingManager : MonoBehaviour
     {
         // Rotate
         // Rotate the building along y axis. Transfer input Vector 2 to clock or counterclockwise rotation
-        if(m_currentGhostBuilding != null && context.performed)
+        if(m_currentGhostBuilding != null)
         {
             // Counterclockwise Rotation if rotateValue.x < 0
             // Clockwise Rotation if rotateValue.x > 0
-            Vector2 rotateValue = context.ReadValue<Vector2>();
-            m_currentGhostBuilding.transform.Rotate(0, rotateValue.x * m_rotateBuildingDegree *Time.deltaTime, 0);
+            m_rotationInput = context.ReadValue<Vector2>();
         }
+        else m_rotationInput = Vector2.zero;
         // According to the value rotate the object along the y-axis
     }
     #endregion
     public void CancelCurrentBuildingAction()
     {
 // ADD placement Sound here if available
-        if (m_currentGhostBuilding != null)
+        if (m_currentGhostBuilding != null && m_currentManipulatedBuilding == null)
         {
             Destroy(m_currentGhostBuilding);
         }
         if (m_currentManipulatedBuilding != null)
         {
-            m_currentManipulatedBuilding.gameObject.GetComponent<Renderer>().enabled = true;
-            m_currentManipulatedBuilding.gameObject.GetComponent<Collider>().enabled = true;
+            SetBuildingState(m_currentManipulatedBuilding.gameObject, true);
             m_currentManipulatedBuilding = null;
         }
         m_currentBuildingData = null;
+        m_currentManipulatedBuilding = null;
+        m_isManipulatingBuilding = false;
+        m_rotationInput = Vector2.zero;
     }
 
 }
