@@ -17,7 +17,11 @@ MonoBehaviour:
   BuildingDescription: "Ein Geb\xE4ude, in dem man gesammelte Ressourcen in die Kisten
     ablegen kann."
   BuildingPrefab: {fileID: 1839318357690015878, guid: a94ff98cc7c7d704da08c65be259012f, type: 3}
-  BuildingCosts: []
+  PreviewImage: {fileID: 21300000, guid: 6a22a3e5624ac0945b0e98ab0df4d300, type: 3}
+  BuildingCosts:
+  - resourceType: 7
+    amount: 1
+    ResourceIcon: {fileID: 21300000, guid: 5a9f72f76814c3d499f26d888ec02a50, type: 3}
   EmbeddedInteractableIDs:
   - {fileID: 11400000, guid: 321e12e3d99bb6c429ac8fcf7f52dd41, type: 2}
   - {fileID: 11400000, guid: 321e12e3d99bb6c429ac8fcf7f52dd41, type: 2}

@@ -11,6 +11,7 @@ public class Resources
 {
     public ResourceType resourceType;
     public int amount;
+    public Sprite ResourceIcon;
 
 }
 public enum ResourceType
@@ -25,7 +26,7 @@ public enum ResourceType
     Aluminium,
     Lithium,
     Copper,
-
+    Chip,
 }
 #endregion
 #region Interactables

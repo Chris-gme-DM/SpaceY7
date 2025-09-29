@@ -44,3 +44,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff168dbed7373324fb1d6bc3f7ebd8b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AvailableBlueprints:
+  - {fileID: 11400000, guid: 11bd6a8f03a2ec84284e89c673c59f75, type: 2}
+  - {fileID: 11400000, guid: 5b8d3415978833e428a9bcf0650cef31, type: 2}
+  - {fileID: 11400000, guid: a091d2c719dcb4741986c3de6d67c6b9, type: 2}
+  m_blueprintContainer: {fileID: 0}
+  m_blueprintButtonPrefab: {fileID: 5114532690848711404, guid: c4ce8fdbd45e9564688b4beb4d269f7d, type: 3}
+  m_buildingNameText: {fileID: 0}
+  m_buildingDescriptionText: {fileID: 0}
+  m_buildingCostPanel: {fileID: 0}
+  m_buildingCostSlotPrefab: {fileID: 6238902662434573146, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
+  m_buildButton: {fileID: 0}

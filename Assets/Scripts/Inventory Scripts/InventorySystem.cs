@@ -75,4 +75,16 @@ public class InventorySystem
         freeSlot = InventorySlots.FirstOrDefault(i  => i.itemData == null);
         return freeSlot == null ? false : true;
     }
+    public int GetResourceCount(ResourceType type)
+    {
+        int totalCount = 0;
+        foreach (var slot in InventorySlots)
+        {
+            if (slot.itemData != null && slot.itemData.type.resourceType == type)
+            {
+                totalCount += slot.StackSize;
+            }
+        }
+        return totalCount;
+    }
 }

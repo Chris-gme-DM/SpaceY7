@@ -481,6 +481,7 @@ GameObject:
   - component: {fileID: 2228940283815496163}
   - component: {fileID: 8206970951954805724}
   - component: {fileID: 6447564030216961294}
+  - component: {fileID: 6202027432551856838}
   m_Layer: 5
   m_Name: BuidlingMenuPanel
   m_TagString: Untagged
@@ -547,6 +548,29 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6202027432551856838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1667040643958717394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff168dbed7373324fb1d6bc3f7ebd8b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AvailableBlueprints:
+  - {fileID: 11400000, guid: 11bd6a8f03a2ec84284e89c673c59f75, type: 2}
+  - {fileID: 11400000, guid: 5b8d3415978833e428a9bcf0650cef31, type: 2}
+  - {fileID: 11400000, guid: a091d2c719dcb4741986c3de6d67c6b9, type: 2}
+  m_blueprintContainer: {fileID: 9054748973194690049}
+  m_blueprintButtonPrefab: {fileID: 5114532690848711404, guid: c4ce8fdbd45e9564688b4beb4d269f7d, type: 3}
+  m_buildingNameText: {fileID: 5424275315448663522}
+  m_buildingDescriptionText: {fileID: 1334868418080455536}
+  m_buildingCostPanel: {fileID: 69384169848038109}
+  m_buildingCostSlotPrefab: {fileID: 7168955200905365747, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
+  m_buildButton: {fileID: 1965007289570396725}
 --- !u!1 &2218331904370760466
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +602,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8523477682160945809}
+  - {fileID: 9053880929714949811}
   m_Father: {fileID: 1623064436620107939}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1223,6 +1247,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 808012738456033982}
     m_Modifications:
+    - target: {fileID: 2294488308669862978, guid: c4ce8fdbd45e9564688b4beb4d269f7d, type: 3}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 7419843910343119492}
     - target: {fileID: 3435163016188085765, guid: c4ce8fdbd45e9564688b4beb4d269f7d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1337,6 +1365,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ddd622fa6427454792d7abd94f36a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_previewImage: {fileID: 0}
+  m_buildingNameText: {fileID: 0}
+--- !u!114 &7419843910343119492 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7501154040674075571, guid: c4ce8fdbd45e9564688b4beb4d269f7d, type: 3}
+  m_PrefabInstance: {fileID: 1072392594837049655}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5195921419550888923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1881515751178679935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1348,6 +1389,30 @@ PrefabInstance:
     - target: {fileID: 6238902662434573146, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
       propertyPath: m_Name
       value: BuildingCostSlotPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474185544178170060, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474185544178170060, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474185544178170060, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474185544178170060, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474185544178170060, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474185544178170060, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7806151376922410222, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
       propertyPath: m_Pivot.x
@@ -1434,8 +1499,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
---- !u!224 &8523477682160945809 stripped
+--- !u!224 &9053880929714949811 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7806151376922410222, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7474185544178170060, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
   m_PrefabInstance: {fileID: 1881515751178679935}
   m_PrefabAsset: {fileID: 0}

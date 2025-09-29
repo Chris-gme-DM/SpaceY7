@@ -130,12 +130,10 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
+            return;
         }
-        else
-        {
-            Instance = this;
-        }
+        Instance = this;
         inputActions = new InputSystem_Actions();
         inputActions.Exploration.SetCallbacks(this);
         inputActions.Builder.SetCallbacks(this);
@@ -300,7 +298,14 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     /// The SwitchCurrentActionMap method had a conflict i couldnt resolve, so i control the switch manually
     /// </summary>
     /// <param name="context"></param>
-
+    // Workaround for other scripts to switch action map. In this case the building manager or its ui call this to switch to builder mode automatically
+    public void SwitchActionMap(string mapName)
+    {
+        if(playerInput != null && playerInput.currentActionMap.name != mapName)
+        {
+            playerInput.SwitchCurrentActionMap(mapName);
+        }
+    }
     //Enter Builder Mode
     public void OnBuilderMode(InputAction.CallbackContext context)
     {
@@ -382,6 +387,10 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         // If not in range, call the rover over until the distance is acceptable. then open the menu
         m_animationController.SetAnimationTriggers("CallRoverAction");
         Debug.Log("Come over here");
+        if (context.canceled)
+        {
+            UIManager.Instance.TogglePlayerMenu();
+        }
     }
     // Toggle the Flashlight of the helmet
     public void OnFlashlight(InputAction.CallbackContext context)
@@ -407,6 +416,13 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     {
         Debug.Log("Shift to the next tool");
     }
+    public void OnMenu(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            UIManager.Instance.TogglePlayerMenu();
+        }
+    }
     #endregion
     #region Exploration Actions
     // Interacts with various objects in the world if the InteractionManager recognizes an interactable object
@@ -416,15 +432,6 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         {
             Debug.Log("Interact with the stuff");
             // notes for jo: will automatically invoke the OnInteractAction in ResourceObject
-        }
-    }
-    public void OnMenu(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            OnMenuAction?.Invoke(context);
-            //Debug.Log("Opening the Menu");
-            //menu.SetActive(true);
         }
     }
 

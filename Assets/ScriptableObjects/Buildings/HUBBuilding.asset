@@ -14,14 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BuildingID: 2
   BuildingName: HUB
-  BuildingDescription: "Einheit, in der ein gem\xFCtliche Bett aufgestellt ist und
-    man sich erholen kann"
+  BuildingDescription: Unit, with a bed and environment unit to replenish the player
   BuildingPrefab: {fileID: 1810027596089864544, guid: 82528a111a82f9042b0d9356f9404091, type: 3}
-  PreviewImage: {fileID: 0}
-  BuildingCosts:
-  - resourceType: 6
-    amount: 1
-  - resourceType: 8
-    amount: 1
+  PreviewImage: {fileID: 21300000, guid: d4a88562017117148a25c373daf84a78, type: 3}
+  BuildingCosts: []
   EmbeddedInteractableIDs:
   - {fileID: 11400000, guid: 0f39c19636109124aa28a6d194456519, type: 2}

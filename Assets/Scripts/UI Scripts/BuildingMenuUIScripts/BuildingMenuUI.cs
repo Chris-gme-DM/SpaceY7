@@ -1,3 +1,4 @@
+using Mono.Cecil;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 
 public class BuildingMenuUI : MonoBehaviour
 {
-    public static BuildingMenuUI Instance;
+    public static BuildingMenuUI Instance { get; private set; }
     #region Inspector
     [Header("Building Data List")]
     public List<BuildingData> AvailableBlueprints;
@@ -29,13 +30,13 @@ public class BuildingMenuUI : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
         else
         {
             Instance = this;
         }
-
+        BuildingMenuUI.Instance.gameObject.SetActive(false);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -59,8 +60,18 @@ public class BuildingMenuUI : MonoBehaviour
     private void OnBuildButtonClicked()
     {
         // Pass the selected building data on to the BuildingManager for construction
+        UIManager.Instance.TogglePlayerMenu();
+        if (m_selectedData == null || !m_buildButton.interactable) return;
+        BuildingManager.Instance.SelectBuildingAction(m_selectedData);
         // Close the UI
+        this.gameObject.SetActive(false);
         // Enter Builder Mode
+        if (PlayerController.Instance != null)
+        {
+            Time.timeScale = 1f;
+            if (HUDManager.Instance != null) HUDManager.Instance.gameObject.SetActive(true);
+            PlayerController.Instance.SwitchActionMap("Builder");
+        }
     }
     #endregion
     #region BlueprintPanel
@@ -81,20 +92,36 @@ public class BuildingMenuUI : MonoBehaviour
         // Clear previous Costs
         foreach (Transform child in m_buildingCostPanel)
         {
-            Destroy(child);
+            Destroy(child.gameObject);
         }
 
-        bool resourcesAvailable = true;
-
-        // Check jos inventory system thoroughly
-        foreach (var i in costs)
+        foreach (var cost in costs)
         {
-            
+            int requiredAmount = cost.amount;
+            int currentCount = InventoryManager.Instance.GetTotalResourceCount(cost.resourceType);
+            bool hasEnough = currentCount >= requiredAmount;
+
+            GameObject slotGO = Instantiate(m_buildingCostSlotPrefab, m_buildingCostPanel);
+
+            if (slotGO.TryGetComponent<BuildingCostSlot>(out var costSlotScript))
+            {
+                costSlotScript.Setup(cost, hasEnough);
+            }
         }
+
     }
     private void UpdateBuildButton(List<Resources> costs)
     {
-        throw new NotImplementedException();
+        bool resourcesAvailable = true;
+        foreach (var cost in costs)
+        {
+            if (InventoryManager.Instance.GetTotalResourceCount(cost.resourceType) < cost.amount)
+            {
+                resourcesAvailable = false;
+                break;
+            }
+        }
+        m_buildButton.interactable = resourcesAvailable;
     }
     #endregion
 }

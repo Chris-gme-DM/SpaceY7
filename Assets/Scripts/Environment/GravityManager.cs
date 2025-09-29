@@ -12,6 +12,7 @@ using UnityEngine;
 /// </summary>
 public class GravityManager : MonoBehaviour
 {
+    public static GravityManager Instance;
     #region Inspector
     [Header("Gravity Settings")]
     [Tooltip("accleration in m/s²; 9.81 is usual earth gravity")]
@@ -36,6 +37,16 @@ public class GravityManager : MonoBehaviour
     public float CurrentGravityDisplay => m_currentGravity/baseGravity; // HUD Manager calls this
     private float m_targetGravity;
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Start()
     {
