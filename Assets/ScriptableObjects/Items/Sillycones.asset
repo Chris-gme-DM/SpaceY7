@@ -19,5 +19,5 @@ MonoBehaviour:
   MaxStackSize: 9
   type:
     resourceType: 4
-    amount: 1
+    amount: 3
     ResourceIcon: {fileID: 21300000, guid: dc2cd50c45511024193bee14a2891a72, type: 3}

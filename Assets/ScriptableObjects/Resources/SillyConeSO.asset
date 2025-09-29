@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RessourceName: Silicone
   RessourcePrefabs:
-  - {fileID: 7519008870480793648, guid: e9e734987b4486b4298c98c31c8e64a9, type: 3}
-  - {fileID: 4960944407071905081, guid: 99a6b6b37be1ae247a40b9cd2552bbf3, type: 3}
+  - {fileID: 8680621012087588792, guid: be030e9986e173949b594492c85ad53e, type: 3}
+  - {fileID: 6846323531506381681, guid: 733f1dfc0865bd14aa7766fb728c662c, type: 3}
   HarvestCycle: night
   RespawnCycle: sunrise
   HarvestRessource: 0
