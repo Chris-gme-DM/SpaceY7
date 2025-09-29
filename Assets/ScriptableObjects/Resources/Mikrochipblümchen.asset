@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1e06a12bef330e469f4863fa4b5a491, type: 3}
-  m_Name: SillyCone
+  m_Name: "Mikrochipbl\xFCmchen"
   m_EditorClassIdentifier: 
-  RessourceName: Silicone
+  RessourceName: "Mikrochipbl\xFCmchen"
   RessourcePrefabs:
-  - {fileID: 7519008870480793648, guid: e9e734987b4486b4298c98c31c8e64a9, type: 3}
-  - {fileID: 4960944407071905081, guid: 99a6b6b37be1ae247a40b9cd2552bbf3, type: 3}
-  HarvestCycle: days
-  HarvestRessource: 5
+  - {fileID: 7631004776598167383, guid: 6c2e0df6b0f8e364db5554c639e70271, type: 3}
+  - {fileID: 7631004776598167383, guid: 6c2e0df6b0f8e364db5554c639e70271, type: 3}
+  HarvestCycle: day
+  RespawnCycle: sunset
+  HarvestRessource: 1

@@ -27,6 +27,7 @@ public enum ResourceType
     Lithium,
     Copper,
     Chip,
+    Glühbirnchen,
 }
 #endregion
 #region Interactables

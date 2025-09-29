@@ -24,9 +24,20 @@ public class CycleManager : MonoBehaviour
     public bool day;
     public bool sunset;
 
+    [Header("Light & Fog Colors")]
+    public Color nightColor = new Color(38f, 38f, 49f, 1f);
+    public Color sunriseColor = new Color(115f, 168f, 193f, 1f);
+    public Color dayColor = new Color(255f, 244f, 214f, 1f);
+    public Color sunsetColor = new Color(141f, 81f, 50f, 1f);
+    public Color dayFogColor = new Color(147f, 124f, 109f, 1f);
+    public Color nightFogColor = new Color(147f, 124f, 109f, 1f);
+
+
     [SerializeField] TextMeshProUGUI timeText;
 
     public static CycleManager instance;
+
+    public Light directionalLight;
 
   #region Time
     private int minutes;
@@ -59,9 +70,16 @@ public class CycleManager : MonoBehaviour
         timeText.text = "This is your timeDisplay.";
     }
 
+    private void Start()
+    {
+        directionalLight = directionalLight.GetComponent<Light>();
+        directionalLight.color = nightColor;                            // TO-DO change bevore release!
+        RenderSettings.fogColor = nightColor;                           // TO-DO change bevore release!
+    }
+
     public void Update()
     {
-        tempSecond += Time.deltaTime * 10;                                                       // TO-DO: change it before release
+        tempSecond += Time.deltaTime * 10;                                                       // TO-DO: change it before release!
 
         // every tempSecond will become a Minute
         if(tempSecond >= 1)
@@ -106,21 +124,32 @@ public class CycleManager : MonoBehaviour
         {
             StartCoroutine(LerpSkybox(skyboxNight, skyboxSunrise, 10f));        // sonnenaufgang
             CheckCycle();
+            directionalLight.color = sunriseColor;
+            RenderSettings.fogDensity = 0.003f;
         }
         if (value == 6)
         {
             StartCoroutine(LerpSkybox(skyboxSunrise, skyboxDay, 10f));          // tag
             CheckCycle();
+            directionalLight.color = dayColor;
+            RenderSettings.fogColor = dayFogColor;
+            RenderSettings.fogDensity = 0.003f;
         }
         if (value == 18)
         {
             StartCoroutine(LerpSkybox(skyboxDay, skyboxSunset, 10f));           // sonnenuntergang
             CheckCycle();
+            directionalLight.color = sunsetColor;
+            RenderSettings.fogDensity = 0.003f;
+
         }
         if (value == 21)
         {
             StartCoroutine(LerpSkybox(skyboxSunset, skyboxNight, 10f));         // nacht
             CheckCycle();
+            directionalLight.color = nightColor;
+            RenderSettings.fogDensity = 0.02f;
+
         }
         // 0 - 3 nacht
         // 3 - 6 d�mmerung

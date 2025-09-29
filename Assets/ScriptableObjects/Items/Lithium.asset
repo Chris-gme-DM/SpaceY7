@@ -15,8 +15,9 @@ MonoBehaviour:
   ID: 0
   DisplayName: Lithium
   Description: 
-  Icon: {fileID: 21300000, guid: faf0a137f179209448d977de6fefb83d, type: 3}
+  Icon: {fileID: 21300000, guid: 4f820e04554a97047bbecf9baaa81362, type: 3}
   MaxStackSize: 9
   type:
     resourceType: 8
     amount: 1
+    ResourceIcon: {fileID: 21300000, guid: 4f820e04554a97047bbecf9baaa81362, type: 3}
