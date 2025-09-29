@@ -83,7 +83,7 @@ public class HUDManager : MonoBehaviour
     private void UpdateCompassDisplay()
     {
         float cameraY = m_playerCameraTransform.eulerAngles.y;
-        m_compassImage.rectTransform.localRotation = Quaternion.Euler(0, 0, -cameraY);
+        m_compassImage.rectTransform.localRotation = Quaternion.Euler(0, 0, cameraY);
     
     }
 

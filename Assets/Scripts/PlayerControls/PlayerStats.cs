@@ -59,7 +59,6 @@ public class PlayerStats : MonoBehaviour
     private float m_playerWaterDrainModifier = 1.0f;
     private float m_playerHumanityDrainModifier = 1.0f; // Currently dormant
 
-
     #endregion
     #region Important
     private void Awake()
@@ -171,7 +170,7 @@ public class PlayerStats : MonoBehaviour
     private void ChangeWater(int amount)
     {
         m_playerWater += amount;
-        m_playerOxygen = Mathf.Clamp(m_playerWater, 0f, m_maxWater);
+        m_playerWater = Mathf.Clamp(m_playerWater, 0f, m_maxWater);
 
     }
     private void ChangeHumanity(int amount) // I wish
