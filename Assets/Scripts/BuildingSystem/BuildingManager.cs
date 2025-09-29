@@ -89,9 +89,8 @@ public class BuildingManager : MonoBehaviour
             CheckPlacementValidity();
             if (m_rotationInput.x != 0)
             {
-                m_currentGhostBuilding.transform.Rotate(0, m_rotationInput.x * m_rotateBuildingDegree * Time.deltaTime, 0);
+                m_currentGhostBuilding.transform.Rotate(0, m_rotationInput.x * m_rotateBuildingDegree, 0);
             }
-
         }
     }
 
@@ -325,13 +324,17 @@ public class BuildingManager : MonoBehaviour
     {
         // Rotate
         // Rotate the building along y axis. Transfer input Vector 2 to clock or counterclockwise rotation
-        if(m_currentGhostBuilding != null)
+        if (m_currentGhostBuilding != null)
         {
             // Counterclockwise Rotation if rotateValue.x < 0
             // Clockwise Rotation if rotateValue.x > 0
             m_rotationInput = context.ReadValue<Vector2>();
+
         }
-        else m_rotationInput = Vector2.zero;
+        else if (context.canceled)
+        {
+            m_rotationInput = Vector2.zero;
+        }
         // According to the value rotate the object along the y-axis
     }
     #endregion
