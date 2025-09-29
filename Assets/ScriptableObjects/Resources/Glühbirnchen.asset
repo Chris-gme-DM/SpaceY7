@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RessourceName: TapySO
   RessourcePrefabs:
-  - {fileID: 6858735080614818382, guid: a228789a4903e6e4b818d32aea9a57ca, type: 3}
-  - {fileID: 6858735080614818382, guid: a228789a4903e6e4b818d32aea9a57ca, type: 3}
+  - {fileID: 5829159878562042988, guid: a228789a4903e6e4b818d32aea9a57ca, type: 3}
+  - {fileID: 5829159878562042988, guid: a228789a4903e6e4b818d32aea9a57ca, type: 3}
   HarvestCycle: night
   RespawnCycle: sunset
   HarvestRessource: 3
