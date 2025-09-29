@@ -66,7 +66,7 @@ public class RoverScript : BaseInteractable
         if( distanceToPlayer <= m_minFollowDistance )
         {
             // Open the Rover Menu;
-
+            UIManager.Instance.TogglePlayerMenu();
         }
     }
     #endregion

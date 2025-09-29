@@ -58,13 +58,13 @@ public class BuildingManager : MonoBehaviour
         {
             Instance = this;
         }
+        if (m_playerController == null) { m_playerController = FindAnyObjectByType<PlayerController>(); }
+        if (m_cameraBrain == null) { m_cameraBrain = FindAnyObjectByType<CinemachineBrain>(); }
+        if (m_camera == null) { m_camera = m_cameraBrain.GetComponent<Camera>(); }
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (m_playerController == null) { m_playerController = FindAnyObjectByType<PlayerController>(); }
-        if (m_cameraBrain == null) { m_cameraBrain = FindAnyObjectByType<CinemachineBrain>(); }
-        if (m_camera == null) { m_camera = m_cameraBrain.GetComponent<Camera>(); }
         // Subscribe this scripts logic to the input actions in the playercontroller
         if (m_playerController != null)
         {

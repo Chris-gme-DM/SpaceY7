@@ -20,3 +20,5 @@ MonoBehaviour:
   BuildingCosts: []
   EmbeddedInteractableIDs:
   - {fileID: 11400000, guid: 0f39c19636109124aa28a6d194456519, type: 2}
+  - {fileID: 11400000, guid: 8af9bf5ca4b277848ac74776134d1a93, type: 2}
+  - {fileID: 11400000, guid: 8af9bf5ca4b277848ac74776134d1a93, type: 2}

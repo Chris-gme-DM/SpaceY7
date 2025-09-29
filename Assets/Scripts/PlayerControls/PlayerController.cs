@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -17,7 +18,7 @@ using UnityEngine.InputSystem.Interactions;
 /// The player can dynamically switch between the ActionMaps of the InputSystem and rely on the accustomed mapping for familiar or similar actions to ensure a smooth UX.
 /// </summary>
 public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationActions, InputSystem_Actions.IBuilderActions
-{ 
+{
     #region References
 
     /// <summary>
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     [SerializeField] private CinemachineCamera m_mainCamera; // Not automatically allocated
     [SerializeField] private GameObject m_flashLight; // Not automatically allocated
     [SerializeField] private PlayerAnimationController m_animationController;
+    [SerializeField] private GameObject m_armsHolder;
 //    [SerializeField] private CinemachineCamera m_focusCamera;
     private InputSystem_Actions inputActions; // Ill do  it manually
     private LayerMask m_groundMask;
@@ -200,6 +202,11 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     // Handling physics related actions
     void FixedUpdate()
     {
+        // Rotate Arms
+        float cameraY = m_mainCamera.transform.rotation.eulerAngles.y;
+        Quaternion targetRotation = Quaternion.Euler(0, cameraY, 0);
+        m_armsHolder.transform.rotation = targetRotation;
+
         // State Checks to determine available options and set modifiers to the Resource Drain accordingly
         IdleCheck();
         CheckGround();
@@ -389,8 +396,13 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         Debug.Log("Come over here");
         if (context.canceled)
         {
-            UIManager.Instance.TogglePlayerMenu();
+            StartCoroutine(OpenPlayerMenu());
         }
+    }
+    private IEnumerator OpenPlayerMenu()
+    {
+        yield return new WaitForSeconds(1f);
+        UIManager.Instance.TogglePlayerMenu();
     }
     // Toggle the Flashlight of the helmet
     public void OnFlashlight(InputAction.CallbackContext context)
