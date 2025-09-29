@@ -144,9 +144,9 @@ public class UIManager : MonoBehaviour
         {
             SetState(false, false, false, null);
         }
-        if (m_isBuildingMenuOpen || m_isRoverInventoryOpen)
+        else if (m_isBuildingMenuOpen)
         {
-            SetState(true, false, false, null);
+            SetState(false, false, false, null);
         }
         else
         {

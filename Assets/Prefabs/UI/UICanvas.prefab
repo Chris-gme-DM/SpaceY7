@@ -6741,6 +6741,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuidlingMenuPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 1965007289570396725, guid: 940cee22320660341ab9033239c0d5b8, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2228940283815496163, guid: 940cee22320660341ab9033239c0d5b8, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -6889,6 +6893,7 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 5515067251447332133, guid: 940cee22320660341ab9033239c0d5b8, type: 3}
     - {fileID: 5195921419550888923, guid: 940cee22320660341ab9033239c0d5b8, type: 3}
+    - {fileID: 8746344925591371404, guid: 940cee22320660341ab9033239c0d5b8, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 940cee22320660341ab9033239c0d5b8, type: 3}

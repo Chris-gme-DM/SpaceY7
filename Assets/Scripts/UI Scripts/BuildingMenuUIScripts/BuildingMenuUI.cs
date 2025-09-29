@@ -30,13 +30,13 @@ public class BuildingMenuUI : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
         else
         {
             Instance = this;
         }
-
+        BuildingMenuUI.Instance.gameObject.SetActive(false);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -51,7 +51,6 @@ public class BuildingMenuUI : MonoBehaviour
     {
         foreach (BuildingData data in AvailableBlueprints)
         {
-            Debug.Log("${data}");
             GameObject buttonGO = Instantiate(m_blueprintButtonPrefab, m_blueprintContainer);
             buttonGO.GetComponent<BlueprintButton>().Setup(data, this);
         }
@@ -104,7 +103,7 @@ public class BuildingMenuUI : MonoBehaviour
 
             GameObject slotGO = Instantiate(m_buildingCostSlotPrefab, m_buildingCostPanel);
 
-            if (slotGO.TryGetComponent<BuildingCostSlot>(out var costSlotScript));
+            if (slotGO.TryGetComponent<BuildingCostSlot>(out var costSlotScript))
             {
                 costSlotScript.Setup(cost, hasEnough);
             }

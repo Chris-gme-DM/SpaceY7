@@ -566,8 +566,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a091d2c719dcb4741986c3de6d67c6b9, type: 2}
   m_blueprintContainer: {fileID: 9054748973194690049}
   m_blueprintButtonPrefab: {fileID: 5114532690848711404, guid: c4ce8fdbd45e9564688b4beb4d269f7d, type: 3}
-  m_buildingNameText: {fileID: 0}
-  m_buildingDescriptionText: {fileID: 0}
+  m_buildingNameText: {fileID: 5424275315448663522}
+  m_buildingDescriptionText: {fileID: 1334868418080455536}
   m_buildingCostPanel: {fileID: 69384169848038109}
   m_buildingCostSlotPrefab: {fileID: 7168955200905365747, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
   m_buildButton: {fileID: 1965007289570396725}
@@ -1389,6 +1389,30 @@ PrefabInstance:
     - target: {fileID: 6238902662434573146, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
       propertyPath: m_Name
       value: BuildingCostSlotPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474185544178170060, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474185544178170060, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474185544178170060, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474185544178170060, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474185544178170060, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474185544178170060, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7806151376922410222, guid: 393f6ea3f85327749be60f9f20dd6119, type: 3}
       propertyPath: m_Pivot.x

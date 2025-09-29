@@ -26,7 +26,7 @@ public enum ResourceType
     Aluminium,
     Lithium,
     Copper,
-
+    Chip,
 }
 #endregion
 #region Interactables

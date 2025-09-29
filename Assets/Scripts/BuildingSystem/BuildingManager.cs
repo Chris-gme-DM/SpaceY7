@@ -74,7 +74,7 @@ public class BuildingManager : MonoBehaviour
             m_playerController.OnScrapAction += OnScrapAction;
             m_playerController.OnBuilderModeDisabled += CancelCurrentBuildingAction;
         }
-        m_placementLayer = LayerMask.GetMask("BuildingShell", "Ground");
+        m_placementLayer = LayerMask.GetMask("Ground");
     }
     // Update is called once per frame
     void Update()
@@ -87,10 +87,17 @@ public class BuildingManager : MonoBehaviour
 
     public void SelectBuildingAction(BuildingData buildingData)
     {
-        //    CancelCurrentBuildingAction();
+        CancelCurrentBuildingAction();
         m_currentBuildingData = buildingData;
-        m_currentGhostBuilding = Instantiate(m_currentBuildingData.BuildingPrefab);
-
+        // Spawn the object in front of the camera
+        Vector3 spawnPosition = m_camera.transform.position + m_camera.transform.forward * 8f;
+        Quaternion spawnRotation = Quaternion.Euler(0, m_camera.transform.eulerAngles.y, 0);
+        m_currentGhostBuilding = Instantiate(
+            m_currentBuildingData.BuildingPrefab, 
+            spawnPosition,
+            spawnRotation);
+        Rigidbody rb = m_currentGhostBuilding.GetComponent<Rigidbody>(); 
+        if (rb != null)  rb.isKinematic = true;
     }
     #endregion
     #region Placement Logic
@@ -153,22 +160,27 @@ public class BuildingManager : MonoBehaviour
         BoxCollider sizingCollider = sizingBoxTransform.GetComponent<BoxCollider>();
         // Check the position of the Raycasthit
         Ray ray = m_camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+
         // Moves the ghost to the detected hit position
         if (Physics.Raycast(ray, out RaycastHit hit, m_placementRange, m_placementLayer))
         {
             m_currentGhostBuilding.transform.position = hit.point;
+            Debug.DrawRay(ray.origin, ray.direction * hit.distance, Color.green);
 
             float currentHeightAdjustment = 0f;
             m_isBuildingPlaceable = false;
+
+            int safetyBreakCount = 0;
+            const int MAX_ITERATIONS = 100;
             // It's fine as long as the AdjustmentHeight is in range
-            while (currentHeightAdjustment <= m_maxHeightAdjustment)
+            while (currentHeightAdjustment <= m_maxHeightAdjustment && safetyBreakCount < MAX_ITERATIONS)
             {
                 // BoxCast to check for collisions at the current position
                 if (!Physics.CheckBox(
                         m_currentGhostBuilding.transform.position,
                         sizingCollider.size / 2,
                         m_currentGhostBuilding.transform.rotation,
-                        ~0, 
+                        m_placementLayer, 
                         QueryTriggerInteraction.Ignore))
                 {
                     m_isBuildingPlaceable = true;
@@ -180,7 +192,7 @@ public class BuildingManager : MonoBehaviour
                     m_currentGhostBuilding.transform.position,
                     sizingCollider.size / 2,
                     m_currentGhostBuilding.transform.rotation,
-                    ~0,
+                    m_placementLayer,
                     QueryTriggerInteraction.Ignore); // This one, took hours
                 if (colliders.Length > 0)
                 {
@@ -198,6 +210,8 @@ public class BuildingManager : MonoBehaviour
                     m_currentGhostBuilding.transform.position += Vector3.up * (requiredMoveUp + 0.01f); // Add a small offset
                     currentHeightAdjustment += requiredMoveUp;
                 }
+                else break;
+                safetyBreakCount++;
             }
         }
         else
