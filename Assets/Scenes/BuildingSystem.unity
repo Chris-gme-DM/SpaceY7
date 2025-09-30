@@ -1122,6 +1122,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1005926586696555668, guid: c9b447b0431a9df4dae14f8dbc7acff7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1347040250825685557, guid: c9b447b0431a9df4dae14f8dbc7acff7, type: 3}
       propertyPath: inventoryHolder
       value: 
@@ -1153,6 +1157,10 @@ PrefabInstance:
     - target: {fileID: 3981027803950920195, guid: c9b447b0431a9df4dae14f8dbc7acff7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5176486231156639590, guid: c9b447b0431a9df4dae14f8dbc7acff7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5648206765639891764, guid: c9b447b0431a9df4dae14f8dbc7acff7, type: 3}
       propertyPath: m_Color.a

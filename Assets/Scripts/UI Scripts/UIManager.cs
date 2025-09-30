@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     private bool m_isRoverInventoryOpen = false;
     private bool m_isBuildingMenuOpen = false;
     private bool m_isDynamicInventoryOpen = false;
+
     #region Important
     private void Awake()
     {
@@ -95,11 +96,13 @@ public class UIManager : MonoBehaviour
         { 
             if (HUDManager.Instance != null) HUDManager.Instance.gameObject.SetActive(false);
             if (m_playerController != null) m_playerController.SwitchActionMap("UI");
+            Cursor.visible = true;
         }
         else
         {
             if (HUDManager.Instance != null) HUDManager.Instance.gameObject.SetActive(true);
             if (m_playerController != null) m_playerController.SwitchActionMap("Exploration");
+            Cursor.visible = false;
         }
     }
 
@@ -213,6 +216,5 @@ public class UIManager : MonoBehaviour
             m_fader.blocksRaycasts = false;
         }
     }
-
-    #endregion
+   #endregion
 }

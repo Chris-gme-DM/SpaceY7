@@ -229,27 +229,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1900886542685100196, guid: 95a97b9e98110e1459676ecd6a76d8d8, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5469216807009581933, guid: 95a97b9e98110e1459676ecd6a76d8d8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1074716931}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95a97b9e98110e1459676ecd6a76d8d8, type: 3}
---- !u!114 &100495266 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8377877351922925764, guid: 95a97b9e98110e1459676ecd6a76d8d8, type: 3}
-  m_PrefabInstance: {fileID: 100495265}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf2f1fa995f8504992a05e2bc21c768, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &100495267 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1900886542685100196, guid: 95a97b9e98110e1459676ecd6a76d8d8, type: 3}
-  m_PrefabInstance: {fileID: 100495265}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &106561988
 GameObject:
   m_ObjectHideFlags: 0
@@ -2508,7 +2492,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1892178565}
-  m_Father: {fileID: 100495267}
+  m_Father: {fileID: 1975791857}
   m_LocalEulerAnglesHint: {x: 2.286, y: 0, z: 0}
 --- !u!199 &1074716932
 ParticleSystemRenderer:
@@ -13663,6 +13647,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910331863}
   m_CullTransparentMesh: 1
+--- !u!4 &1975791857 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5469216807009581933, guid: 95a97b9e98110e1459676ecd6a76d8d8, type: 3}
+  m_PrefabInstance: {fileID: 100495265}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1977084672
 GameObject:
   m_ObjectHideFlags: 0
@@ -14108,7 +14097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d398d85173c74a8489998225a110c6db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 100495266}
+  playerController: {fileID: 0}
 --- !u!1 &2145854607
 GameObject:
   m_ObjectHideFlags: 0

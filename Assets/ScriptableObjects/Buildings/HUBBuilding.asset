@@ -18,9 +18,24 @@ MonoBehaviour:
   BuildingPrefab: {fileID: 1810027596089864544, guid: 82528a111a82f9042b0d9356f9404091, type: 3}
   PreviewImage: {fileID: 21300000, guid: d4a88562017117148a25c373daf84a78, type: 3}
   BuildingCosts:
-  - resourceType: 0
-    amount: 0
-    ResourceIcon: {fileID: 0}
+  - resourceType: 7
+    amount: 3
+    ResourceIcon: {fileID: 21300000, guid: 0ce5f84a6c539b547b95fb4b21d29c93, type: 3}
+  - resourceType: 12
+    amount: 12
+    ResourceIcon: {fileID: 21300000, guid: d0879891a8bc3924ab638deb2d426299, type: 3}
+  - resourceType: 8
+    amount: 2
+    ResourceIcon: {fileID: 21300000, guid: 4f820e04554a97047bbecf9baaa81362, type: 3}
+  - resourceType: 4
+    amount: 6
+    ResourceIcon: {fileID: 21300000, guid: 8bb780c9003f74348a3bcf64cae3b46f, type: 3}
+  - resourceType: 11
+    amount: 16
+    ResourceIcon: {fileID: 21300000, guid: 8bb780c9003f74348a3bcf64cae3b46f, type: 3}
+  - resourceType: 6
+    amount: 1
+    ResourceIcon: {fileID: 21300000, guid: c2091cd5089bebd41bdf73b0301feb5f, type: 3}
   EmbeddedInteractableIDs:
   - {fileID: 11400000, guid: 0f39c19636109124aa28a6d194456519, type: 2}
   - {fileID: 11400000, guid: 8af9bf5ca4b277848ac74776134d1a93, type: 2}
