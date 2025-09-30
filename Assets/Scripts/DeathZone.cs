@@ -19,15 +19,15 @@ public class DeathZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (this == warningZone && other.CompareTag("Player"))
+        if (this.name == "WarningZone" && other.CompareTag("Player"))
         {
             warningPanel.SetActive(true);
             warningText.text = "DANGER! Flying higher will result in certain death.";
 
-            Debug.Log("Enterging the warningZone");
+            Debug.Log("Entering the warningZone");
         }
 
-        if (this == deathZone && other.CompareTag("Player"))
+        if (this.name == "DeathZone" && other.CompareTag("Player"))
         {
             warningText.text = "Whoopsie";
             warningPanel.SetActive(false);
