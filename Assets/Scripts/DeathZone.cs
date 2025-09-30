@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 /// <summary>
 /// will get a warning when entering the object, will respawn when exiting
@@ -6,30 +7,32 @@ using UnityEngine;
 /// </summary>
 public class DeathZone : MonoBehaviour
 {
-    private bool wasWarned;
     [SerializeField] private GameObject player;
     private GameObject playerStats;
 
+    [SerializeField] private GameObject warningPanel;
+
+    [SerializeField] private GameObject warningZone;
+    [SerializeField] private TextMeshProUGUI warningText;
+    [SerializeField] private GameObject deathZone;
+
+
     private void OnTriggerEnter(Collider other)
     {
-
-        if (other.CompareTag("Player") && !wasWarned)
+        if (this == warningZone && other.CompareTag("Player"))
         {
-            Debug.Log("WARNUNG: HÖHERSTEIGEN KANN ZU TOD FÜHREN");
-            wasWarned = true;
+            warningPanel.SetActive(true);
+            warningText.text = "DANGER! Flying higher will result in certain death.";
+
+            Debug.Log("Enterging the warningZone");
         }
-    }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player") && wasWarned)
+        if (this == deathZone && other.CompareTag("Player"))
         {
-            Debug.Log("YOU'RE DEAD NOW.");
-            wasWarned = false;
+            warningText.text = "Whoopsie";
+            warningPanel.SetActive(false);
 
             player.GetComponent<PlayerStats>().Respawn();
         }
     }
-
-
 }

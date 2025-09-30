@@ -15,7 +15,7 @@ MonoBehaviour:
   ID: 0
   DisplayName: SillyCones
   Description: 
-  Icon: {fileID: 21300000, guid: b55cdf92db0b1da41b2dfeb07709483c, type: 3}
+  Icon: {fileID: 21300000, guid: dc2cd50c45511024193bee14a2891a72, type: 3}
   MaxStackSize: 9
   type:
     resourceType: 4
