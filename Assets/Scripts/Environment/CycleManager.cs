@@ -74,7 +74,9 @@ public class CycleManager : MonoBehaviour
     {
         directionalLight = directionalLight.GetComponent<Light>();
         directionalLight.color = nightColor;                            // TO-DO change bevore release!
-        RenderSettings.fogColor = nightColor;                           // TO-DO change bevore release!
+        RenderSettings.fogColor = nightFogColor;                           // TO-DO change bevore release!
+        RenderSettings.fogDensity = 0.02f;
+        RenderSettings.reflectionIntensity = 0.1f;
     }
 
     public void Update()
@@ -126,6 +128,7 @@ public class CycleManager : MonoBehaviour
             CheckCycle();
             directionalLight.color = sunriseColor;
             RenderSettings.fogDensity = 0.003f;
+            RenderSettings.reflectionIntensity = 0.5f;
         }
         if (value == 6)
         {
@@ -134,6 +137,7 @@ public class CycleManager : MonoBehaviour
             directionalLight.color = dayColor;
             RenderSettings.fogColor = dayFogColor;
             RenderSettings.fogDensity = 0.003f;
+            RenderSettings.reflectionIntensity = 1f;
         }
         if (value == 18)
         {
@@ -141,15 +145,16 @@ public class CycleManager : MonoBehaviour
             CheckCycle();
             directionalLight.color = sunsetColor;
             RenderSettings.fogDensity = 0.003f;
-
+            RenderSettings.reflectionIntensity = 0.5f;
         }
         if (value == 21)
         {
             StartCoroutine(LerpSkybox(skyboxSunset, skyboxNight, 10f));         // nacht
             CheckCycle();
             directionalLight.color = nightColor;
+            RenderSettings.fogColor = nightFogColor;
             RenderSettings.fogDensity = 0.02f;
-
+            RenderSettings.reflectionIntensity = 0.1f;
         }
         // 0 - 3 nacht
         // 3 - 6 d�mmerung

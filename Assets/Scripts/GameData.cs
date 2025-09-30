@@ -26,9 +26,9 @@ public enum ResourceType
     Aluminium,
     Lithium,
     Copper,
-    NeuroChip,
-    MicroChip,
-    Glühbirnchen,
+    Neurochip,
+    Microchip,
+    Glï¿½hbirnchen,
 }
 #endregion
 #region Interactables
