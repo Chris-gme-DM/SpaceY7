@@ -27,7 +27,7 @@ public class DeathZone : MonoBehaviour
             Debug.Log("YOU'RE DEAD NOW.");
             wasWarned = false;
 
-            player.GetComponent<PlayerStats>().Respawn();
+            player.GetComponent<PlayerStats>().OnRespawn();
         }
     }
 

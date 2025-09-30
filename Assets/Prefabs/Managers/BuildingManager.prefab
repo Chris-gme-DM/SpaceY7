@@ -53,6 +53,6 @@ MonoBehaviour:
     m_Bits: 200
   m_placementRange: 20
   m_maxHeightAdjustment: 3
-  m_rotateBuildingDegree: 3
+  m_rotateBuildingDegree: 60
   m_validColor: {r: 0, g: 1, b: 0, a: 1}
   m_invalidColor: {r: 1, g: 0, b: 0, a: 1}

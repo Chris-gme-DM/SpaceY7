@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8897102240299675437}
   - component: {fileID: 4056091470637249437}
   - component: {fileID: 7368580558071462633}
-  - component: {fileID: 2899317638157882491}
   m_Layer: 6
   m_Name: Rover
   m_TagString: Rover
@@ -109,28 +108,6 @@ MonoBehaviour:
   inventorySize: 9
   inventorySystem:
     inventorySlots: []
---- !u!95 &2899317638157882491
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3449461407496101160}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 146992acc725fcc4ba652232a2e7947c, type: 3}
-  m_Controller: {fileID: 9100000, guid: edf220e86416c134488b84a3d343dbf4, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &9147024443987492571
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -195,6 +172,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Space Rover Finished for GME
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 146992acc725fcc4ba652232a2e7947c, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: edf220e86416c134488b84a3d343dbf4, type: 2}
     - target: {fileID: 5866666021909216657, guid: 146992acc725fcc4ba652232a2e7947c, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0

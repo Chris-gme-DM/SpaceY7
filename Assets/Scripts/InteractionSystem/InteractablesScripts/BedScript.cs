@@ -11,6 +11,7 @@ public class BedScript : BaseInteractable
         // Save the game
         // WRITE THAT
         // Set the RespawnPoint in case of death
+        PlayerStats.Instance.RespawnPoint = PlayerStats.Instance.gameObject.transform;
         // Write that
     }
 }

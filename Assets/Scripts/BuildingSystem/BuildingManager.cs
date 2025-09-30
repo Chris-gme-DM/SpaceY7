@@ -1,3 +1,4 @@
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -87,10 +88,7 @@ public class BuildingManager : MonoBehaviour
         {
             
             CheckPlacementValidity();
-            if (m_rotationInput.x != 0)
-            {
-                m_currentGhostBuilding.transform.Rotate(0, m_rotationInput.x * m_rotateBuildingDegree, 0);
-            }
+            m_currentGhostBuilding.transform.Rotate(0, Time.deltaTime * m_rotationInput.x * m_rotateBuildingDegree, 0);
         }
     }
 
@@ -195,7 +193,6 @@ public class BuildingManager : MonoBehaviour
         {
             m_currentGhostBuilding.transform.position = hit.point;
             m_lastValidPosition = hit.point;
-            Debug.Log($"GHOST BUILDING CHECK: Name: {m_currentGhostBuilding.name} | Position: {m_currentGhostBuilding.transform.position}");
 
             float currentHeightAdjustment = 0f;
             m_isBuildingPlaceable = false;
@@ -324,7 +321,7 @@ public class BuildingManager : MonoBehaviour
     {
         // Rotate
         // Rotate the building along y axis. Transfer input Vector 2 to clock or counterclockwise rotation
-        if (m_currentGhostBuilding != null)
+        if (context.performed || context.started)
         {
             // Counterclockwise Rotation if rotateValue.x < 0
             // Clockwise Rotation if rotateValue.x > 0
@@ -334,6 +331,7 @@ public class BuildingManager : MonoBehaviour
         else if (context.canceled)
         {
             m_rotationInput = Vector2.zero;
+
         }
         // According to the value rotate the object along the y-axis
     }

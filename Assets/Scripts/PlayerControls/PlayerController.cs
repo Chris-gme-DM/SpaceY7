@@ -197,20 +197,19 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
 //            float targetFov = m_isFocused ? m_focusedFov : 61f; // 61f is the default FOV
 //            m_mainCamera.Lens.FieldOfView = Mathf.Lerp(m_mainCamera.Lens.FieldOfView, targetFov, Time.deltaTime * m_focusSpeed);
 //        }
-
-    }
-    // Handling physics related actions
-    void FixedUpdate()
-    {
         // Rotate Arms
         float cameraY = m_mainCamera.transform.rotation.eulerAngles.y;
         Quaternion targetRotation = Quaternion.Euler(0, cameraY, 0);
         m_armsHolder.transform.rotation = targetRotation;
 
+    }
+    // Handling physics related actions
+    void FixedUpdate()
+    {
         // State Checks to determine available options and set modifiers to the Resource Drain accordingly
         IdleCheck();
         CheckGround();
-        EvaluateDrainModifiers();
+        EvaluateDrainModifiers(); // this is broken
 // We can create a method to handle animation and sounds and deal with it with a sort of state machine here.
         // Let the Physics engine handle
         // Determine which velocity to apply
@@ -252,11 +251,16 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
    }
     private void EvaluateDrainModifiers()
     {
-        playerStats.ResetDrainModifiers();
 
         float _energyDrainModifier = 1f;
         float _oxygenDrainModifier = 1f;
         float _waterDrainModifier = 1f;
+
+        // Reset Modifiers
+        if (!m_jetpackActive || !m_isSprinting)
+        {
+            playerStats.ResetDrainModifiers();
+        }
 
         // Apply modifiers based on current state
         // Idle
@@ -285,6 +289,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         playerStats.SetEnergyDrainModifier(_energyDrainModifier);
         playerStats.SetOxygenDrainModifier(_oxygenDrainModifier);
         playerStats.SetWaterDrainModifier(_waterDrainModifier);
+        
 
     }
     private bool CheckGround()
@@ -310,6 +315,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     {
         if(playerInput != null && playerInput.currentActionMap.name != mapName)
         {
+            playerInput.currentActionMap.Disable();
             playerInput.SwitchCurrentActionMap(mapName);
         }
     }
@@ -338,7 +344,6 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
             Debug.Log("Explore that stuff");
         }
     }
-
     #endregion
     #region Locomotive Inputs
     /// <summary>
@@ -496,14 +501,10 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         // Read the value
         // negative for counterclockwise Rotation
         // positive for clockwise Rotation
-        Vector2 rotateValue = context.ReadValue<Vector2>();
-        if (context.performed)
-        {
-            Debug.Log("Rotate around");
-            OnRotateAction.Invoke(context);
-            m_animationController.SetAnimationTriggers("RotateAction");
+        Debug.Log("Rotate around");
+        OnRotateAction.Invoke(context);
+        m_animationController.SetAnimationTriggers("RotateAction");
 
-        }
     }
 
     #endregion

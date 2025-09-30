@@ -8,6 +8,7 @@ TagManager:
   - HUDPanel
   - BuildingBox
   - Arms
+  - Fader
   layers:
   - Default
   - TransparentFX
@@ -19,7 +20,7 @@ TagManager:
   - Building
   - BuildingShell
   - lightning
-  - 
+  - Viewmodel
   - 
   - 
   - 

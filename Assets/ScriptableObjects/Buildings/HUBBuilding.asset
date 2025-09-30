@@ -17,7 +17,10 @@ MonoBehaviour:
   BuildingDescription: Unit, with a bed and environment unit to replenish the player
   BuildingPrefab: {fileID: 1810027596089864544, guid: 82528a111a82f9042b0d9356f9404091, type: 3}
   PreviewImage: {fileID: 21300000, guid: d4a88562017117148a25c373daf84a78, type: 3}
-  BuildingCosts: []
+  BuildingCosts:
+  - resourceType: 0
+    amount: 0
+    ResourceIcon: {fileID: 0}
   EmbeddedInteractableIDs:
   - {fileID: 11400000, guid: 0f39c19636109124aa28a6d194456519, type: 2}
   - {fileID: 11400000, guid: 8af9bf5ca4b277848ac74776134d1a93, type: 2}

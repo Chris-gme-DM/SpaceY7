@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +18,9 @@ public class PlayerStats : MonoBehaviour
     /// Holds the references to managers and modules, relevant to the player
     /// </summary>
     [SerializeField] private PlayerController playerController; // probably unnecessary
-    
+    public Transform RespawnPoint;
+    private int m_amountNeuroChips;
+    public int AmountNeuroChips => m_amountNeuroChips;
     #endregion
     #region Attributes
     /// <summary>
@@ -49,15 +52,15 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float m_playerEnergyDrain = 0.02f; // Set relatively low for the start
     [SerializeField] private float m_playerOxygenDrain = 0.02f;
     [SerializeField] private float m_playerWaterDrain = 0.02f;
-    [SerializeField] private float m_playerHumanityDrain; // We still need to figure that one out
+//    [SerializeField] private float m_playerHumanityDrain; // We still need to figure that one out
     // There are some ideas like hazardous zones or state of resources that afect this drain.
     // to replensih the can build stuff but we do not have enought stuff
     // to replenish we can use the resources as to say the player is healthy and that helps her keep her humanity and sanity up
-    
-    private float m_playerEnergyDrainModifier = 1.0f;
-    private float m_playerOxygenDrainModifier = 1.0f;
-    private float m_playerWaterDrainModifier = 1.0f;
-    private float m_playerHumanityDrainModifier = 1.0f; // Currently dormant
+
+    private float m_playerEnergyDrainModifier;
+    private float m_playerOxygenDrainModifier;
+    private float m_playerWaterDrainModifier;
+ //   private float m_playerHumanityDrainModifier; // Currently dormant
 
     #endregion
     #region Important
@@ -80,6 +83,8 @@ public class PlayerStats : MonoBehaviour
         {
             playerController = FindAnyObjectByType<PlayerController>();
         }
+        RespawnPoint = this.gameObject.transform;
+        m_amountNeuroChips = 0;
     }
 
     // Update is called once per frame
@@ -89,6 +94,8 @@ public class PlayerStats : MonoBehaviour
         m_playerEnergy -= (m_playerEnergyDrain * m_playerEnergyDrainModifier) * Time.deltaTime;
         m_playerOxygen -= (m_playerOxygenDrain * m_playerOxygenDrainModifier) * Time.deltaTime;
         m_playerWater -= (m_playerWaterDrain * m_playerWaterDrainModifier) * Time.deltaTime;
+        if ( m_playerOxygen <= 0.1f || m_playerWater <= 0.1f || m_playerEnergy <= 0.1f )
+        { OnDeath(); }
     }
     #endregion
     public void ChangeVitals(List<Resources> vitals)
@@ -137,17 +144,17 @@ public class PlayerStats : MonoBehaviour
     {
         m_playerWaterDrainModifier = modifier;
     }
-    public void SetHumanityDrainModifier(float modifier) // Depression may be a terrifying modifier, if the player doesnt do stuff to combat it
-    { 
-        m_playerHumanityDrainModifier = modifier;
-    }
+//    public void SetHumanityDrainModifier(float modifier) // Depression may be a terrifying modifier, if the player doesnt do stuff to combat it
+//    { 
+//        m_playerHumanityDrainModifier = modifier;
+//    }
     // A reset method to reset all the modifiers at once instead of making it complicated
     public void ResetDrainModifiers()
     {
         m_playerEnergyDrainModifier = 1.0f;
         m_playerOxygenDrainModifier = 1.0f;
         m_playerWaterDrainModifier = 1.0f;
-        m_playerHumanityDrainModifier = 1.0f;
+//        m_playerHumanityDrainModifier = 1.0f;
     }
     #endregion
     #region Chunk changes
@@ -173,26 +180,59 @@ public class PlayerStats : MonoBehaviour
         m_playerWater = Mathf.Clamp(m_playerWater, 0f, m_maxWater);
 
     }
-    private void ChangeHumanity(int amount) // I wish
+//    private void ChangeHumanity(int amount) // I wish
+//    {
+//        m_playerHumanity += amount;
+//        m_playerHumanity = Mathf.Clamp(m_playerHumanity, 0f, m_maxHumanity);
+//    }
+    public void CollectNeuroChip()
     {
-        m_playerHumanity += amount;
-        m_playerHumanity = Mathf.Clamp(m_playerHumanity, 0f, m_maxHumanity);
+        m_amountNeuroChips++;
+
+        // Check if the BuildingManager instance is available before calling
+        if (BuildingMenuUI.Instance != null)
+        {
+            BuildingMenuUI.Instance.CheckForNewBlueprints(AmountNeuroChips);
+        }
     }
     #endregion
     #region Respawn
-    public void Respawn()
+    public void OnDeath()
+    {
+        PlayerController.Instance.SwitchActionMap("UI");
+        BuildingManager.Instance.CancelCurrentBuildingAction();
+        UIManager.Instance.FadeToBlack(2.0f);
+        StartCoroutine(RespawnTimer(3f));
+    }
+    private IEnumerator RespawnTimer(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        OnRespawn();
+    }
+    public void OnRespawn()
     {
         // As soon as one of the vital stats reaches zero
-        if ( m_playerOxygen <= 0.1f || m_playerWater <= 0.1f || m_playerEnergy <= 0.1f )
+        // Make the player lose all items in the inventory
+        m_playerEnergy = m_maxEnergy/3;
+        m_playerOxygen = m_maxOxygen/3;
+        m_playerWater = m_maxWater/3;
+        // Open the Menu to decide to respawn
+        // Respawn locations are the bed in the Hub, if placed or the starting point if they failed to do so
+        if (RespawnPoint != null)
         {
-            // Make the player lose all items in the inventory
-            // Kill the player
-            // Open the Menu to decide to respawn
-            // Respawn locations are the bed in the Hub, if placed or the starting point if they failed to do so
-            // How do we handle Saving and Loading? Maybe we can offer to use blueprint chips to save a progress at any time. and offer to Save and Exit to avoid frustration.
-            // The Quicksave mechanic works the same way basically. Using a Neurochip
-
+            transform.position = RespawnPoint.position;
+            // Reset velocity to prevent ghost movement after teleport
+            if (TryGetComponent<Rigidbody>(out var rb))
+            {
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
         }
+
+        // How do we handle Saving and Loading? Maybe we can offer to use blueprint chips to save a progress at any time. and offer to Save and Exit to avoid frustration.
+        // The Quicksave mechanic works the same way basically. Using a Neurochip
+        // ReEnable Controls
+        PlayerController.Instance.SwitchActionMap("Exploration");
 
     }
     #endregion

@@ -25,7 +25,5 @@ MonoBehaviour:
   EmbeddedInteractableIDs:
   - {fileID: 11400000, guid: 321e12e3d99bb6c429ac8fcf7f52dd41, type: 2}
   - {fileID: 11400000, guid: 321e12e3d99bb6c429ac8fcf7f52dd41, type: 2}
-  - {fileID: 11400000, guid: 321e12e3d99bb6c429ac8fcf7f52dd41, type: 2}
-  - {fileID: 11400000, guid: 321e12e3d99bb6c429ac8fcf7f52dd41, type: 2}
   - {fileID: 11400000, guid: 8af9bf5ca4b277848ac74776134d1a93, type: 2}
   - {fileID: 11400000, guid: 8af9bf5ca4b277848ac74776134d1a93, type: 2}

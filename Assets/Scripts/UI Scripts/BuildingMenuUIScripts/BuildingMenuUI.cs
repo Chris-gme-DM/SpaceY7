@@ -2,6 +2,7 @@ using Mono.Cecil;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,8 +12,9 @@ public class BuildingMenuUI : MonoBehaviour
     public static BuildingMenuUI Instance { get; private set; }
     #region Inspector
     [Header("Building Data List")]
-    public List<BuildingData> AvailableBlueprints;
+    [SerializeField] private List<BuildingData> m_allBlueprints;
     private BuildingData m_selectedData;
+    private Dictionary<BuildingData, BlueprintButton> m_blueprintButtonMap = new();
 
     [Header("Blueprint List Panel")]
     [SerializeField] private Transform m_blueprintContainer;
@@ -36,12 +38,12 @@ public class BuildingMenuUI : MonoBehaviour
         {
             Instance = this;
         }
-        BuildingMenuUI.Instance.gameObject.SetActive(false);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameObject.SetActive(false);
         m_buildButton.onClick.AddListener(OnBuildButtonClicked);
         PopulateBlueprintList();
     }
@@ -49,10 +51,13 @@ public class BuildingMenuUI : MonoBehaviour
 
     private void PopulateBlueprintList()
     {
-        foreach (BuildingData data in AvailableBlueprints)
+        foreach (BuildingData data in m_allBlueprints)
         {
             GameObject buttonGO = Instantiate(m_blueprintButtonPrefab, m_blueprintContainer);
-            buttonGO.GetComponent<BlueprintButton>().Setup(data, this);
+            BlueprintButton buttonComponent = buttonGO.GetComponent<BlueprintButton>();
+            buttonComponent.Setup(data, this);
+            m_blueprintButtonMap.Add(data, buttonComponent);
+            buttonGO.SetActive(data.IsUnlocked);
         }
     }
     #endregion
@@ -122,6 +127,40 @@ public class BuildingMenuUI : MonoBehaviour
             }
         }
         m_buildButton.interactable = resourcesAvailable;
+    }
+
+    internal void CheckForNewBlueprints(int AmountNeuroChips)
+    {
+        const int CHIPS_PER_UNLOCK = 2;
+        int blueprintsAvailable = AmountNeuroChips / CHIPS_PER_UNLOCK;
+        // 2. Determine the maximum index we should check (prevents IndexOutOfRangeException)
+        int unlockLimit = Mathf.Min(blueprintsAvailable, m_allBlueprints.Count);
+
+        // 3. Iterate through the list up to the required unlock limit
+        for (int i = 0; i < unlockLimit; i++)
+        {
+            BuildingData blueprint = m_allBlueprints[i];
+
+            // If the blueprint is not already unlocked, unlock it now.
+            if (!blueprint.IsUnlocked)
+            {
+                // Set the state in the data
+                blueprint.IsUnlocked = true;
+
+                // CRUCIAL: Call the specific UI function to enable the button/display the icon
+                EnableBlueprintButton(blueprint);
+
+                Debug.Log($"NEW BLUEPRINT UNLOCKED: {blueprint.BuildingName}");
+            }
+        }
+    }
+
+    private void EnableBlueprintButton(BuildingData blueprint)
+    {
+        if (m_blueprintButtonMap.TryGetValue(blueprint, out BlueprintButton button))
+        {
+            button.gameObject.SetActive(true);
+        }
     }
     #endregion
 }
