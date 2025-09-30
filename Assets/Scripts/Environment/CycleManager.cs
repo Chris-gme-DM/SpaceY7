@@ -33,7 +33,7 @@ public class CycleManager : MonoBehaviour
     public Color nightFogColor = new Color(147f, 124f, 109f, 1f);
 
 
-    [SerializeField] TextMeshProUGUI timeText;
+    //[SerializeField] TextMeshProUGUI timeText;        //testing purpose
 
     public static CycleManager instance;
 
@@ -67,7 +67,7 @@ public class CycleManager : MonoBehaviour
         }
         
         Time.timeScale = 1f;
-        timeText.text = "This is your timeDisplay.";
+        //timeText.text = "This is your timeDisplay.";
     }
 
     private void Start()
@@ -92,7 +92,7 @@ public class CycleManager : MonoBehaviour
             tempSecond = 0;
 
 
-            timeText.text = "Time is:" + days + "d " + hours + "h " + minutes + "min";
+            //timeText.text = "Time is:" + days + "d " + hours + "h " + minutes + "min";
         }
 
         // checking for the state of all resources

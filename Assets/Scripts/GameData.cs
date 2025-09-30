@@ -28,7 +28,7 @@ public enum ResourceType
     Copper,
     Neurochip,
     Microchip,
-    Gl�hbirnchen,
+    Gluehbirnchen,
 }
 #endregion
 #region Interactables

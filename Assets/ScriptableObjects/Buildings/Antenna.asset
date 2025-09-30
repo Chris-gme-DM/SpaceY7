@@ -19,7 +19,22 @@ MonoBehaviour:
   PreviewImage: {fileID: 21300000, guid: 2e3aedfcb34add74eb4b36c0b9a27c63, type: 3}
   BuildingCosts:
   - resourceType: 7
-    amount: 1
-    ResourceIcon: {fileID: 21300000, guid: 523fab7c9ff674a4e8d01f8c94aa5c8d, type: 3}
+    amount: 3
+    ResourceIcon: {fileID: 21300000, guid: 0ce5f84a6c539b547b95fb4b21d29c93, type: 3}
+  - resourceType: 11
+    amount: 20
+    ResourceIcon: {fileID: 21300000, guid: 8bb780c9003f74348a3bcf64cae3b46f, type: 3}
+  - resourceType: 9
+    amount: 5
+    ResourceIcon: {fileID: 21300000, guid: f50351d4c9177ff4180762838c3ca550, type: 3}
+  - resourceType: 6
+    amount: 2
+    ResourceIcon: {fileID: 21300000, guid: c2091cd5089bebd41bdf73b0301feb5f, type: 3}
+  - resourceType: 8
+    amount: 2
+    ResourceIcon: {fileID: 21300000, guid: 4f820e04554a97047bbecf9baaa81362, type: 3}
+  - resourceType: 12
+    amount: 20
+    ResourceIcon: {fileID: 21300000, guid: d0879891a8bc3924ab638deb2d426299, type: 3}
   EmbeddedInteractableIDs:
   - {fileID: 11400000, guid: 8c5f745ce1c7284449ece418048d3e03, type: 2}
