@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!225 &69210110 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 7236902597647746929, guid: c9b447b0431a9df4dae14f8dbc7acff7, type: 3}
+  m_PrefabInstance: {fileID: 1533281845}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &129935806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -627,18 +632,6 @@ PrefabInstance:
     - target: {fileID: 2902577685758536801, guid: 95a97b9e98110e1459676ecd6a76d8d8, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8855649292312517676, guid: 95a97b9e98110e1459676ecd6a76d8d8, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8855649292312517676, guid: 95a97b9e98110e1459676ecd6a76d8d8, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8855649292312517676, guid: 95a97b9e98110e1459676ecd6a76d8d8, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1159,6 +1152,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3981027803950920195, guid: c9b447b0431a9df4dae14f8dbc7acff7, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5648206765639891764, guid: c9b447b0431a9df4dae14f8dbc7acff7, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5648206765639891764, guid: c9b447b0431a9df4dae14f8dbc7acff7, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5648206765639891764, guid: c9b447b0431a9df4dae14f8dbc7acff7, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5648206765639891764, guid: c9b447b0431a9df4dae14f8dbc7acff7, type: 3}
+      propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5649399548877402739, guid: c9b447b0431a9df4dae14f8dbc7acff7, type: 3}
@@ -1714,6 +1723,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3000484077983574612, guid: fc92292486fb3ab4f8a2f4517a598b57, type: 3}
+      propertyPath: m_fader
+      value: 
+      objectReference: {fileID: 69210110}
     - target: {fileID: 3000484077983574612, guid: fc92292486fb3ab4f8a2f4517a598b57, type: 3}
       propertyPath: m_mainMenu
       value: 

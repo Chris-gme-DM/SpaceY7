@@ -56,11 +56,11 @@ public class PlayerStats : MonoBehaviour
     // There are some ideas like hazardous zones or state of resources that afect this drain.
     // to replensih the can build stuff but we do not have enought stuff
     // to replenish we can use the resources as to say the player is healthy and that helps her keep her humanity and sanity up
-    
-    private float m_playerEnergyDrainModifier = 1.0f;
-    private float m_playerOxygenDrainModifier = 1.0f;
-    private float m_playerWaterDrainModifier = 1.0f;
-    private float m_playerHumanityDrainModifier = 1.0f; // Currently dormant
+
+    private float m_playerEnergyDrainModifier;
+    private float m_playerOxygenDrainModifier;
+    private float m_playerWaterDrainModifier;
+    private float m_playerHumanityDrainModifier; // Currently dormant
 
     #endregion
     #region Important

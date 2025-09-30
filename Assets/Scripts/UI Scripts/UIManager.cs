@@ -3,7 +3,10 @@ using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using UnityEngine.InputSystem.Interactions;
+using System.Collections;
+using UnityEngine.Assertions.Must;
 
 /// <summary>
 /// This script turns the UIManager into the single source of truth, regarding UI Elements. It's a glorified LightSwitch Operator
@@ -17,6 +20,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject m_mainMenu;
     [SerializeField] private GameObject m_roverInventoryPanel;
     [SerializeField] private DynamicInventoryDisplay m_dynamicInventoryDisplay;
+    [SerializeField] private CanvasGroup m_fader;
 
     private bool m_isRoverInventoryOpen = false;
     private bool m_isBuildingMenuOpen = false;
@@ -43,7 +47,8 @@ public class UIManager : MonoBehaviour
         if(m_dynamicInventoryDisplay == null) m_dynamicInventoryDisplay = FindAnyObjectByType<DynamicInventoryDisplay>();
 
         if (m_playerController != null) m_playerController.OnMenuAction += OnMenuAction;
-
+        m_fader.alpha = 0f;
+        m_fader.blocksRaycasts = false;
     }
     private void OnEnable()
     {
@@ -170,13 +175,43 @@ public class UIManager : MonoBehaviour
 
     #endregion
     #region Death
-    internal void FadeToBlack(float v)
+    internal void FadeToBlack(float duration)
     {
-        throw new NotImplementedException();
+        StartFade(1f, duration);
     }
-    internal void FadeFromBlack(float v)
+
+    internal void FadeFromBlack(float duration)
     {
-        throw new NotImplementedException();
+        StartFade(0f, duration);
+    }
+
+    private void StartFade(float targetAlpha, float duration)
+    {
+        StopAllCoroutines();
+        StartCoroutine(DoFade(targetAlpha, duration));
+    }
+
+    private IEnumerator DoFade(float targetAlpha, float duration)
+    {
+        float startAlpha = m_fader.alpha;
+        float timer = 0f;
+
+        if (targetAlpha == 1f)
+        {
+            m_fader.blocksRaycasts = true;
+        }
+        while(timer <= duration)
+        {
+            timer += Time.deltaTime;
+            m_fader.alpha = Mathf.Lerp(startAlpha, targetAlpha, timer / duration);
+            yield return null;
+        }
+        m_fader.alpha = targetAlpha;
+
+        if (targetAlpha == 0)
+        {
+            m_fader.blocksRaycasts = false;
+        }
     }
 
     #endregion

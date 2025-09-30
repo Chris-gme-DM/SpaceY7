@@ -206,11 +206,10 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     // Handling physics related actions
     void FixedUpdate()
     {
-
         // State Checks to determine available options and set modifiers to the Resource Drain accordingly
         IdleCheck();
         CheckGround();
-        EvaluateDrainModifiers();
+        EvaluateDrainModifiers(); // this is broken
 // We can create a method to handle animation and sounds and deal with it with a sort of state machine here.
         // Let the Physics engine handle
         // Determine which velocity to apply
@@ -252,11 +251,16 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
    }
     private void EvaluateDrainModifiers()
     {
-        playerStats.ResetDrainModifiers();
 
         float _energyDrainModifier = 1f;
         float _oxygenDrainModifier = 1f;
         float _waterDrainModifier = 1f;
+
+        // Reset Modifiers
+        if (!m_jetpackActive || !m_isSprinting)
+        {
+            playerStats.ResetDrainModifiers();
+        }
 
         // Apply modifiers based on current state
         // Idle
@@ -285,6 +289,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         playerStats.SetEnergyDrainModifier(_energyDrainModifier);
         playerStats.SetOxygenDrainModifier(_oxygenDrainModifier);
         playerStats.SetWaterDrainModifier(_waterDrainModifier);
+        
 
     }
     private bool CheckGround()
