@@ -52,7 +52,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float m_playerEnergyDrain = 0.02f; // Set relatively low for the start
     [SerializeField] private float m_playerOxygenDrain = 0.02f;
     [SerializeField] private float m_playerWaterDrain = 0.02f;
-    [SerializeField] private float m_playerHumanityDrain; // We still need to figure that one out
+//    [SerializeField] private float m_playerHumanityDrain; // We still need to figure that one out
     // There are some ideas like hazardous zones or state of resources that afect this drain.
     // to replensih the can build stuff but we do not have enought stuff
     // to replenish we can use the resources as to say the player is healthy and that helps her keep her humanity and sanity up
@@ -60,7 +60,7 @@ public class PlayerStats : MonoBehaviour
     private float m_playerEnergyDrainModifier;
     private float m_playerOxygenDrainModifier;
     private float m_playerWaterDrainModifier;
-    private float m_playerHumanityDrainModifier; // Currently dormant
+ //   private float m_playerHumanityDrainModifier; // Currently dormant
 
     #endregion
     #region Important
@@ -144,17 +144,17 @@ public class PlayerStats : MonoBehaviour
     {
         m_playerWaterDrainModifier = modifier;
     }
-    public void SetHumanityDrainModifier(float modifier) // Depression may be a terrifying modifier, if the player doesnt do stuff to combat it
-    { 
-        m_playerHumanityDrainModifier = modifier;
-    }
+//    public void SetHumanityDrainModifier(float modifier) // Depression may be a terrifying modifier, if the player doesnt do stuff to combat it
+//    { 
+//        m_playerHumanityDrainModifier = modifier;
+//    }
     // A reset method to reset all the modifiers at once instead of making it complicated
     public void ResetDrainModifiers()
     {
         m_playerEnergyDrainModifier = 1.0f;
         m_playerOxygenDrainModifier = 1.0f;
         m_playerWaterDrainModifier = 1.0f;
-        m_playerHumanityDrainModifier = 1.0f;
+//        m_playerHumanityDrainModifier = 1.0f;
     }
     #endregion
     #region Chunk changes
@@ -180,14 +180,20 @@ public class PlayerStats : MonoBehaviour
         m_playerWater = Mathf.Clamp(m_playerWater, 0f, m_maxWater);
 
     }
-    private void ChangeHumanity(int amount) // I wish
+//    private void ChangeHumanity(int amount) // I wish
+//    {
+//        m_playerHumanity += amount;
+//        m_playerHumanity = Mathf.Clamp(m_playerHumanity, 0f, m_maxHumanity);
+//    }
+    public void CollectNeuroChip()
     {
-        m_playerHumanity += amount;
-        m_playerHumanity = Mathf.Clamp(m_playerHumanity, 0f, m_maxHumanity);
-    }
-    public void ChangeNeuroChip(int amount)
-    {
-        m_amountNeuroChips += amount;
+        m_amountNeuroChips++;
+
+        // Check if the BuildingManager instance is available before calling
+        if (BuildingMenuUI.Instance != null)
+        {
+            BuildingMenuUI.Instance.CheckForNewBlueprints(AmountNeuroChips);
+        }
     }
     #endregion
     #region Respawn

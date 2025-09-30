@@ -16,4 +16,6 @@ public class BuildingData : ScriptableObject
     public Sprite PreviewImage;
     public List<Resources> BuildingCosts;
     public List<InteractableData> EmbeddedInteractableIDs;
+
+    [NonSerialized] public bool IsUnlocked = false;
 }
