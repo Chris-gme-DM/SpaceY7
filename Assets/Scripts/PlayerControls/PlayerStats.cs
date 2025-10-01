@@ -18,7 +18,7 @@ public class PlayerStats : MonoBehaviour
     /// Holds the references to managers and modules, relevant to the player
     /// </summary>
     [SerializeField] private PlayerController playerController; // probably unnecessary
-    public Transform RespawnPoint;
+    public Vector3 RespawnPoint;    
     private int m_amountNeuroChips;
     public int AmountNeuroChips => m_amountNeuroChips;
     #endregion
@@ -74,6 +74,7 @@ public class PlayerStats : MonoBehaviour
         {
             Instance = this;
         }
+        RespawnPoint = transform.position;
 
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -83,7 +84,6 @@ public class PlayerStats : MonoBehaviour
         {
             playerController = FindAnyObjectByType<PlayerController>();
         }
-        RespawnPoint = this.gameObject.transform;
         m_amountNeuroChips = 0;
     }
 
@@ -201,7 +201,7 @@ public class PlayerStats : MonoBehaviour
     {
         PlayerController.Instance.SwitchActionMap("UI");
         BuildingManager.Instance.CancelCurrentBuildingAction();
-        UIManager.Instance.FadeToBlack(2.0f);
+        UIManager.Instance.FadeToBlack(1f);
         StartCoroutine(RespawnTimer(3f));
     }
     private IEnumerator RespawnTimer(float delay)
@@ -211,6 +211,7 @@ public class PlayerStats : MonoBehaviour
     }
     public void OnRespawn()
     {
+        transform.position = RespawnPoint;
         // As soon as one of the vital stats reaches zero
         // Make the player lose all items in the inventory
         m_playerEnergy = m_maxEnergy/3;
@@ -220,7 +221,6 @@ public class PlayerStats : MonoBehaviour
         // Respawn locations are the bed in the Hub, if placed or the starting point if they failed to do so
         if (RespawnPoint != null)
         {
-            transform.position = RespawnPoint.position;
             // Reset velocity to prevent ghost movement after teleport
             if (TryGetComponent<Rigidbody>(out var rb))
             {
@@ -228,7 +228,7 @@ public class PlayerStats : MonoBehaviour
                 rb.angularVelocity = Vector3.zero;
             }
         }
-
+        UIManager.Instance.FadeFromBlack(1f);
         // How do we handle Saving and Loading? Maybe we can offer to use blueprint chips to save a progress at any time. and offer to Save and Exit to avoid frustration.
         // The Quicksave mechanic works the same way basically. Using a Neurochip
         // ReEnable Controls

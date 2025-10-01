@@ -68,6 +68,8 @@ public class BuildingMenuUI : MonoBehaviour
         UIManager.Instance.TogglePlayerMenu();
         if (m_selectedData == null || !m_buildButton.interactable) return;
         BuildingManager.Instance.SelectBuildingAction(m_selectedData);
+        // Remove the resources out of hte inventory
+
         // Close the UI
         this.gameObject.SetActive(false);
         // Enter Builder Mode

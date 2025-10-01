@@ -7,9 +7,6 @@ using TMPro;
 /// </summary>
 public class DeathZone : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
-    private GameObject playerStats;
-
     [SerializeField] private GameObject warningPanel;
 
     [SerializeField] private GameObject warningZone;
@@ -32,7 +29,7 @@ public class DeathZone : MonoBehaviour
             warningText.text = "Whoopsie";
             warningPanel.SetActive(false);
 
-            player.GetComponent<PlayerStats>().OnRespawn();
+            PlayerStats.Instance.OnDeath();
         }
     }
 }
