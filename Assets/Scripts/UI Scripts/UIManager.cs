@@ -95,7 +95,7 @@ public class UIManager : MonoBehaviour
         if (isAnyPlayerMenuOpen || isMainMenuOpen)
         { 
             if (HUDManager.Instance != null) HUDManager.Instance.gameObject.SetActive(false);
-            if (m_playerController != null) m_playerController.SwitchActionMap("UI");
+     //       if (m_playerController != null) m_playerController.SwitchActionMap("UI");
             Cursor.visible = true;
         }
         else

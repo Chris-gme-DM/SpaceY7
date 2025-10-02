@@ -398,7 +398,6 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
         // In principle this should call upon the Rover Menu, if it is in range.
         // If not in range, call the rover over until the distance is acceptable. then open the menu
         m_animationController.SetAnimationTriggers("CallRoverAction");
-        Debug.Log("Come over here");
         if (context.canceled)
         {
             StartCoroutine(OpenPlayerMenu());
