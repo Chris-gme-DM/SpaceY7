@@ -47,10 +47,13 @@ MonoBehaviour:
   m_cameraBrain: {fileID: 0}
   m_placementLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_collisionLayer:
     serializedVersion: 2
     m_Bits: 200
+  m_buildingLayer:
+    serializedVersion: 2
+    m_Bits: 128
   m_placementRange: 20
   m_maxHeightAdjustment: 3
   m_rotateBuildingDegree: 60

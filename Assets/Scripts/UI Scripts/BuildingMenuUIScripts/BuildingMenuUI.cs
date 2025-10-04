@@ -69,7 +69,7 @@ public class BuildingMenuUI : MonoBehaviour
         if (m_selectedData == null || !m_buildButton.interactable) return;
         BuildingManager.Instance.SelectBuildingAction(m_selectedData);
         // Remove the resources out of hte inventory
-
+ //       RemoveResourcesFromInvenotry();
         // Close the UI
         this.gameObject.SetActive(false);
         // Enter Builder Mode
@@ -78,6 +78,14 @@ public class BuildingMenuUI : MonoBehaviour
             Time.timeScale = 1f;
             if (HUDManager.Instance != null) HUDManager.Instance.gameObject.SetActive(true);
             PlayerController.Instance.SwitchActionMap("Builder");
+        }
+    }
+
+    private void RemoveResourcesFromInvenotry(List<Resources> costs)
+    {
+        foreach (var cost in costs)
+        {
+            // Destroy an item in the inventory holder
         }
     }
     #endregion

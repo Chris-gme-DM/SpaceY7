@@ -32,6 +32,7 @@ public class BuildingManager : MonoBehaviour
     // Can expand on floor modules it´f we can build higher up, but this will take a lot of work
     [SerializeField] private LayerMask m_placementLayer;
     [SerializeField] private LayerMask m_collisionLayer;
+    [SerializeField] private LayerMask m_buildingLayer;
     [SerializeField] private float m_placementRange = 50f;
     [SerializeField] private float m_maxHeightAdjustment = 5f;
     [SerializeField] private float m_rotateBuildingDegree = 1f;
@@ -66,6 +67,8 @@ public class BuildingManager : MonoBehaviour
         if (m_playerController == null) { m_playerController = FindAnyObjectByType<PlayerController>(); }
         if (m_cameraBrain == null) { m_cameraBrain = FindAnyObjectByType<CinemachineBrain>(); }
         if (m_camera == null) { m_camera = m_cameraBrain.GetComponent<Camera>(); }
+        m_placementLayer = LayerMask.GetMask("Ground");
+        m_buildingLayer = LayerMask.GetMask("Building");
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -79,7 +82,7 @@ public class BuildingManager : MonoBehaviour
             m_playerController.OnScrapAction += OnScrapAction;
             m_playerController.OnBuilderModeDisabled += CancelCurrentBuildingAction;
         }
-        m_placementLayer = LayerMask.GetMask("Ground");
+
     }
     // Update is called once per frame
     void Update()
@@ -142,9 +145,12 @@ public class BuildingManager : MonoBehaviour
                 if (m_currentManipulatedBuilding != null)
                 {
                     building = m_currentManipulatedBuilding.gameObject;
-                    m_currentManipulatedBuilding.transform.SetPositionAndRotation(m_currentGhostBuilding.transform.position, m_currentGhostBuilding.transform.rotation);
-                    Destroy(m_currentGhostBuilding);
+                    building.SetActive(true);
+                    m_currentManipulatedBuilding.transform.SetPositionAndRotation(
+                        m_currentGhostBuilding.transform.position,
+                        m_currentGhostBuilding.transform.rotation);
                     SetBuildingState(building, true);
+                    Destroy(m_currentGhostBuilding);
                 }
                 // In case the player manipulates a building
                 else 
@@ -256,6 +262,7 @@ public class BuildingManager : MonoBehaviour
         foreach (Renderer r in renderers)
         {
             r.enabled = true;
+            r.material = r.sharedMaterial;
         }
         if (!isState)
         {
@@ -279,19 +286,29 @@ public class BuildingManager : MonoBehaviour
         {
             // Raycasthit to a placed object. 
             Ray ray = m_camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            if (Physics.Raycast(ray, out RaycastHit hit, m_placementRange))
+            if (Physics.Raycast(ray, out RaycastHit hit, m_placementRange, m_buildingLayer))
             {
+                Debug.Log($"[BM] HIT Detected! Object: {hit.collider.gameObject.name} | Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}");
+
                 // Hit delivers object data
-                BaseBuilding buildingToManipulate = hit.collider.GetComponentInParent<BaseBuilding>();
+                BaseBuilding buildingToManipulate = hit.collider.GetComponentInParent<BaseBuilding>(true);
                 // Dislodge the object from its placement
                 if (buildingToManipulate != null)
                 {
+                    Debug.Log($"[BM] SUCCESS: Found BaseBuilding on {buildingToManipulate.gameObject.name}. Starting manipulation.");
+
                     CancelCurrentBuildingAction();
 
                     m_isManipulatingBuilding = true;
                     m_currentManipulatedBuilding = buildingToManipulate;
                     m_currentBuildingData = buildingToManipulate.BuildingData;
-                    m_currentGhostBuilding = buildingToManipulate.gameObject;
+
+                    m_currentGhostBuilding = Instantiate(
+                        buildingToManipulate.gameObject,
+                        buildingToManipulate.transform.position,
+                        buildingToManipulate.transform.rotation
+                        );
+                    buildingToManipulate.gameObject.SetActive(false);
                     SetBuildingState(m_currentGhostBuilding, false);
                     // Holds it
 // ADD sound here, if available
