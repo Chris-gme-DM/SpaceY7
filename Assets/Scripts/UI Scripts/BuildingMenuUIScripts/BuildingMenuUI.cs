@@ -1,8 +1,5 @@
-using Mono.Cecil;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -67,9 +64,9 @@ public class BuildingMenuUI : MonoBehaviour
         // Pass the selected building data on to the BuildingManager for construction
         UIManager.Instance.TogglePlayerMenu();
         if (m_selectedData == null || !m_buildButton.interactable) return;
-        BuildingManager.Instance.SelectBuildingAction(m_selectedData);
         // Remove the resources out of hte inventory
- //       RemoveResourcesFromInvenotry();
+        if (!ConsumeBuildingCost()) return;
+        BuildingManager.Instance.SelectBuildingAction(m_selectedData);
         // Close the UI
         this.gameObject.SetActive(false);
         // Enter Builder Mode
@@ -81,12 +78,17 @@ public class BuildingMenuUI : MonoBehaviour
         }
     }
 
-    private void RemoveResourcesFromInvenotry(List<Resources> costs)
+    private bool ConsumeBuildingCost()
     {
-        foreach (var cost in costs)
+        if (m_selectedData == null) return false;
+        foreach (var cost in m_selectedData.BuildingCosts)
         {
-            // Destroy an item in the inventory holder
+            if (!InventoryManager.Instance.RemoveResources(cost))
+            {
+                return false;
+            }
         }
+        return true;
     }
     #endregion
     #region BlueprintPanel

@@ -25,4 +25,38 @@ public class InventoryManager : MonoBehaviour
         }
         return totalCount;
     }
+
+    public bool RemoveResources(Resources cost)
+    {
+        if (GetTotalResourceCount(cost.resourceType) < cost.amount) return false;
+
+        int remainingItemsToRemove = cost.amount;
+
+        foreach (InventoryHolder holder in totalPlayerInventory)
+        {
+            InventorySystem system = holder.InventorySystem;
+            if (system == null) continue;
+
+            for (int i = system.InventorySize - 1; i >= 0; i--)
+            {
+                InventorySlot slot = system.InventorySlots[i];
+                if (slot.itemData != null && slot.itemData.type.resourceType == cost.resourceType)
+                {
+                    int amountToRemove = Mathf.Min(remainingItemsToRemove, slot.StackSize);
+                    slot.RemoveFromStack(amountToRemove);
+                    remainingItemsToRemove -= amountToRemove;
+                    system.OnInventorySlotChanged?.Invoke(slot);
+                    if (slot.StackSize <=0)
+                    {
+                        slot.ClearSlot();
+                    }
+                    if (remainingItemsToRemove <= 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return remainingItemsToRemove <= 0;
+    }
 }

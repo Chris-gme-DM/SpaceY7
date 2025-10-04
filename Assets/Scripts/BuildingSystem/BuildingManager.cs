@@ -288,15 +288,11 @@ public class BuildingManager : MonoBehaviour
             Ray ray = m_camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             if (Physics.Raycast(ray, out RaycastHit hit, m_placementRange, m_buildingLayer))
             {
-                Debug.Log($"[BM] HIT Detected! Object: {hit.collider.gameObject.name} | Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}");
-
                 // Hit delivers object data
                 BaseBuilding buildingToManipulate = hit.collider.GetComponentInParent<BaseBuilding>(true);
                 // Dislodge the object from its placement
                 if (buildingToManipulate != null)
                 {
-                    Debug.Log($"[BM] SUCCESS: Found BaseBuilding on {buildingToManipulate.gameObject.name}. Starting manipulation.");
-
                     CancelCurrentBuildingAction();
 
                     m_isManipulatingBuilding = true;
