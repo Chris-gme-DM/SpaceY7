@@ -10,7 +10,6 @@ public class RessourceSO : ScriptableObject
     public string HarvestCycle;
     public string RespawnCycle;
     public float HarvestRessource; // pls change the names
-
     public int MaxStage { get { return RessourcePrefabs.Count - 1; } }
     public int FirstStage { get { return RessourcePrefabs.Count - 2; } }
 

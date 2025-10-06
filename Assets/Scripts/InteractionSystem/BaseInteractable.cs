@@ -5,6 +5,7 @@ using UnityEngine.Scripting;
 public abstract class BaseInteractable : MonoBehaviour, IInteractable
 {
     public InteractableData interactableData;
+    public InteractionType interactionType;
 
     public abstract void Interact(GameObject interactor);
 }

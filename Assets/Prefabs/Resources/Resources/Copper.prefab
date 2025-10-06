@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3711367912334413227}
   - component: {fileID: 6832212747044399847}
+  - component: {fileID: 3761423678136783457}
   m_Layer: 6
   m_Name: Copper
   m_TagString: Untagged
@@ -47,11 +48,33 @@ MonoBehaviour:
   interactableData: {fileID: 0}
   ressource: {fileID: 11400000, guid: 7fa6eacddca57314e895b66db86f7d88, type: 2}
   currentStage: 0
-  currentRessource: {fileID: 0}
   cycleManager: {fileID: 0}
   currentCycle: 
   harvestCycle: day
   respawnCycle: sunset
   isNotRespawned: 0
-  resourceItem: {fileID: 11400000, guid: 71ac6adab5558e84ba0d7f45d22bed2e, type: 2}
+  interactionType: 2
+  resourceItem: {fileID: 11400000, guid: 62a7364cc0790374da9fe7cd00b7ba51, type: 2}
   playerInventory: {fileID: 0}
+  playerObject: {fileID: 0}
+--- !u!65 &3761423678136783457
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2514180493797269935}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.6822968, y: 1.3062191, z: 1.7737656}
+  m_Center: {x: 0.0762558, y: 0.15310955, z: -0.1960125}

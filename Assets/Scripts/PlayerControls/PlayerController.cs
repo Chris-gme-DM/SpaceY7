@@ -96,7 +96,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     private bool m_isIdle; // May only be interesting once we have animations for it, for now this is redundant
     public bool IsIdle => m_isIdle;
     // Grounded
-    private bool m_isGrounded;
+    [SerializeField] private bool m_isGrounded;
     public bool IsGrounded => m_isGrounded;
     // Sprinting
     private bool m_isSprinting;
@@ -405,7 +405,7 @@ public class PlayerController : MonoBehaviour, InputSystem_Actions.IExplorationA
     }
     private IEnumerator OpenPlayerMenu()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
         UIManager.Instance.TogglePlayerMenu();
     }
     // Toggle the Flashlight of the helmet

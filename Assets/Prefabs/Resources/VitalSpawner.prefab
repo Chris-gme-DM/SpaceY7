@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03156de30d77e594986c1e95bd38e8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Prefab: {fileID: 0}
+  m_Prefab: {fileID: 5035399025812081866, guid: cdb400e4144c1a546b9e164eb9b02d62, type: 3}
   m_spawnRadius: 5
   m_minSpawnTime: 20
   m_maxSpawnTime: 40

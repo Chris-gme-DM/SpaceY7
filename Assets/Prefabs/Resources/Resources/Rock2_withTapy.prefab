@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rock2_withTapy
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4c56e0f889f8dcb48abec6be2048f4bc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -151,6 +155,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 51.112
       objectReference: {fileID: 0}
+    - target: {fileID: 7004724021291963661, guid: da5efed74d398e34885620ef3a85780c, type: 3}
+      propertyPath: resourceItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 22c058641fd68b74d9bc1d067e035f6a, type: 2}
+    - target: {fileID: 7004724021291963661, guid: da5efed74d398e34885620ef3a85780c, type: 3}
+      propertyPath: interactionType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8297782825389244915, guid: da5efed74d398e34885620ef3a85780c, type: 3}
       propertyPath: m_Radius
       value: 0.8864374
@@ -166,6 +178,10 @@ PrefabInstance:
     - target: {fileID: 8297782825389244915, guid: da5efed74d398e34885620ef3a85780c, type: 3}
       propertyPath: m_Center.z
       value: -6.832246
+      objectReference: {fileID: 0}
+    - target: {fileID: 8297782825389244915, guid: da5efed74d398e34885620ef3a85780c, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

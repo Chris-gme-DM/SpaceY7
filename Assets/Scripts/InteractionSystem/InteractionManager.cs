@@ -17,12 +17,12 @@ public class InteractionManager : MonoBehaviour
     [Tooltip("Maximum distance")]
     [SerializeField] private float m_interactionRange = 5f;
 
-    public IInteractable m_currentInteractable;
+    public BaseInteractable m_currentInteractable;
     public GameObject currentGameObject;                         // JG
     private PlayerController m_playerController;
     [SerializeField] private CinemachineBrain m_cameraBrain;
     private Camera m_camera;
-
+    private Animator m_animator;
 
     private void Awake()
     {
@@ -42,6 +42,7 @@ public class InteractionManager : MonoBehaviour
         if(m_camera == null) { m_camera = FindAnyObjectByType<Camera>(); }
         if(m_playerController == null) { m_playerController = FindAnyObjectByType<PlayerController>(); }
         m_playerController.OnInteractAction += OnInteractAction;
+        if(m_animator == null) { m_animator = m_playerController.gameObject.GetComponent<Animator>(); }
     }
 
     // Update is called once per frame
@@ -59,7 +60,7 @@ public class InteractionManager : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, m_interactionRange, interactableLayer ))
         {
             // Get the interactbale by the hit
-            IInteractable newInteractable = hit.collider.gameObject.GetComponentInParent<IInteractable>();
+            BaseInteractable newInteractable = hit.collider.gameObject.GetComponentInParent<BaseInteractable>();
             GameObject newGameObject = hit.collider.gameObject; // JG
             //Debug.Log(newGameObject);
             // if the newInteractable is not the same switch
@@ -94,6 +95,9 @@ public class InteractionManager : MonoBehaviour
         if (m_currentInteractable != null)
         {
             m_currentInteractable.Interact(gameObject);
+//            InteractionType interactionType = m_currentInteractable.
+ //           m_currentInteractable.
+ //           m_animator.SetTrigger()
         }
         else
         {

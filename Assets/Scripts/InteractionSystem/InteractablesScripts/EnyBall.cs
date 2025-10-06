@@ -1,8 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using UnityEditor.Animations;
-using System.Runtime.InteropServices;
-
 public class EnyBall : BaseInteractable, IInteractable
 {
     [Header("Movement Settings")]

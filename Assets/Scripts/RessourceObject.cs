@@ -23,12 +23,10 @@ public class RessourceObject : BaseInteractable, IInteractable
     public string respawnCycle;
     public bool isNotRespawned;
 
-    private PlayerController m_playerController;
-    private InteractionManager interactionManager;
-
     public InventoryItemData resourceItem; // temp for testing. and now for the final game bc i don't have the time
     public InventoryHolder playerInventory;
-    [SerializeField] GameObject playerObject;
+    private GameObject playerObject;
+
     public UnityAction<IInteractable> OnInteractionComplete { get; set; }
 
     private void Awake()
@@ -46,7 +44,6 @@ public class RessourceObject : BaseInteractable, IInteractable
         CycleManager.instance.RegisterRessource(this);
         currentRessource = Instantiate(ressource.GetRessourceByStage(currentStage), transform);
 
-        if (m_playerController == null) { m_playerController = FindAnyObjectByType<PlayerController>(); }
        // m_playerController.OnInteractAction += OnInteractAction;
 
         //Debug.Log("Starting");

@@ -1,12 +1,9 @@
 using System;
 using Unity.Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using UnityEngine.InputSystem.Interactions;
 using System.Collections;
-using UnityEngine.Assertions.Must;
 
 /// <summary>
 /// This script turns the UIManager into the single source of truth, regarding UI Elements. It's a glorified LightSwitch Operator
@@ -21,6 +18,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject m_roverInventoryPanel;
     [SerializeField] private DynamicInventoryDisplay m_dynamicInventoryDisplay;
     [SerializeField] private GameObject m_HUDPanel;
+    [SerializeField] private GameObject m_optionsPanel;
+    [SerializeField] private GameObject m_exitPanel;
     [SerializeField] private CanvasGroup m_fader;
 
     private bool m_isRoverInventoryOpen = false;
@@ -119,6 +118,8 @@ public class UIManager : MonoBehaviour
             m_dynamicInventoryDisplay.gameObject.SetActive(false);
         if (m_mainMenu != null)
             m_mainMenu.SetActive(false);
+        if (m_optionsPanel != null) m_optionsPanel.SetActive(false);
+        if (m_exitPanel != null) m_exitPanel.SetActive(false);
     }
 
     public void OnMenuAction(InputAction.CallbackContext context)
@@ -168,7 +169,7 @@ public class UIManager : MonoBehaviour
         {
             SetState(false, false, false, null);
         }
-        if(m_mainMenu != null)
+        if (m_mainMenu != null)
         {
             m_mainMenu.SetActive(!m_mainMenu.activeInHierarchy);
         }

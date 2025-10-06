@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3711367912334413227}
   - component: {fileID: 6832212747044399847}
+  - component: {fileID: 4604036212417768437}
   m_Layer: 6
   m_Name: Aluminiium
   m_TagString: Untagged
@@ -47,11 +48,33 @@ MonoBehaviour:
   interactableData: {fileID: 0}
   ressource: {fileID: 11400000, guid: fef030abc7910514bbe5ef935b4c9599, type: 2}
   currentStage: 0
-  currentRessource: {fileID: 0}
   cycleManager: {fileID: 0}
   currentCycle: 
   harvestCycle: day
   respawnCycle: sunset
   isNotRespawned: 0
-  resourceItem: {fileID: 11400000, guid: 71ac6adab5558e84ba0d7f45d22bed2e, type: 2}
+  interactionType: 2
+  resourceItem: {fileID: 11400000, guid: 7e9cf3a3f21769646adce3057dc71989, type: 2}
   playerInventory: {fileID: 0}
+  playerObject: {fileID: 0}
+--- !u!65 &4604036212417768437
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2514180493797269935}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.3740387, y: 1.2101803, z: 1.5185261}
+  m_Center: {x: 0.025901794, y: 0.10509014, z: -0.12689114}
