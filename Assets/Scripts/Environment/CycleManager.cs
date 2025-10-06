@@ -23,7 +23,7 @@ public class CycleManager : MonoBehaviour
     public bool sunrise;
     public bool day;
     public bool sunset;
-
+    public float m_timeMultiplier = 3f;
     [Header("Light & Fog Colors")]
     public Color nightColor = new Color(38f, 38f, 49f, 1f);
     public Color sunriseColor = new Color(115f, 168f, 193f, 1f);
@@ -81,7 +81,7 @@ public class CycleManager : MonoBehaviour
 
     public void Update()
     {
-        tempSecond += Time.deltaTime * 10;                                                       // TO-DO: change it before release!
+        tempSecond += Time.deltaTime * m_timeMultiplier;                                                       // TO-DO: change it before release!
 
         // every tempSecond will become a Minute
         if(tempSecond >= 1)

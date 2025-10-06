@@ -22,7 +22,7 @@ MonoBehaviour:
     amount: 3
     ResourceIcon: {fileID: 21300000, guid: 0ce5f84a6c539b547b95fb4b21d29c93, type: 3}
   - resourceType: 12
-    amount: 12
+    amount: 9
     ResourceIcon: {fileID: 21300000, guid: d0879891a8bc3924ab638deb2d426299, type: 3}
   - resourceType: 8
     amount: 2
@@ -31,7 +31,7 @@ MonoBehaviour:
     amount: 6
     ResourceIcon: {fileID: 21300000, guid: 8bb780c9003f74348a3bcf64cae3b46f, type: 3}
   - resourceType: 11
-    amount: 16
+    amount: 9
     ResourceIcon: {fileID: 21300000, guid: 8bb780c9003f74348a3bcf64cae3b46f, type: 3}
   - resourceType: 6
     amount: 1

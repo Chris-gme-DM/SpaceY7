@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject m_mainMenu;
     [SerializeField] private GameObject m_roverInventoryPanel;
     [SerializeField] private DynamicInventoryDisplay m_dynamicInventoryDisplay;
+    [SerializeField] private GameObject m_HUDPanel;
     [SerializeField] private CanvasGroup m_fader;
 
     private bool m_isRoverInventoryOpen = false;
@@ -47,7 +48,6 @@ public class UIManager : MonoBehaviour
         m_playerController.OnMenuAction += OnMenuAction;
         if(m_dynamicInventoryDisplay == null) m_dynamicInventoryDisplay = FindAnyObjectByType<DynamicInventoryDisplay>();
 
-        if (m_playerController != null) m_playerController.OnMenuAction += OnMenuAction;
         m_fader.alpha = 0f;
         m_fader.blocksRaycasts = false;
     }
@@ -94,13 +94,13 @@ public class UIManager : MonoBehaviour
 
         if (isAnyPlayerMenuOpen || isMainMenuOpen)
         { 
-            if (HUDManager.Instance != null) HUDManager.Instance.gameObject.SetActive(false);
+            if (m_HUDPanel != null) m_HUDPanel.SetActive(false);
      //       if (m_playerController != null) m_playerController.SwitchActionMap("UI");
             Cursor.visible = true;
         }
         else
         {
-            if (HUDManager.Instance != null) HUDManager.Instance.gameObject.SetActive(true);
+            if (m_HUDPanel != null) m_HUDPanel.SetActive(true);
             if (m_playerController != null) m_playerController.SwitchActionMap("Exploration");
             Cursor.visible = false;
         }
