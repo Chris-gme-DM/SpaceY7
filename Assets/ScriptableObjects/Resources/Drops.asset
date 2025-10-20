@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27552d66099e28546bf2ddc66b52d8f3, type: 3}
+  m_Name: Drops
+  m_EditorClassIdentifier: 
+  InteractableID: 12
+  InteractableName: Drops
+  InteractableDescription: "Ein von Space Y entwickelter Beh\xE4lter. \nRegeneriert
+    Wasser."
+  InteractablePrefab: {fileID: 9089181988104403374, guid: 717b8ed543233cf4eafb8a22ade1691e, type: 3}
+  InteractableType: 0
+  Resources:
+  - resourceType: 3
+    amount: 10

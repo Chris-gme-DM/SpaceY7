@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438fc6d475b2da744a0a64325685b176, type: 3}
+  m_Name: HUBBuilding
+  m_EditorClassIdentifier: 
+  BuildingID: 2
+  BuildingName: HUB
+  BuildingDescription: Unit, with a bed and environment unit to replenish the player
+  BuildingPrefab: {fileID: 1810027596089864544, guid: 82528a111a82f9042b0d9356f9404091, type: 3}
+  PreviewImage: {fileID: 21300000, guid: d4a88562017117148a25c373daf84a78, type: 3}
+  BuildingCosts:
+  - resourceType: 7
+    amount: 3
+    ResourceIcon: {fileID: 21300000, guid: 0ce5f84a6c539b547b95fb4b21d29c93, type: 3}
+  - resourceType: 12
+    amount: 9
+    ResourceIcon: {fileID: 21300000, guid: d0879891a8bc3924ab638deb2d426299, type: 3}
+  - resourceType: 8
+    amount: 2
+    ResourceIcon: {fileID: 21300000, guid: 4f820e04554a97047bbecf9baaa81362, type: 3}
+  - resourceType: 4
+    amount: 6
+    ResourceIcon: {fileID: 21300000, guid: 8bb780c9003f74348a3bcf64cae3b46f, type: 3}
+  - resourceType: 11
+    amount: 9
+    ResourceIcon: {fileID: 21300000, guid: 8bb780c9003f74348a3bcf64cae3b46f, type: 3}
+  - resourceType: 6
+    amount: 1
+    ResourceIcon: {fileID: 21300000, guid: c2091cd5089bebd41bdf73b0301feb5f, type: 3}
+  EmbeddedInteractableIDs:
+  - {fileID: 11400000, guid: 0f39c19636109124aa28a6d194456519, type: 2}
+  - {fileID: 11400000, guid: 8af9bf5ca4b277848ac74776134d1a93, type: 2}
+  - {fileID: 11400000, guid: 8af9bf5ca4b277848ac74776134d1a93, type: 2}

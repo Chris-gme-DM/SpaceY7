@@ -1,0 +1,80 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7777059869821935506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6902385514531604797}
+  - component: {fileID: 2219044118159752858}
+  - component: {fileID: 6739889377562227584}
+  m_Layer: 6
+  m_Name: "Mikrochipbl\xFCmchen"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6902385514531604797
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7777059869821935506}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -161.05, y: -20.61, z: 17.377478}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2219044118159752858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7777059869821935506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba99517bfa3ff4a42b31df212ba25a85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableData: {fileID: 0}
+  ressource: {fileID: 11400000, guid: f61a7972b220bf04986daa20fa6f18eb, type: 2}
+  currentStage: 0
+  cycleManager: {fileID: 0}
+  currentCycle: 
+  harvestCycle: day
+  respawnCycle: sunset
+  isNotRespawned: 0
+  interactionType: 1
+  resourceItem: {fileID: 11400000, guid: 6ce0f078c820b0c449aa18446c8644c5, type: 2}
+  playerInventory: {fileID: 0}
+  playerObject: {fileID: 0}
+--- !u!65 &6739889377562227584
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7777059869821935506}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.5061493, y: 1.3516693, z: 1.4937859}
+  m_Center: {x: 0.1767044, y: 0.17583466, z: -0.096138}
